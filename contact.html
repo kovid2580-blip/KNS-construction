@@ -141,80 +141,497 @@
       gap: 50px;
       align-items: start;
     }
-    .contact-details-panel {
-      background: var(--silver-white);
-      border: 1px solid var(--border-silver);
+    /* ========================================================================
+       3D INTERACTIVE CONTACT INFORMATION FLIP CARD
+       ======================================================================== */
+    .contact-card-3d-wrap {
+      perspective: 1400px;
+      -webkit-perspective: 1400px;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .contact-card-3d {
+      position: relative;
+      width: 100%;
+      height: 660px;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      transition: transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
       border-radius: var(--radius-sm);
-      padding: 40px;
-      box-shadow: var(--shadow-subtle);
     }
-    .contact-card-badge {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--kns-gold);
-      margin-bottom: 12px;
+    .contact-card-3d:hover {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
     }
-    .contact-card-title {
-      font-family: var(--font-serif);
-      font-size: 1.85rem;
-      color: var(--charcoal-deep);
-      margin-bottom: 14px;
+    .contact-card-3d.is-flipped {
+      transform: rotateY(180deg);
     }
-    .contact-lead-person {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      background: var(--silver-tint);
-      border-left: 3px solid var(--kns-gold);
+    .contact-card-3d.is-flipped:hover {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Common Card Face Styles */
+    .card-face {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       border-radius: var(--radius-sm);
-      margin-bottom: 30px;
-    }
-    .contact-item-group {
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      margin-bottom: 35px;
+      justify-content: space-between;
+      box-sizing: border-box;
+      overflow: hidden;
     }
-    .contact-item-row {
+
+    /* FRONT OF CARD */
+    .card-face-front {
+      background: linear-gradient(155deg, #131A24 0%, #0E141C 55%, #080D14 100%);
+      border: 1px solid rgba(196, 154, 58, 0.4);
+      box-shadow: var(--shadow-medium);
+      color: #FFFFFF;
+      padding: 30px 26px 24px 26px;
+      cursor: pointer;
+      user-select: none;
+      text-align: center;
+      z-index: 2;
+      transform: rotateY(0deg);
+    }
+    .card-face-front::before {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border: 1px solid rgba(196, 154, 58, 0.18);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    .card-face-front:focus-visible {
+      outline: 2px solid var(--kns-gold);
+      outline-offset: 4px;
+    }
+    .card-front-header-wrap {
       display: flex;
-      gap: 16px;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
     }
-    .contact-item-icon {
-      width: 44px;
-      height: 44px;
+    .card-front-top-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--kns-gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-front-top-tag::before,
+    .card-front-top-tag::after {
+      content: '—';
+      color: rgba(196, 154, 58, 0.5);
+    }
+    .card-front-subtag {
+      font-size: 0.68rem;
+      color: #94A3B8;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .card-front-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto 0;
+    }
+    .card-front-logo {
+      max-width: 190px;
+      height: auto;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6));
+      margin-bottom: 12px;
+      transition: transform 0.3s ease;
+    }
+    .contact-card-3d:hover .card-front-logo {
+      transform: scale(1.02);
+    }
+    .card-front-title {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: 0.02em;
+      margin: 0 0 4px 0;
+      line-height: 1.25;
+    }
+    .card-front-tagline {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin: 0 0 14px 0;
+    }
+    .card-front-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 60%;
+      margin: 0 auto 12px auto;
+    }
+    .card-front-divider span:first-child,
+    .card-front-divider span:last-child {
+      flex: 1;
+      height: 1px;
+      background: rgba(196, 154, 58, 0.25);
+    }
+    .divider-diamond {
+      color: var(--kns-gold);
+      font-size: 0.55rem;
+      line-height: 1;
+    }
+    .card-front-proprietor-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm);
+      padding: 9px 24px;
+      display: inline-block;
+      backdrop-filter: blur(4px);
+      margin-bottom: 12px;
+      min-width: 200px;
+    }
+    .card-front-proprietor-label {
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #94A3B8;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .card-front-proprietor-name {
+      font-family: var(--font-serif);
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: 0.02em;
+    }
+    .card-front-pills-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+    .card-front-mini-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 0.66rem;
+      color: #CBD5E1;
+      letter-spacing: 0.02em;
+    }
+    .card-front-mini-pill svg {
+      color: var(--kns-gold);
+    }
+    .card-front-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      margin-top: 8px;
+    }
+    .card-flip-prompt-pill {
+      background: rgba(196, 154, 58, 0.12);
+      border: 1px solid rgba(196, 154, 58, 0.35);
+      border-radius: 30px;
+      padding: 9px 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--kns-gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: all 0.25s ease;
+      letter-spacing: 0.03em;
+    }
+    .contact-card-3d:hover .card-flip-prompt-pill {
+      background: rgba(196, 154, 58, 0.22);
+      border-color: var(--kns-gold);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .card-front-footer-note {
+      font-size: 0.65rem;
+      color: #94A3B8;
+      letter-spacing: 0.02em;
+    }
+    .flip-icon-svg {
+      transition: transform 0.5s ease;
+    }
+    .contact-card-3d:hover .flip-icon-svg {
+      transform: rotate(180deg);
+    }
+
+    /* BACK OF CARD */
+    .card-face-back {
+      transform: rotateY(180deg);
+      background: #FFFFFF;
+      border: 1px solid var(--border-silver);
+      box-shadow: var(--shadow-medium);
+      padding: 22px 22px 14px 22px;
+      z-index: 1;
+      overflow-y: auto;
+    }
+    .contact-card-3d.is-flipped .card-face-front {
+      z-index: 1;
+      pointer-events: none;
+    }
+    .contact-card-3d.is-flipped .card-face-back {
+      z-index: 2;
+      pointer-events: auto;
+    }
+    .card-back-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--kns-gold);
+      margin-bottom: 4px;
+    }
+    .card-back-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--charcoal-deep);
+      margin: 0 0 6px 0;
+      line-height: 1.25;
+    }
+    .card-back-proprietor-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--silver-tint);
+      border-left: 3px solid var(--kns-gold);
+      padding: 7px 12px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .card-back-proprietor-bar .prop-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--charcoal-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .card-back-proprietor-bar .prop-name {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--charcoal-deep);
+    }
+
+    .card-back-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-bottom: 14px;
+    }
+    .card-info-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border-bottom: 1px solid #F1F5F9;
+      padding-bottom: 10px;
+    }
+    .card-info-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .card-info-icon-box {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: var(--silver-light);
+      border: 1px solid var(--border-silver);
       color: var(--charcoal-deep);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      border: 1px solid var(--border-silver);
+      margin-top: 1px;
     }
-    .contact-item-content h4 {
+    .card-info-icon-box.wa-box {
+      background: rgba(37, 211, 102, 0.1);
+      border-color: rgba(37, 211, 102, 0.3);
+      color: #25D366;
+    }
+    .card-info-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .card-info-text h4 {
       font-family: var(--font-sans);
-      font-size: 0.82rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--charcoal-muted);
-      margin-bottom: 4px;
+      margin: 0 0 2px 0;
       font-weight: 700;
     }
-    .contact-item-content p, .contact-item-content a {
-      font-size: 1rem;
+    .card-info-text p, .card-info-text address {
+      font-style: normal;
+      font-size: 0.88rem;
       color: var(--charcoal-deep);
-      font-weight: 600;
-      line-height: 1.5;
-      text-decoration: none;
-      transition: color 0.2s ease;
+      line-height: 1.45;
+      margin: 0;
     }
-    .contact-item-content a:hover {
+    .card-info-text a {
+      color: var(--charcoal-deep);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+    .card-info-text a:hover {
       color: var(--kns-gold);
+    }
+    .card-phone-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .card-phone-links a {
+      color: var(--charcoal-deep);
+      font-weight: 700;
+    }
+    .card-phone-links a:hover {
+      color: var(--kns-gold);
+    }
+    .card-wa-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #FFFFFF !important;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      text-decoration: none;
+      margin-top: 4px;
+      box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3);
+      transition: background 0.2s ease, transform 0.2s ease;
+      min-height: 44px;
+      box-sizing: border-box;
+    }
+    .card-wa-action-btn:hover {
+      background: #20BD5A;
+      transform: translateY(-1px);
+    }
+    .card-hours-card {
+      background: var(--navy-midnight);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      color: #FFFFFF;
+      margin-top: 2px;
+    }
+    .card-hours-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--kns-gold);
+      margin-bottom: 3px;
+    }
+    .card-hours-main {
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .card-hours-sub {
+      font-size: 0.74rem;
+      color: #94A3B8;
+      line-height: 1.35;
+    }
+
+    /* Flip Back Button */
+    .card-back-footer {
+      display: flex;
+      justify-content: center;
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px solid #E2E8F0;
+    }
+    .btn-card-flip-back {
+      background: transparent;
+      border: 1px solid var(--border-silver);
+      color: var(--charcoal-deep);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s ease;
+      min-height: 44px;
+    }
+    .btn-card-flip-back:hover {
+      border-color: var(--kns-gold);
+      color: var(--kns-gold);
+      background: rgba(196, 154, 58, 0.05);
+    }
+
+    /* Reduced Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .contact-card-3d {
+        transition: none !important;
+      }
+      .contact-card-3d.is-flipped {
+        transform: none !important;
+      }
+      .contact-card-3d.is-flipped .card-face-front {
+        display: none !important;
+      }
+      .contact-card-3d.is-flipped .card-face-back {
+        transform: none !important;
+        display: flex !important;
+      }
+      .flip-icon-svg {
+        transition: none !important;
+      }
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 600px) {
+      .contact-card-3d-wrap {
+        max-width: 100%;
+        width: 100%;
+      }
+      .contact-card-3d {
+        height: 680px;
+      }
+      .card-face-front {
+        padding: 28px 18px 24px 18px;
+      }
+      .card-front-title {
+        font-size: 1.45rem;
+      }
+      .card-face-back {
+        padding: 20px 16px 16px 16px;
+      }
+      .card-phone-links {
+        flex-direction: column;
+        gap: 4px;
+      }
     }
     .form-panel {
       background: #FFFFFF;
@@ -382,67 +799,178 @@
     <div class="container">
       <div class="contact-layout-grid">
         
-        <!-- Left: Direct Office & Contact Details -->
-        <div class="contact-details-panel">
-          <span class="contact-card-badge">DIRECT REGISTRATION DETAILS</span>
-          <h2 class="contact-card-title">KNS Construction & Real Estate</h2>
+        <!-- Left: Interactive 3D Contact Registration Card -->
+        <div class="contact-card-3d-wrap" id="contactCard3dWrap">
+          <div class="contact-card-3d" id="contactCard3d" role="region" aria-label="Interactive 3D business and contact registration card for KNS Construction & Real Estate">
 
-          <div class="contact-lead-person">
-            <div>
-              <div style="font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--charcoal-muted); font-weight: 700;">PROPRIETOR</div>
-              <div style="font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; color: var(--charcoal-deep); margin-top: 2px;">Kiran Gajbhare</div>
+            <!-- ================= FRONT OF CARD ================= -->
+            <div class="card-face card-face-front" id="cardFaceFront" tabindex="0" role="button" aria-expanded="false" aria-controls="cardFaceBack" aria-label="KNS Construction & Real Estate Executive Card. Click or press Enter to flip for direct contact and registration details.">
+              
+              <!-- Top Branding Header -->
+              <div class="card-front-header-wrap">
+                <div class="card-front-top-tag">OFFICIAL REGISTRATION • KONDAPUR</div>
+                <div class="card-front-subtag">Direct Architectural &amp; Development Office</div>
+              </div>
+
+              <!-- Center Primary Identity -->
+              <div class="card-front-center">
+                <img src="assets/images/kns-logo-full.png" alt="KNS Construction & Real Estate Logo" class="card-front-logo" width="200" height="133">
+                <h2 class="card-front-title">KNS Construction &amp; Real Estate</h2>
+                <div class="card-front-tagline">BUILDING DREAMS, BRICK BY BRICK</div>
+
+                <!-- Architectural Accent Line -->
+                <div class="card-front-divider">
+                  <span></span>
+                  <span class="divider-diamond">◆</span>
+                  <span></span>
+                </div>
+
+                <div class="card-front-proprietor-box">
+                  <span class="card-front-proprietor-label">PROPRIETOR</span>
+                  <span class="card-front-proprietor-name">Kiran Gajbhare</span>
+                </div>
+
+                <!-- Verified Project Domains Badge Strip -->
+                <div class="card-front-pills-row">
+                  <span class="card-front-mini-pill">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                    Kondapur, Hyderabad
+                  </span>
+                  <span class="card-front-mini-pill">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+                    Turnkey Construction
+                  </span>
+                  <span class="card-front-mini-pill">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4zm2 0h1V9h-1v2zm0-4h1V5h-1v2z" clip-rule="evenodd"/></svg>
+                    Sangareddy Villas
+                  </span>
+                </div>
+              </div>
+
+              <!-- Bottom Interactive Flip Trigger -->
+              <div class="card-front-footer">
+                <div class="card-flip-prompt-pill">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="flip-icon-svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                  </svg>
+                  <span>Click / Tap to view contact details</span>
+                </div>
+                <div class="card-front-footer-note">Office Address • Phone Lines • Official Email • Direct WhatsApp</div>
+              </div>
+
             </div>
-          </div>
 
-          <div class="contact-item-group">
-            <div class="contact-item-row">
-              <div class="contact-item-icon">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+            <!-- ================= BACK OF CARD ================= -->
+            <div class="card-face card-face-back" id="cardFaceBack" aria-hidden="true">
+              
+              <div class="card-back-header">
+                <span class="card-back-badge">DIRECT REGISTRATION DETAILS</span>
+                <h2 class="card-back-title">KNS Construction &amp; Real Estate</h2>
+                <div class="card-back-proprietor-bar">
+                  <span class="prop-label">PROPRIETOR</span>
+                  <span class="prop-name">Kiran Gajbhare</span>
+                </div>
               </div>
-              <div class="contact-item-content">
-                <h4>Registered Office</h4>
-                <p>Raghavendra Colony, Kondapur,<br>Hyderabad &ndash; 500084, Telangana, India</p>
+
+              <div class="card-back-rows">
+                
+                <!-- Registered Office -->
+                <div class="card-info-item">
+                  <div class="card-info-icon-box" aria-hidden="true">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div class="card-info-text">
+                    <h4>Registered Office</h4>
+                    <address>
+                      <strong>Raghavendra Colony, Kondapur,</strong><br>
+                      Hyderabad &ndash; 500084, Telangana, India
+                    </address>
+                  </div>
+                </div>
+
+                <!-- Direct Phone Lines -->
+                <div class="card-info-item">
+                  <div class="card-info-icon-box" aria-hidden="true">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"></path>
+                    </svg>
+                  </div>
+                  <div class="card-info-text">
+                    <h4>Direct Phone Lines</h4>
+                    <div class="card-phone-links">
+                      <a href="tel:+919100425645" aria-label="Call +91 91004 25645">+91 91004 25645</a>
+                      <span style="color: #CBD5E1;" aria-hidden="true">•</span>
+                      <a href="tel:+919246563397" aria-label="Call +91 92465 63397">+91 92465 63397</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Official Email -->
+                <div class="card-info-item">
+                  <div class="card-info-icon-box" aria-hidden="true">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    </svg>
+                  </div>
+                  <div class="card-info-text">
+                    <h4>Official Email</h4>
+                    <p><a href="mailto:knsconstructions@gmail.com" aria-label="Email knsconstructions@gmail.com">knsconstructions@gmail.com</a></p>
+                  </div>
+                </div>
+
+                <!-- WhatsApp Channel -->
+                <div class="card-info-item">
+                  <div class="card-info-icon-box wa-box" aria-hidden="true">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/>
+                    </svg>
+                  </div>
+                  <div class="card-info-text">
+                    <h4>WhatsApp Channel</h4>
+                    <p style="font-size: 0.82rem; color: var(--charcoal-muted); margin-bottom: 6px;">Chat directly with Kiran Gajbhare</p>
+                    <a href="https://wa.me/919100425645?text=Hello%20KNS%20Construction%20%26%20Real%20Estate,%20I%20would%20like%20to%20discuss%20my%20project." 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="card-wa-action-btn"
+                       aria-label="Chat directly with Kiran Gajbhare on WhatsApp">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/>
+                      </svg>
+                      <span>WhatsApp Kiran Gajbhare</span>
+                    </a>
+                  </div>
+                </div>
+
               </div>
+
+              <!-- Site Visits & Hours -->
+              <div class="card-hours-card">
+                <div class="card-hours-title" style="display: flex; align-items: center; gap: 6px;">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span>SITE VISITS &amp; HOURS</span>
+                </div>
+                <div class="card-hours-main">Monday &ndash; Saturday: 9:00 AM &ndash; 7:30 PM</div>
+                <div class="card-hours-sub">Sunday: On prior appointment for Sangareddy Villa Community and site inspections.</div>
+              </div>
+
+              <!-- Flip Back Action -->
+              <div class="card-back-footer">
+                <button type="button" class="btn-card-flip-back" id="btnFlipBack" aria-label="Flip card back to front view">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                  </svg>
+                  <span>↻ Flip Back</span>
+                </button>
+              </div>
+
             </div>
 
-            <div class="contact-item-row">
-              <div class="contact-item-icon">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"></path></svg>
-              </div>
-              <div class="contact-item-content">
-                <h4>Direct Phone Lines</h4>
-                <p>
-                  <a href="tel:+919100425645">+91 91004 25645</a><br>
-                  <a href="tel:+919246563397">+91 92465 63397</a>
-                </p>
-              </div>
-            </div>
-
-            <div class="contact-item-row">
-              <div class="contact-item-icon">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-              </div>
-              <div class="contact-item-content">
-                <h4>Official Email</h4>
-                <p><a href="mailto:knsconstructions@gmail.com">knsconstructions@gmail.com</a></p>
-              </div>
-            </div>
-
-            <div class="contact-item-row">
-              <div class="contact-item-icon" style="color: #25D366; background: rgba(37,211,102,0.1); border-color: rgba(37,211,102,0.25);">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-              </div>
-              <div class="contact-item-content">
-                <h4>WhatsApp Channel</h4>
-                <p><a href="https://wa.me/919100425645?text=Hello%20KNS%20Construction%20%26%20Real%20Estate,%20I%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">Chat directly with Kiran Gajbhare</a></p>
-              </div>
-            </div>
-          </div>
-
-          <div style="background: var(--navy-midnight); color: #FFFFFF; padding: 22px; border-radius: var(--radius-sm);">
-            <div style="font-size: 0.78rem; font-weight: 700; color: var(--kns-gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;">SITE VISITS & HOURS</div>
-            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 4px;">Monday &ndash; Saturday: 9:00 AM &ndash; 7:30 PM</div>
-            <div style="font-size: 0.85rem; color: #94A3B8;">Sunday: On prior appointment for Sangareddy Villa Community and site inspections.</div>
           </div>
         </div>
 
@@ -687,5 +1215,81 @@
   <script src="js/analytics.js"></script>
   <script src="js/api.js"></script>
   <script src="js/main.js"></script>
+
+  <!-- 3D Contact Registration Card Controller -->
+  <script>
+    (function () {
+      const card = document.getElementById('contactCard3d');
+      const frontFace = document.getElementById('cardFaceFront');
+      const backFace = document.getElementById('cardFaceBack');
+      const flipBackBtn = document.getElementById('btnFlipBack');
+
+      if (!card || !frontFace || !backFace) return;
+
+      function flipToBack() {
+        if (card.classList.contains('is-flipped')) return;
+        card.classList.add('is-flipped');
+        frontFace.setAttribute('aria-expanded', 'true');
+        backFace.setAttribute('aria-hidden', 'false');
+        if (flipBackBtn) {
+          setTimeout(function () {
+            flipBackBtn.focus();
+          }, 350);
+        }
+      }
+
+      function flipToFront() {
+        if (!card.classList.contains('is-flipped')) return;
+        card.classList.remove('is-flipped');
+        frontFace.setAttribute('aria-expanded', 'false');
+        backFace.setAttribute('aria-hidden', 'true');
+        setTimeout(function () {
+          frontFace.focus();
+        }, 350);
+      }
+
+      // Front face interactions (Click / Tap / Enter / Space)
+      frontFace.addEventListener('click', function (e) {
+        if (e.target.closest('a') || e.target.closest('button')) return;
+        flipToBack();
+      });
+
+      frontFace.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          flipToBack();
+        }
+      });
+
+      // Back face Flip Back button
+      if (flipBackBtn) {
+        flipBackBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          flipToFront();
+        });
+      }
+
+      // Stop propagation on back face action links so clicking tel, email, wa doesn't flip card
+      backFace.querySelectorAll('a, button').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      });
+
+      // Clicking blank areas of back face returns to front
+      backFace.addEventListener('click', function (e) {
+        if (e.target.closest('a') || e.target.closest('button')) return;
+        flipToFront();
+      });
+
+      // Escape key returns to front
+      backFace.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          flipToFront();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
