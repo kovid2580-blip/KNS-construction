@@ -1,0 +1,12 @@
+# robots.txt for KNS Construction & Real Estate
+# Canonical Domain: https://knsconstruction.com
+
+User-agent: *
+Allow: /
+
+# Disallow internal prototype dashboard and 404 error page
+Disallow: /admin.html
+Disallow: /404.html
+
+# XML Sitemap
+Sitemap: https://knsconstruction.com/sitemap.xml

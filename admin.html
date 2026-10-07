@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Operations & Plot Management Dashboard | KNS Construction & Real Estate</title>
   <meta name="description" content="Internal operations portal for KNS Construction & Real Estate. Manage villa plot inventories, client consultations, and construction milestones.">
+  <meta name="robots" content="noindex, nofollow">
   
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
@@ -694,6 +695,37 @@
       renderPlotsTable();
     }
 
+    function renderDynamicLeads() {
+      const tbody = document.getElementById('leadsTableBody');
+      if (!tbody) return;
+      try {
+        const stored = JSON.parse(localStorage.getItem('kns_inquiries') || '[]');
+        if (stored.length === 0) return;
+
+        // Clear existing and prepend dynamic leads
+        const existingRows = tbody.innerHTML;
+        let dynamicHtml = '';
+        stored.forEach(lead => {
+          const cleanPhone = (lead.phone || '').replace(/\D/g, '');
+          const waUrl = cleanPhone ? `https://wa.me/91${cleanPhone.slice(-10)}?text=${encodeURIComponent('Hello ' + lead.name + ', Kiran Gajbhare from KNS Construction & Real Estate.')}` : '#';
+          dynamicHtml += `
+            <tr style="background: rgba(196, 154, 58, 0.05);">
+              <td><strong>${lead.submittedAt || 'Just now'}</strong></td>
+              <td><strong>${lead.name}</strong></td>
+              <td>${lead.phone}</td>
+              <td>${lead.projectType}</td>
+              <td>${lead.location} ${lead.budget ? '• ' + lead.budget : ''}</td>
+              <td><span class="status-badge status-available">Live Web Lead</span></td>
+              <td>
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-action">WhatsApp</a>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = dynamicHtml + existingRows;
+      } catch (e) {}
+    }
+
     function switchAdminTab(tabName) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('sectionPlots').style.display = 'none';
@@ -716,6 +748,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       initPlotsData();
       renderPlotsTable();
+      renderDynamicLeads();
     });
   </script>
 </body>

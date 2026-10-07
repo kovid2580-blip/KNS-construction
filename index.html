@@ -7,11 +7,22 @@
   <meta name="description" content="KNS Construction & Real Estate offers complete turnkey construction, architectural planning, civil engineering, and premium real estate in Kondapur, Hyderabad.">
   <meta name="keywords" content="construction company in Hyderabad, house construction company Hyderabad, turnkey construction Hyderabad, residential construction Hyderabad, commercial construction Hyderabad, construction company Kondapur, house construction Kondapur, builders in Kondapur, real estate company Kondapur, villa plots Patancheru, villa plots Sangareddy, premium villa plots Hyderabad">
   
-  <!-- Open Graph -->
+  <link rel="canonical" href="https://knsconstruction.com/">
+
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="KNS Construction & Real Estate | Hyderabad">
-  <meta property="og:description" content="Building Your Future With Precision & Quality. Turnkey construction, architectural planning, and real estate in Hyderabad.">
-  <meta property="og:image" content="assets/images/kns-logo-full.png">
+  <meta property="og:site_name" content="KNS Construction & Real Estate">
+  <meta property="og:title" content="KNS Construction & Real Estate | Building Your Future With Precision & Quality">
+  <meta property="og:description" content="Turnkey residential & commercial construction, architectural planning, civil engineering, and villa plots in Kondapur, Hyderabad.">
+  <meta property="og:url" content="https://knsconstruction.com/">
+  <meta property="og:image" content="https://knsconstruction.com/assets/images/kns-logo-full.png">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KNS Construction & Real Estate | Hyderabad">
+  <meta name="twitter:description" content="Turnkey construction, architectural design, and villa communities in Hyderabad. Founded by Kiran Gajbhare.">
+  <meta name="twitter:image" content="https://knsconstruction.com/assets/images/kns-logo-full.png">
   
   <!-- Favicons (Recognizable Architectural / Crane Mark) -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -22,28 +33,71 @@
   <!-- Master Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 
-  <!-- Schema.org Structured Data -->
+  <!-- Schema.org Multi-Entity Structured Data -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "GeneralContractor",
-    "name": "KNS Construction & Real Estate",
-    "founder": {
-      "@type": "Person",
-      "name": "Kiran Gajbhare"
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": ["GeneralContractor", "RealEstateAgent"],
+      "@id": "https://knsconstruction.com/#organization",
+      "name": "KNS Construction & Real Estate",
+      "legalName": "KNS Construction & Real Estate",
+      "url": "https://knsconstruction.com/",
+      "logo": "https://knsconstruction.com/assets/images/kns-logo-full.png",
+      "image": "https://knsconstruction.com/assets/images/hero-skyline.jpg",
+      "description": "Turnkey residential and commercial construction firm based in Kondapur, Hyderabad, delivering turnkey housing, civil engineering, and villa plot communities.",
+      "founder": {
+        "@type": "Person",
+        "name": "Kiran Gajbhare",
+        "jobTitle": "Proprietor"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Raghavendra Colony, Kondapur",
+        "addressLocality": "Hyderabad",
+        "addressRegion": "Telangana",
+        "postalCode": "500084",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 17.4699,
+        "longitude": 78.3578
+      },
+      "telephone": ["+919100425645", "+919246563397"],
+      "email": "knsconstructions@gmail.com",
+      "priceRange": "₹1,600 - ₹2,500 / SFT",
+      "slogan": "BUILDING DREAMS, BRICK BY BRICK",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Telangana"
+        }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "19:30"
+        }
+      ]
     },
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Raghavendra Colony, Kondapur",
-      "addressLocality": "Hyderabad",
-      "postalCode": "500084",
-      "addressRegion": "Telangana",
-      "addressCountry": "IN"
-    },
-    "telephone": ["+919100425645", "+919246563397"],
-    "email": "knsconstructions@gmail.com",
-    "slogan": "BUILDING DREAMS, BRICK BY BRICK"
-  }
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://knsconstruction.com/#website",
+      "url": "https://knsconstruction.com/",
+      "name": "KNS Construction & Real Estate",
+      "publisher": {
+        "@id": "https://knsconstruction.com/#organization"
+      }
+    }
+  ]
   </script>
 </head>
 <body>

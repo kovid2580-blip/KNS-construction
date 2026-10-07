@@ -2049,3 +2049,43 @@ img {
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   26. FORM VALIDATION & FEEDBACK STATES (PHASE 3)
+   ========================================================================== */
+.input-error-border {
+  border-color: #DC2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;
+}
+
+.field-error-msg {
+  display: block;
+  color: #DC2626;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-top: 5px;
+  line-height: 1.3;
+}
+
+.form-feedback-banner {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  line-height: 1.45;
+}
+
+.form-feedback-banner.success {
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(22, 163, 74, 0.35);
+  color: #15803D;
+}
+
+.form-feedback-banner.error {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  color: #B91C1C;
+}
