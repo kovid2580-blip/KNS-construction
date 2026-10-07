@@ -58,6 +58,9 @@ html {
   font-size: 16px;
   background-color: var(--bg-primary);
   color: var(--charcoal);
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
@@ -65,8 +68,25 @@ body {
   background-color: var(--bg-primary);
   color: var(--charcoal);
   line-height: 1.65;
+  width: 100%;
+  max-width: 100vw;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Accessible Keyboard Focus Rings */
+:focus-visible {
+  outline: 2px solid var(--kns-gold);
+  outline-offset: 3px;
+}
+
+button:focus-visible, 
+a:focus-visible, 
+input:focus-visible, 
+select:focus-visible, 
+textarea:focus-visible {
+  outline: 2px solid var(--kns-gold);
+  outline-offset: 2px;
 }
 
 h1, h2, h3, h4, .font-heading {
@@ -1434,6 +1454,63 @@ img {
   color: var(--white);
   font-size: 36px;
   cursor: pointer;
+  line-height: 1;
+  transition: color var(--transition-normal), transform var(--transition-normal);
+  z-index: 2010;
+}
+
+.lightbox-close-btn:hover {
+  color: var(--kns-gold);
+  transform: scale(1.1);
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(17, 25, 35, 0.75);
+  border: 1px solid var(--border-gold);
+  color: var(--white);
+  font-size: 2.2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  z-index: 2005;
+  user-select: none;
+}
+
+.lightbox-nav-btn:hover {
+  background: var(--kns-gold);
+  color: var(--midnight-navy);
+  border-color: var(--gold-light);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.lightbox-prev-btn {
+  left: 24px;
+}
+
+.lightbox-next-btn {
+  right: 24px;
+}
+
+@media (max-width: 600px) {
+  .lightbox-nav-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.8rem;
+  }
+  .lightbox-prev-btn {
+    left: 10px;
+  }
+  .lightbox-next-btn {
+    right: 10px;
+  }
 }
 
 /* ==========================================================================
@@ -1775,9 +1852,33 @@ img {
 }
 
 @media (max-width: 768px) {
+  .site-navbar {
+    padding: 8px 16px;
+  }
+  .navbar-logo {
+    height: 42px; /* Mobile logo height */
+  }
   .hero-section {
-    padding-top: 105px;
+    padding-top: 110px;
+    padding-bottom: 50px;
     min-height: auto;
+  }
+  .hero-main-title {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+  .hero-supporting-text {
+    font-size: 1rem;
+    margin-bottom: 28px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .hero-cta-group > * {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
   }
   .about-grid, .estimator-box, .contact-layout-grid {
     grid-template-columns: 1fr;
@@ -1788,30 +1889,108 @@ img {
   }
   .glance-stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
+
+  /* 7-Stage Architectural Vertical Timeline for Mobile */
   .journey-steps-grid, .process-steps-7 {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    padding-left: 28px;
+    margin-top: 35px;
   }
+  .journey-steps-grid::before, .process-steps-7::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    left: 11px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--kns-gold) 0%, rgba(196, 154, 58, 0.25) 100%);
+  }
+  .journey-step-box, .process-step-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-align: left;
+    position: relative;
+    padding: 16px 20px;
+  }
+  .journey-step-box::before, .process-step-item::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--kns-gold);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--kns-gold);
+  }
+  .journey-step-num, .process-num-badge {
+    margin-bottom: 0;
+    min-width: 42px;
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+  .journey-step-name, .process-step-title {
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+  }
+
   .why-kns-grid-5 {
     grid-template-columns: 1fr;
   }
   .villa-metrics-banner {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 18px 14px;
+  }
+  .master-plan-viewer-frame {
+    padding: 18px 12px;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .master-plan-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .master-plan-scroll-area {
+    max-height: 480px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .plot-selection-panel {
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
     text-align: center;
+    padding: 18px 14px;
   }
   .plot-info-details {
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
+    width: 100%;
+  }
+  #plotSelectorSelect {
+    max-width: 100%;
+    width: 100%;
+  }
+  .plot-selection-panel a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
   }
   .form-row-2 {
     grid-template-columns: 1fr;
   }
   .footer-columns-grid {
     grid-template-columns: 1fr;
+    gap: 36px;
   }
   .footer-bottom-row {
     flex-direction: column;
@@ -1821,16 +2000,52 @@ img {
   .admin-kpi-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Form Control Safeguard: 16px minimum prevents mobile viewport auto-zoom */
+  input, select, textarea,
+  .input-field-style, .select-field-style, .textarea-field-style,
+  .field-input, .field-select, .field-textarea {
+    font-size: 16px !important;
+  }
 }
 
 @media (max-width: 480px) {
-  .glance-stats-grid, .villa-metrics-banner {
-    grid-template-columns: 1fr;
+  .nav-wrapper-outer {
+    padding: 0 10px;
+    top: 10px;
   }
-  .journey-steps-grid, .process-steps-7 {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .glance-stats-grid, .villa-metrics-banner {
     grid-template-columns: 1fr;
   }
   .type-buttons-row {
     grid-template-columns: 1fr;
+  }
+  .floating-whatsapp-pill {
+    bottom: 16px;
+    right: 16px;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Reduced Motion Preference Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .site-navbar:hover,
+  .service-card-item:hover,
+  .package-card:hover,
+  .why-kns-box:hover,
+  .gallery-tile:hover,
+  .btn-primary-architectural:hover {
+    transform: none !important;
   }
 }

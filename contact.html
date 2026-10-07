@@ -331,12 +331,12 @@
 
         <!-- Right: Inquiry / Consultation Form -->
         <div class="form-panel">
-          <h2 class="form-heading">Request a Site Consultation</h2>
+          <h2 class="form-heading">HAVE A PROJECT IN MIND?</h2>
           <p class="form-subhead">
-            Share your plot location, proposed construction dimensions, or villa community interest. Our team will review and connect with an initial estimate.
+            Share your plot location, construction dimensions, or villa community interest. Our team will review your specifications and schedule a consultation.
           </p>
 
-          <form id="contactForm" onsubmit="event.preventDefault(); alert('Thank you! Your inquiry has been sent to KNS Construction & Real Estate. We will contact you at ' + document.getElementById('clientPhone').value + ' shortly.');">
+          <form id="contactForm">
             <div class="form-grid-2col">
               <div class="form-field-group">
                 <label for="clientName" class="field-label">Full Name *</label>
@@ -367,17 +367,22 @@
               </div>
 
               <div class="form-field-group">
-                <label for="siteLocation" class="field-label">Plot / Site Location</label>
+                <label for="siteLocation" class="field-label">Location</label>
                 <input type="text" id="siteLocation" class="field-input" placeholder="e.g. Kondapur, Sangareddy, Gachibowli">
               </div>
 
               <div class="form-field-group">
-                <label for="plotArea" class="field-label">Plot Size or Built-up Area</label>
-                <input type="text" id="plotArea" class="field-input" placeholder="e.g. 200 Sq. Yards / 3200 SFT">
+                <label for="plotSize" class="field-label">Plot Size</label>
+                <input type="text" id="plotSize" class="field-input" placeholder="e.g. 200 Sq. Yards / 250 Sq. Yards">
               </div>
 
-              <div class="form-field-group full-width">
-                <label for="budgetRange" class="field-label">Estimated Budget Range</label>
+              <div class="form-field-group">
+                <label for="constructionArea" class="field-label">Approx. Construction Area</label>
+                <input type="text" id="constructionArea" class="field-input" placeholder="e.g. 1500 SFT / 3000 SFT">
+              </div>
+
+              <div class="form-field-group">
+                <label for="budgetRange" class="field-label">Budget Range</label>
                 <select id="budgetRange" class="field-select">
                   <option value="under-40">Under ₹40 Lakhs</option>
                   <option value="40-75">₹40 Lakhs &ndash; ₹75 Lakhs</option>
@@ -387,13 +392,13 @@
               </div>
 
               <div class="form-field-group full-width">
-                <label for="projectMessage" class="field-label">Project Details & Requirements</label>
-                <textarea id="projectMessage" class="field-textarea" placeholder="Describe your plot dimensions, desired floors (e.g. G+1, G+2), architectural preferences, or any specific questions..."></textarea>
+                <label for="projectMessage" class="field-label">Message</label>
+                <textarea id="projectMessage" class="field-textarea" placeholder="Describe your plot dimensions, desired floors (e.g. G+1, G+2), architectural preferences, or specific questions..."></textarea>
               </div>
             </div>
 
             <button type="submit" class="btn-primary-architectural" style="width: 100%; justify-content: center; padding: 16px; margin-top: 10px;">
-              SUBMIT CONSULTATION REQUEST
+              REQUEST A CONSULTATION
             </button>
           </form>
         </div>
