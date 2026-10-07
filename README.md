@@ -180,6 +180,70 @@ Production-ready Node.js backend using standard library modules (zero external n
 
 ---
 
+## 📈 Phase 4 — Step 9: Analytics & Conversion Tracking
+
+A privacy-conscious, production-grade tracking and attribution foundation is implemented across the entire website via `js/analytics.js`.
+
+### 1. Google Analytics 4 (GA4) Integration
+* **Configurable Measurement ID:** Configured in `js/analytics.js` via `window.KNS_ANALYTICS_CONFIG.GA_MEASUREMENT_ID`.
+* **Zero Fake Data / Safe Inactive Mode:** When `GA_MEASUREMENT_ID` is unset or blank (default), analytics remains cleanly disabled. No fake network requests are dispatched, and no console errors are thrown.
+* **To Activate in Production:**
+  ```javascript
+  // js/analytics.js
+  window.KNS_ANALYTICS_CONFIG = {
+    GA_MEASUREMENT_ID: 'G-XXXXXXXXXX', // Set client's verified GA4 Property ID
+    DEBUG_MODE: false
+  };
+  ```
+
+### 2. Privacy & PII Protection
+* **Strict PII Stripping:** The analytics engine automatically filters out all sensitive parameters before forwarding to `dataLayer` or `gtag`.
+* **Zero Client Personal Data Sent:** Names, phone numbers, email addresses, exact plot addresses, budget numbers, and message bodies are never sent to analytics providers.
+* **Admin Excluded:** `admin.html` does not load `js/analytics.js`, keeping staff operations and lead data strictly private and excluded from traffic metrics.
+
+### 3. Tracked Conversion Events & Funnel
+| Funnel Stage | Event Name | Non-Sensitive Parameters |
+| :--- | :--- | :--- |
+| **Page Engagement** | `page_view` | `page_title`, `page_location`, `page_path` (11 public pages) |
+| **Direct Helpline** | `phone_click` | `page`, `cta_location` (`navbar`, `hero`, `contact`, `footer`) |
+| **WhatsApp Chat** | `whatsapp_click` | `page`, `cta_location`, `project_context` |
+| **Inquiry Email** | `email_click` | `page`, `cta_location` |
+| **Consultation Funnel** | `form_start` | `form_name`, `page` |
+| | `form_submit` | `form_name`, `page`, `service_category`, `project_type` |
+| | `form_success` | `form_name`, `page`, `service_category` |
+| | `form_error` | `form_name`, `page`, `error_type` |
+| | `lead_generated` | `form_name`, `service_category`, `project_type`, `source`, `campaign` |
+| **Cost Estimator** | `estimator_start` | `page` |
+| | `estimator_calculate` | `property_type`, `area_range`, `package_type` |
+| | `estimator_cta_click` | `property_type`, `package_type`, `cta_location` |
+| **Project Showcase** | `project_view` | `project_name` (`G+1 Duplex`, `Premium 3BHK`, `KNS Premium Villa Community`) |
+| | `project_cta_click` | `project_name`, `cta_location` |
+| **Villa Master Plan** | `masterplan_open` | `project_name`, `view_mode` |
+| | `masterplan_zoom` | `zoom_level`, `action` |
+| | `masterplan_pan` | `direction` |
+| | `plot_interaction` | `plot_number`, `status`, `dimensions` |
+| | `masterplan_cta_click` | `plot_number`, `action` |
+| **Gallery Viewer** | `gallery_open` | `category`, `image_index` |
+| | `gallery_image_view` | `category`, `image_index` |
+| | `gallery_close` | `category`, `duration_seconds` |
+
+### 4. UTM Attribution & Lead Integration
+* **Campaign Parameter Capture:** Automatically reads `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content` from arriving URL query strings and persists them in browser session storage.
+* **Lead Record Attribution:** Attribution details (`utmSource`, `utmMedium`, `utmCampaign`) are seamlessly merged into consultation submissions and stored in `data/leads.json` via `POST /api/leads`.
+* **Export Compatibility:** Included in CSV export (`Campaign Source`) and displayed in the Admin Portal Lead Details view.
+
+### 5. Google Search Console & SEO Readiness
+* **Verified Assets:** Validated `sitemap.xml` (all 11 public URLs), `robots.txt` (clean public allow, admin/404 disallow).
+* **No Artificial Tokens:** Search Console verification tokens are left unhardcoded for client domain ownership verification.
+* **Zero Indexing Leaks:** `admin.html` and `404.html` strictly enforce `<meta name="robots" content="noindex, nofollow">`.
+
+### 6. Admin Portal Web Analytics Tab (`admin.html`)
+* **Zero Fake Statistics:** Displays no fabricated graphs, artificial visitors, or mock revenue figures.
+* **Direct Console Links:** Direct shortcuts to Google Analytics Console and Google Search Console.
+* **Genuine Lead Acquisition Breakdown:** Displays actual channel source performance dynamically calculated from stored inquiries in `data/leads.json`.
+
+---
+
 ## 🚀 Running Locally & Production Deployment
 
 ### Option 1: Running with Full REST API Server (Recommended)

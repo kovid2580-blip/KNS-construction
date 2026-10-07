@@ -412,6 +412,7 @@
       // Standalone Fallback Creation
       const leads = this._getLocalLeads();
       const nextId = 'KNS-L-' + Math.floor(1000 + Math.random() * 9000);
+      const utm = window.knsAnalytics ? window.knsAnalytics.getUtmAttribution() : {};
       const newLead = {
         id: nextId,
         name: (leadData.name || '').trim() || 'Prospective Client',
@@ -424,7 +425,10 @@
         constructionArea: (leadData.constructionArea || '').trim(),
         budget: (leadData.budget || '').trim(),
         message: (leadData.message || '').trim(),
-        source: leadData.source || 'Website Consultation Form',
+        source: leadData.source || (utm.utm_source ? `Campaign (${utm.utm_source})` : 'Website Consultation Form'),
+        utmSource: leadData.utmSource || utm.utm_source || '',
+        utmMedium: leadData.utmMedium || utm.utm_medium || '',
+        utmCampaign: leadData.utmCampaign || utm.utm_campaign || '',
         status: 'New',
         notes: [
           {
@@ -563,6 +567,7 @@
         'Project Type',
         'Status',
         'Lead Source',
+        'Campaign Source',
         'Created Date',
         'Notes Count',
         'Latest Note'
@@ -572,6 +577,7 @@
 
       leads.forEach(l => {
         const latestNote = Array.isArray(l.notes) && l.notes.length > 0 ? l.notes[l.notes.length - 1].text : '';
+        const campaignAttribution = l.utmSource ? `${l.utmSource} / ${l.utmMedium || 'cpc'}` : 'Direct / Organic';
         const row = [
           `"${(l.id || '').replace(/"/g, '""')}"`,
           `"${(l.name || '').replace(/"/g, '""')}"`,
@@ -581,6 +587,7 @@
           `"${(l.projectType || '').replace(/"/g, '""')}"`,
           `"${(l.status || '').replace(/"/g, '""')}"`,
           `"${(l.source || '').replace(/"/g, '""')}"`,
+          `"${campaignAttribution.replace(/"/g, '""')}"`,
           `"${new Date(l.createdAt).toLocaleDateString('en-IN')}"`,
           `"${Array.isArray(l.notes) ? l.notes.length : 0}"`,
           `"${latestNote.replace(/"/g, '""')}"`

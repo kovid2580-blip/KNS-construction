@@ -177,13 +177,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Debounced tracking event
     clearTimeout(estimatorTrackDebounce);
     estimatorTrackDebounce = setTimeout(() => {
-      window.trackKnsEvent('estimator_used', {
-        area_sft: area,
-        package_type: currentPackage,
-        package_title: rates.title,
-        estimated_low: lowCost,
-        estimated_high: highCost
-      });
+      if (window.knsAnalytics) {
+        window.knsAnalytics.trackEstimatorCalculate(rates.title, area);
+      } else {
+        window.trackKnsEvent('estimator_calculate', { package_type: rates.title, area_sft: area });
+      }
     }, 600);
   }
 
@@ -192,6 +190,10 @@ document.addEventListener('DOMContentLoaded', () => {
       typeButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentPackage = btn.getAttribute('data-type') || 'standard';
+      const rates = packageRates[currentPackage] || packageRates.standard;
+      if (window.knsAnalytics) {
+        window.knsAnalytics.trackEstimatorStart(rates.title);
+      }
       recalculateEstimate();
     });
   });
@@ -234,7 +236,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentZoom < 2.5) {
       currentZoom += 0.25;
       renderPlanTransform();
-      window.trackKnsEvent('master_plan_interaction', { action: 'zoom_in', zoom_level: currentZoom });
+      if (window.knsAnalytics) {
+        window.knsAnalytics.trackMasterPlanZoom('in', currentZoom);
+      } else {
+        window.trackKnsEvent('masterplan_zoom', { zoom_direction: 'in', zoom_level: currentZoom });
+      }
     }
   });
 
@@ -246,7 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
         panY = 0;
       }
       renderPlanTransform();
-      window.trackKnsEvent('master_plan_interaction', { action: 'zoom_out', zoom_level: currentZoom });
+      if (window.knsAnalytics) {
+        window.knsAnalytics.trackMasterPlanZoom('out', currentZoom);
+      } else {
+        window.trackKnsEvent('masterplan_zoom', { zoom_direction: 'out', zoom_level: currentZoom });
+      }
     }
   });
 
@@ -255,7 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
     panX = 0;
     panY = 0;
     renderPlanTransform();
-    window.trackKnsEvent('master_plan_interaction', { action: 'reset' });
+    if (window.knsAnalytics) {
+      window.knsAnalytics.trackMasterPlanZoom('reset', 1);
+    } else {
+      window.trackKnsEvent('masterplan_zoom', { zoom_direction: 'reset', zoom_level: 1 });
+    }
   });
 
   // Drag to pan when zoomed
@@ -314,7 +328,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (enquirePlotBtn) {
       enquirePlotBtn.setAttribute('href', `contact.html?plot=${encodeURIComponent(val)}`);
     }
-    window.trackKnsEvent('master_plan_interaction', { action: 'select_plot', plot_number: val });
+    if (window.knsAnalytics) {
+      window.knsAnalytics.trackPlotInteraction(val, 'select');
+    } else {
+      window.trackKnsEvent('plot_interaction', { plot_number: val });
+    }
+  });
+
+  enquirePlotBtn?.addEventListener('click', () => {
+    const currentVal = plotSelectorSelect ? plotSelectorSelect.value : 'General';
+    if (window.knsAnalytics) {
+      window.knsAnalytics.trackMasterPlanCtaClick(currentVal);
+    }
   });
 
   // ==========================================================================
@@ -337,7 +362,8 @@ document.addEventListener('DOMContentLoaded', () => {
     galleryTiles.forEach(tile => {
       if (tile.style.display !== 'none') {
         const img = tile.querySelector('img');
-        if (img) visibleImages.push({ src: img.src, alt: img.alt });
+        const cat = tile.getAttribute('data-category') || 'all';
+        if (img) visibleImages.push({ src: img.src, alt: img.alt, category: cat });
       }
     });
   }
@@ -380,7 +406,11 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxClose?.focus();
     }, 50);
 
-    window.trackKnsEvent('gallery_open', { image_src: activeItem.src });
+    if (window.knsAnalytics) {
+      window.knsAnalytics.trackGalleryOpen(activeItem.category, currentImageIndex);
+    } else {
+      window.trackKnsEvent('gallery_open', { image_src: activeItem.src });
+    }
   }
 
   function closeLightboxModal() {
@@ -389,6 +419,10 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     
+    if (window.knsAnalytics) {
+      window.knsAnalytics.trackGalleryClose();
+    }
+
     // Restore focus to previously active element
     if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
       lastFocusedElement.focus();
@@ -421,11 +455,17 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxPrev?.addEventListener('click', (e) => {
     e.stopPropagation();
     openLightboxAtIndex(currentImageIndex - 1);
+    if (window.knsAnalytics && visibleImages[currentImageIndex]) {
+      window.knsAnalytics.trackGalleryImageView(visibleImages[currentImageIndex].category, currentImageIndex);
+    }
   });
 
   lightboxNext?.addEventListener('click', (e) => {
     e.stopPropagation();
     openLightboxAtIndex(currentImageIndex + 1);
+    if (window.knsAnalytics && visibleImages[currentImageIndex]) {
+      window.knsAnalytics.trackGalleryImageView(visibleImages[currentImageIndex].category, currentImageIndex);
+    }
   });
 
   lightbox?.addEventListener('click', (e) => {
@@ -458,7 +498,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackStart = () => {
       if (!hasStartedForm) {
         hasStartedForm = true;
-        window.trackKnsEvent('consultation_form_start', { form_id: form.id });
+        if (window.knsAnalytics) {
+          window.knsAnalytics.trackFormStart(form.id);
+        } else {
+          window.trackKnsEvent('form_start', { form_id: form.id });
+        }
       }
     };
     form.addEventListener('focusin', trackStart, { once: true });
@@ -538,13 +582,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // If invalid, focus first invalid field and stop
+      // Conversion Event: form_submit attempt
+      if (window.knsAnalytics) {
+        window.knsAnalytics.trackFormSubmit(form.id, typeSelect?.value, typeSelect?.value);
+      }
+
+      // If invalid, track form_error, focus first invalid field and stop
       if (!isValid) {
+        if (window.knsAnalytics && firstInvalidField) {
+          window.knsAnalytics.trackFormError(form.id, firstInvalidField.id || 'field_validation');
+        }
         if (firstInvalidField) {
           firstInvalidField.focus();
         }
         return;
       }
+
+      // Capture UTM campaign attribution if present
+      const utm = window.knsAnalytics ? window.knsAnalytics.getUtmAttribution() : {};
+      const leadSource = utm.utm_source ? `Campaign (${utm.utm_source} / ${utm.utm_medium || 'referral'})` : 'Website Consultation Form';
 
       // Collect Inquiry Payload adhering to KNS Lead Data Model
       const leadPayload = {
@@ -558,14 +614,26 @@ document.addEventListener('DOMContentLoaded', () => {
         constructionArea: form.querySelector('#contactArea, #constructionArea')?.value.trim() || '',
         budget: form.querySelector('#contactBudget, #budgetRange')?.value.trim() || '',
         message: form.querySelector('#contactMessage, #projectMessage')?.value.trim() || '',
-        source: 'Website Consultation Form'
+        source: leadSource,
+        utmSource: utm.utm_source || '',
+        utmMedium: utm.utm_medium || '',
+        utmCampaign: utm.utm_campaign || ''
       };
 
       // Create Lead Record via Unified API Layer
+      let createdLeadId = 'KNS-L-' + Date.now().toString().slice(-4);
       if (window.knsApi && typeof window.knsApi.createLead === 'function') {
-        window.knsApi.createLead(leadPayload).catch(err => {
+        window.knsApi.createLead(leadPayload).then(lead => {
+          if (lead && lead.id) createdLeadId = lead.id;
+        }).catch(err => {
           console.warn('[KNS Form] API lead creation notice:', err);
         });
+      }
+
+      // Track Conversion Success & Lead Generated Events (STRICTLY NON-SENSITIVE)
+      if (window.knsAnalytics) {
+        window.knsAnalytics.trackFormSuccess(form.id, leadPayload.service, leadPayload.projectType);
+        window.knsAnalytics.trackLeadGenerated(createdLeadId, leadPayload.service, leadPayload.projectType, leadSource);
       }
 
       // Synchronize with Prototype Admin Dashboard in localStorage as backward compatibility
@@ -573,19 +641,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedInquiries = JSON.parse(localStorage.getItem('kns_inquiries') || '[]');
         savedInquiries.unshift({
           ...leadPayload,
-          id: 'kns_lead_' + Date.now(),
+          id: createdLeadId,
           submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
         });
         localStorage.setItem('kns_inquiries', JSON.stringify(savedInquiries.slice(0, 50)));
       } catch (storageErr) {}
-
-      // Dispatch Conversion Analytics Event
-      window.trackKnsEvent('consultation_form_submit', {
-        form_id: form.id,
-        project_type: leadPayload.projectType,
-        location: leadPayload.location,
-        budget: leadPayload.budget
-      });
 
       // UI Feedback State
       const submitBtn = form.querySelector('button[type="submit"]');

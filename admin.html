@@ -442,6 +442,7 @@
         <button class="tab-btn active" id="tabLeadsBtn" onclick="switchAdminTab('leads')">Client Enquiries &amp; Leads</button>
         <button class="tab-btn" id="tabPlotsBtn" onclick="switchAdminTab('plots')">Villa Plots Management (100 Units)</button>
         <button class="tab-btn" id="tabProjectsBtn" onclick="switchAdminTab('projects')">Ongoing Construction Sites</button>
+        <button class="tab-btn" id="tabAnalyticsBtn" onclick="switchAdminTab('analytics')">Web Analytics &amp; Attribution</button>
       </div>
 
       <!-- ====================================================================
@@ -621,6 +622,91 @@
         </div>
       </section>
 
+      <!-- ====================================================================
+           TAB 4: WEB ANALYTICS & ATTRIBUTION SUMMARY
+           ==================================================================== -->
+      <section class="admin-card" id="sectionAnalytics" style="display: none;">
+        <div class="card-head-bar">
+          <div>
+            <h2 class="card-head-title">Web Analytics &amp; Channel Attribution</h2>
+            <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
+              Privacy-conscious conversion tracking configuration and verified inbound lead attribution.
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="https://analytics.google.com/" target="_blank" rel="noopener noreferrer" class="btn-primary-architectural" style="padding: 9px 14px; font-size: 0.8rem; text-decoration: none;">
+              GOOGLE ANALYTICS CONSOLE &nearr;
+            </a>
+            <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer" class="btn-toggle-status" style="padding: 9px 14px; font-size: 0.8rem; text-decoration: none;">
+              SEARCH CONSOLE &nearr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Analytics Infrastructure & Verification Status -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 28px;">
+          
+          <div style="background: #F8FAFC; border: 1px solid var(--border-silver); border-radius: var(--radius-sm); padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-weight: 700; font-size: 0.85rem; color: var(--charcoal-deep); text-transform: uppercase; letter-spacing: 0.05em;">Google Analytics 4 (GA4)</span>
+              <span id="ga4StatusBadge" class="backend-mode-pill standalone">READY FOR CONFIGURATION</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--charcoal-muted); line-height: 1.5; margin-bottom: 14px;">
+              The tracking foundation in <code>js/analytics.js</code> is fully prepared with automated PII sanitization, event deduplication, and custom conversion events across all 11 public pages.
+            </p>
+            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 12px; border-radius: 4px; font-size: 0.8rem; color: #334155;">
+              <strong>Configuration Location:</strong><br>
+              <code>js/analytics.js &rarr; GA_MEASUREMENT_ID</code><br>
+              <span style="color: #64748B; font-size: 0.76rem;">Integration remains safely inactive until client supplies real GA4 ID (e.g. <code>G-XXXXXXXXXX</code>).</span>
+            </div>
+          </div>
+
+          <div style="background: #F8FAFC; border: 1px solid var(--border-silver); border-radius: var(--radius-sm); padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-weight: 700; font-size: 0.85rem; color: var(--charcoal-deep); text-transform: uppercase; letter-spacing: 0.05em;">Google Search Console</span>
+              <span class="backend-mode-pill connected">INDEXING READY</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--charcoal-muted); line-height: 1.5; margin-bottom: 14px;">
+              Technical SEO assets are verified. Search robots can crawl all public pages while admin portal is secured with <code>noindex, nofollow</code>.
+            </p>
+            <ul style="margin: 0; padding-left: 18px; font-size: 0.8rem; color: #334155; line-height: 1.6;">
+              <li>Sitemap: <a href="sitemap.xml" target="_blank" style="color: var(--kns-gold); font-weight: 600;">/sitemap.xml</a> (11 URLs)</li>
+              <li>Robots: <a href="robots.txt" target="_blank" style="color: var(--kns-gold); font-weight: 600;">/robots.txt</a> (Verified clean)</li>
+              <li>Canonical tags &amp; Schema.org LD+JSON implemented</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Verified Inbound Lead Acquisition Channels (Actual Database Records) -->
+        <div style="margin-top: 10px;">
+          <h3 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--charcoal-deep); margin-bottom: 6px;">
+            Inbound Lead Channel Attribution (Backend Records)
+          </h3>
+          <p style="font-size: 0.82rem; color: var(--charcoal-muted); margin-bottom: 16px;">
+            Attribution computed directly from genuine enquiries stored in the KNS backend database (<code>data/leads.json</code>).
+          </p>
+
+          <div class="admin-table-wrapper">
+            <table class="admin-table" id="analyticsSourcesTable">
+              <thead>
+                <tr>
+                  <th>Acquisition Source</th>
+                  <th>Campaign / Medium</th>
+                  <th>Total Leads</th>
+                  <th>Converted Leads</th>
+                  <th>Share of Enquiries</th>
+                </tr>
+              </thead>
+              <tbody id="analyticsSourcesTableBody">
+                <!-- Dynamically generated from genuine backend lead records -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
     </main>
   </div>
 
@@ -709,6 +795,10 @@
             <div>
               <div class="detail-label">Lead Source</div>
               <div class="detail-val" id="detailSource" style="margin-top: 4px;">-</div>
+            </div>
+            <div>
+              <div class="detail-label">Campaign Attribution</div>
+              <div class="detail-val" id="detailCampaign" style="margin-top: 4px;">-</div>
             </div>
             <div>
               <div class="detail-label">Received Date</div>
@@ -946,6 +1036,7 @@
           allLeads = response.leads || [];
           updateKpis(response.stats);
           renderLeadsTable(allLeads);
+          renderAnalyticsAttribution();
         }
       } catch (err) {
         console.error('[KNS Admin] Error loading leads:', err);
@@ -1094,6 +1185,8 @@
 
         document.getElementById('detailStatusSelect').value = lead.status;
         document.getElementById('detailSource').textContent = lead.source || 'Website Form';
+        const campaignParts = [lead.utmSource, lead.utmMedium, lead.utmCampaign].filter(Boolean);
+        document.getElementById('detailCampaign').textContent = campaignParts.length > 0 ? campaignParts.join(' / ') : (lead.source ? lead.source : 'Direct / Organic');
         document.getElementById('detailCreatedAt').textContent = new Date(lead.createdAt).toLocaleString('en-IN');
         document.getElementById('detailUpdatedAt').textContent = lead.updatedAt ? new Date(lead.updatedAt).toLocaleString('en-IN') : 'N/A';
 
@@ -1241,6 +1334,7 @@
       document.getElementById('sectionLeads').style.display = 'none';
       document.getElementById('sectionPlots').style.display = 'none';
       document.getElementById('sectionProjects').style.display = 'none';
+      document.getElementById('sectionAnalytics').style.display = 'none';
 
       if (tabName === 'leads') {
         document.getElementById('tabLeadsBtn').classList.add('active');
@@ -1251,7 +1345,54 @@
       } else if (tabName === 'projects') {
         document.getElementById('tabProjectsBtn').classList.add('active');
         document.getElementById('sectionProjects').style.display = 'block';
+      } else if (tabName === 'analytics') {
+        document.getElementById('tabAnalyticsBtn').classList.add('active');
+        document.getElementById('sectionAnalytics').style.display = 'block';
+        renderAnalyticsAttribution();
       }
+    }
+
+    function renderAnalyticsAttribution() {
+      const tbody = document.getElementById('analyticsSourcesTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (!allLeads || allLeads.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 24px; color: #888;">No leads recorded in backend yet.</td></tr>';
+        return;
+      }
+
+      const channelMap = {};
+      allLeads.forEach(lead => {
+        const src = lead.utmSource || lead.source || 'Website Form';
+        const med = lead.utmMedium ? `${lead.utmMedium}${lead.utmCampaign ? ' (' + lead.utmCampaign + ')' : ''}` : 'Direct / Referral';
+        const key = `${src}:::${med}`;
+
+        if (!channelMap[key]) {
+          channelMap[key] = { source: src, medium: med, total: 0, converted: 0 };
+        }
+        channelMap[key].total++;
+        if ((lead.status || '').toLowerCase() === 'converted') {
+          channelMap[key].converted++;
+        }
+      });
+
+      const totalLeadsCount = allLeads.length;
+      const sortedKeys = Object.keys(channelMap).sort((a, b) => channelMap[b].total - channelMap[a].total);
+
+      sortedKeys.forEach(key => {
+        const item = channelMap[key];
+        const share = totalLeadsCount > 0 ? ((item.total / totalLeadsCount) * 100).toFixed(1) : '0.0';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${item.source}</strong></td>
+          <td><span style="font-size: 0.84rem; color: #475569;">${item.medium}</span></td>
+          <td><span style="font-weight: 700;">${item.total}</span></td>
+          <td><span style="color: #10B981; font-weight: 700;">${item.converted}</span></td>
+          <td>${share}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
     function initPlotsData() {

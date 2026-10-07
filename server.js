@@ -366,6 +366,9 @@ const server = http.createServer(async (req, res) => {
           budget: sanitize(body.budget || ''),
           message: sanitize(body.message || ''),
           source: sanitize(body.source || 'Website Consultation Form'),
+          utmSource: sanitize(body.utmSource || ''),
+          utmMedium: sanitize(body.utmMedium || ''),
+          utmCampaign: sanitize(body.utmCampaign || ''),
           status: 'New',
           notes: [
             {
