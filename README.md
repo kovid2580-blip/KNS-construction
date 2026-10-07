@@ -118,51 +118,94 @@ The universal event dispatcher `window.trackKnsEvent(eventName, params)` fires h
 
 ---
 
-## 🔌 Connecting to a Production Form Backend
+## 💼 Phase 4 — Step 8: Admin & Lead Management System
 
-To connect the consultation form (`#knsContactForm` and `#contactForm`) to a live email service or CRM:
+The administrative portal (`admin.html`) has been upgraded into a clean, production-oriented Lead Management System with dual-mode architecture (REST API + Standalone Preview fallback).
 
-### Option A: Using Formspree / Web3Forms
-Update the `<form>` element in `index.html` and `contact.html`:
-```html
-<form id="knsContactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+### 1. Lead Data Model
+```json
+{
+  "id": "KNS-L-1001",
+  "name": "Venkat Reddy",
+  "phone": "+91 98490 12345",
+  "email": "venkat.reddy@example.com",
+  "service": "Villa Plot Inquiry",
+  "projectType": "Villa Plot (Sangareddy)",
+  "location": "Patancheru / Sangareddy",
+  "plotSize": "250 Sq. Yards (Plot #18)",
+  "constructionArea": "N/A",
+  "budget": "₹40 Lakhs – ₹75 Lakhs",
+  "message": "Interested in North-facing 250 Sq. Yards plot in KNS Premium Villa Community.",
+  "source": "Website Consultation Form",
+  "status": "Contacted",
+  "notes": [
+    {
+      "id": "n_1001_1",
+      "text": "Initial inquiry received via website.",
+      "author": "System",
+      "createdAt": "2026-10-06T10:15:00.000Z"
+    }
+  ],
+  "createdAt": "2026-10-06T10:15:00.000Z",
+  "updatedAt": "2026-10-06T14:30:00.000Z"
+}
 ```
 
-### Option B: Using Custom REST API / AWS Lambda
-In `js/main.js`, locate the `leadPayload` block in `setupFormValidationAndTracking()` and replace the simulation timer with:
-```javascript
-fetch('https://api.yourdomain.com/v1/inquiries', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(leadPayload)
-})
-.then(response => response.json())
-.then(data => {
-  // Show success feedback
-})
-.catch(err => {
-  // Show error feedback
-});
-```
+### 2. Lead Status Workflow
+1. **`New`** &mdash; Fresh inbound inquiry submitted via website or helpline.
+2. **`Contacted`** &mdash; Initial phone call or WhatsApp discussion initiated.
+3. **`In Progress`** &mdash; Architectural consultation, site visit, or custom estimate in review.
+4. **`Converted`** &mdash; Contract agreement executed, token advance paid, or construction commenced.
+5. **`Closed`** &mdash; Archived or fulfilled inquiry.
+
+### 3. REST API Architecture (`server.js`)
+Production-ready Node.js backend using standard library modules (zero external npm dependencies required):
+* `POST /api/auth/login` &mdash; Authenticates administrator and generates 24-hour cryptographic session token.
+* `POST /api/auth/logout` &mdash; Invalidates session token.
+* `GET /api/auth/me` &mdash; Validates `Authorization: Bearer <token>` and returns user profile.
+* `GET /api/leads` &mdash; Returns lead inquiries with live search, status filter (`?status=...`), and sorting (`?sort=newest|oldest|updated`), along with real-time KPI stats.
+* `POST /api/leads` &mdash; Public/protected intake endpoint; validates inputs, sanitizes HTML to prevent XSS, assigns unique `KNS-L-XXXX` ID, and persists to `data/leads.json`.
+* `GET /api/leads/:id` &mdash; Retrieves single lead record with complete notes thread.
+* `PATCH /api/leads/:id` &mdash; Updates lead details, changes status, or appends timestamped internal follow-up notes.
+* `DELETE /api/leads/:id` &mdash; Permanently removes a lead record.
+
+### 4. Admin Portal Features (`admin.html`)
+* **Session Authentication:** Unauthenticated visitors are presented with the secure architectural login screen. No dashboard data is exposed without authenticating.
+* **Live KPI Cards:** Displays Total Leads, New Leads, Contacted, In Progress, Converted, and Closed metrics. Clicking any card instantly filters the lead list.
+* **Lead Details Drawer/Modal:** Detailed view showing Contact Information, Project Requirements, Status controller with instant update, and chronological Admin Notes timeline.
+* **Direct Connect Actions:** 1-click `📞 Call`, `💬 WhatsApp` (with sensible prefilled message), and `✉️ Email` actions.
+* **Manual Lead Intake:** `+ NEW INQUIRY` modal for logging phone calls, walk-ins, and site visits.
+* **CSV Export:** Downloads all active or filtered leads in standardized CSV format.
+* **Villa Plots Management:** Preserved interactive 100-plot inventory table with live status toggling (Available / Reserved / Sold).
 
 ---
 
 ## 🚀 Running Locally & Production Deployment
 
-### Running Locally
+### Option 1: Running with Full REST API Server (Recommended)
 ```bash
-# Python
-python -m http.server 8080
+# Starts Node.js REST server on port 8080 (serves static assets + /api/leads)
+node server.js
 
-# Or Node.js
-npx serve .
+# Or using npm
+npm start
 ```
-Visit `http://localhost:8080` in your web browser.
+* **Public Website:** `http://localhost:8080`
+* **Admin Portal:** `http://localhost:8080/admin.html`
+* **Default Admin Credentials (Development):** Username: `admin` | Password: `kns2026`
+
+### Option 2: Running with Static Preview Server
+```bash
+# Python static server
+python -m http.server 8080
+```
+*The client API (`js/api.js`) automatically operates in Standalone Client Preview Mode with local data persistence when a backend is not detected.*
 
 ### Production Hosting Checklist
-1. **Host:** Deploy directly to any static host (Cloudflare Pages, Vercel, Netlify, AWS S3 + CloudFront, or GitHub Pages).
-2. **Custom Domain:** Point your domain DNS (e.g. `knsconstruction.com`) to your hosting provider's CNAME / A records.
-3. **SSL Certificate:** Enable HTTPS everywhere (enforced automatically on modern static hosts).
-4. **Form Integration:** Set up the backend form action or API endpoint (Option A or B above).
-5. **Analytics:** If using GA4 or GTM, add your measurement ID script tag into `<head>`.
-6. **Internal Admin Protection:** Protect `/admin.html` with basic authentication or hosting-level firewall rules before deploying to a public domain.
+1. **Host:** Deploy directly to any Node.js host (Render, Railway, AWS EC2, DigitalOcean) or serverless static host (Cloudflare Pages, Vercel, Netlify).
+2. **Environment Variables:**
+   * `PORT` (e.g. `8080`)
+   * `KNS_ADMIN_USER` (Production admin username)
+   * `KNS_ADMIN_PASSWORD` (Production admin secure password hash / string)
+3. **Database Upgrade:** In high-volume production, replace the atomic file storage in `server.js` with PostgreSQL, MongoDB, or MySQL by swapping the `readLeads()` and `writeLeads()` helper methods.
+4. **SSL Certificate:** Enforce HTTPS everywhere in production.

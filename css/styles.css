@@ -2089,3 +2089,389 @@ img {
   border: 1px solid rgba(220, 38, 38, 0.35);
   color: #B91C1C;
 }
+
+/* ==========================================================================
+   27. ADMIN & LEAD MANAGEMENT PORTAL (PHASE 4 - STEP 8)
+   ========================================================================== */
+
+/* Authentication Overlay / Screen */
+.admin-auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
+  padding: 24px;
+}
+
+.admin-auth-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  max-width: 440px;
+  width: 100%;
+  padding: 36px 32px;
+  position: relative;
+}
+
+.admin-auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.admin-auth-logo {
+  height: 52px;
+  width: auto;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+}
+
+.admin-auth-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  color: var(--charcoal-deep);
+  margin-bottom: 6px;
+}
+
+.admin-auth-subtitle {
+  font-size: 0.82rem;
+  color: var(--charcoal-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.admin-auth-alert {
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.admin-auth-alert.error {
+  display: block;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #B91C1C;
+}
+
+/* Lead Status Badges */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.status-pill::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-pill.status-new {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+}
+.status-pill.status-new::before { background: #D97706; }
+
+.status-pill.status-contacted {
+  background: #DBEAFE;
+  color: #1E40AF;
+  border: 1px solid #BFDBFE;
+}
+.status-pill.status-contacted::before { background: #2563EB; }
+
+.status-pill.status-inprogress {
+  background: #FFEDD5;
+  color: #9A3412;
+  border: 1px solid #FED7AA;
+}
+.status-pill.status-inprogress::before { background: #EA580C; }
+
+.status-pill.status-converted {
+  background: #DCFCE7;
+  color: #166534;
+  border: 1px solid #BBF7D0;
+}
+.status-pill.status-converted::before { background: #16A34A; }
+
+.status-pill.status-closed {
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+}
+.status-pill.status-closed::before { background: #64748B; }
+
+/* Filter Tabs / Pills */
+.leads-filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.filter-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-silver);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--charcoal-deep);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-pill-btn:hover {
+  border-color: var(--navy-midnight);
+  background: #F8FAFC;
+}
+
+.filter-pill-btn.active {
+  background: var(--navy-midnight);
+  color: #FFFFFF;
+  border-color: var(--navy-midnight);
+}
+
+.filter-pill-btn .pill-count {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.filter-pill-btn.active .pill-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+/* Action Buttons */
+.btn-lead-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-lead-action.call {
+  background: #0284C7;
+  color: #FFFFFF;
+}
+.btn-lead-action.call:hover { background: #0369A1; }
+
+.btn-lead-action.wa {
+  background: #16A34A;
+  color: #FFFFFF;
+}
+.btn-lead-action.wa:hover { background: #15803D; }
+
+.btn-lead-action.email {
+  background: #475569;
+  color: #FFFFFF;
+}
+.btn-lead-action.email:hover { background: #334155; }
+
+.btn-lead-action.view {
+  background: var(--navy-midnight);
+  color: #FFFFFF;
+}
+.btn-lead-action.view:hover { background: var(--charcoal-deep); }
+
+.btn-lead-action.delete {
+  background: transparent;
+  color: #DC2626;
+  border: 1px solid #FCA5A5;
+}
+.btn-lead-action.delete:hover {
+  background: #FEE2E2;
+}
+
+/* Modals */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.admin-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.admin-modal-box {
+  background: #FFFFFF;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: adminModalSlideIn 0.25s ease-out;
+}
+
+@keyframes adminModalSlideIn {
+  from { transform: translateY(18px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.admin-modal-header {
+  padding: 20px 24px;
+  background: var(--silver-tint);
+  border-bottom: 1px solid var(--border-silver);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--charcoal-deep);
+  margin: 0;
+}
+
+.admin-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--charcoal-muted);
+  cursor: pointer;
+  padding: 4px;
+}
+.admin-modal-close:hover { color: var(--charcoal-deep); }
+
+.admin-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.admin-modal-footer {
+  padding: 16px 24px;
+  background: #F8FAFC;
+  border-top: 1px solid var(--border-silver);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Detail Modal Sections */
+.detail-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.detail-section-card {
+  background: #F8FAFC;
+  border: 1px solid var(--border-silver);
+  border-radius: 6px;
+  padding: 16px 18px;
+}
+
+.detail-section-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--kns-gold);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+}
+.detail-item:last-child { margin-bottom: 0; }
+
+.detail-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--charcoal-muted);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.detail-val {
+  font-size: 0.9rem;
+  color: var(--charcoal-deep);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* Notes Thread */
+.notes-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.note-bubble {
+  background: #FFFFFF;
+  border: 1px solid var(--border-silver);
+  border-left: 3px solid var(--kns-gold);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--charcoal-muted);
+  margin-bottom: 4px;
+}
+
+/* Responsive Table Card fallback */
+@media (max-width: 900px) {
+  .detail-grid-2col {
+    grid-template-columns: 1fr;
+  }
+}

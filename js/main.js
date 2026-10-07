@@ -546,29 +546,38 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Collect Inquiry Payload
+      // Collect Inquiry Payload adhering to KNS Lead Data Model
       const leadPayload = {
-        id: 'kns_lead_' + Date.now(),
-        submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
         name: nameInput?.value.trim() || 'Anonymous',
         phone: phoneInput?.value.trim() || '',
         email: emailInput?.value.trim() || '',
+        service: typeSelect?.value || 'General Inquiry',
         projectType: typeSelect?.value || 'General Inquiry',
         location: form.querySelector('#contactLocation, #siteLocation')?.value.trim() || 'Kondapur / Hyderabad',
         plotSize: form.querySelector('#contactPlotSize, #plotSize')?.value.trim() || '',
         constructionArea: form.querySelector('#contactArea, #constructionArea')?.value.trim() || '',
         budget: form.querySelector('#contactBudget, #budgetRange')?.value.trim() || '',
-        message: form.querySelector('#contactMessage, #projectMessage')?.value.trim() || ''
+        message: form.querySelector('#contactMessage, #projectMessage')?.value.trim() || '',
+        source: 'Website Consultation Form'
       };
 
-      // Synchronize with Prototype Admin Dashboard in localStorage
+      // Create Lead Record via Unified API Layer
+      if (window.knsApi && typeof window.knsApi.createLead === 'function') {
+        window.knsApi.createLead(leadPayload).catch(err => {
+          console.warn('[KNS Form] API lead creation notice:', err);
+        });
+      }
+
+      // Synchronize with Prototype Admin Dashboard in localStorage as backward compatibility
       try {
         const savedInquiries = JSON.parse(localStorage.getItem('kns_inquiries') || '[]');
-        savedInquiries.unshift(leadPayload);
+        savedInquiries.unshift({
+          ...leadPayload,
+          id: 'kns_lead_' + Date.now(),
+          submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+        });
         localStorage.setItem('kns_inquiries', JSON.stringify(savedInquiries.slice(0, 50)));
-      } catch (storageErr) {
-        // Safe fallback if storage quota exceeded or disabled
-      }
+      } catch (storageErr) {}
 
       // Dispatch Conversion Analytics Event
       window.trackKnsEvent('consultation_form_submit', {
@@ -586,16 +595,6 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
       }
 
-      /* 
-         PRODUCTION INTEGRATION POINT:
-         To wire this form directly into production email/CRM services:
-         Replace this setTimeout block with your backend REST API or Form service:
-         e.g. fetch('https://api.yourdomain.com/v1/inquiries', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(leadPayload)
-              });
-      */
       setTimeout(() => {
         if (submitBtn) {
           submitBtn.textContent = 'Consultation Requested ✓';

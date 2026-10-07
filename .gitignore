@@ -21,6 +21,8 @@ secrets.json
 
 # Temporary, Scratch & Log files
 *.log
+*.tmp
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

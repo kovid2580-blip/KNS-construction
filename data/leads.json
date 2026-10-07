@@ -1,0 +1,114 @@
+[
+  {
+    "id": "KNS-L-1001",
+    "name": "[TEST DATA] Venkat Reddy",
+    "phone": "+91 98490 12345",
+    "email": "venkat.reddy@example.com",
+    "service": "Villa Plot Inquiry",
+    "projectType": "Villa Plot (Sangareddy)",
+    "location": "Patancheru / Sangareddy",
+    "plotSize": "250 Sq. Yards (Plot #18)",
+    "constructionArea": "N/A",
+    "budget": "₹40 Lakhs – ₹75 Lakhs",
+    "message": "[TEST DATA] Interested in North-facing 250 Sq. Yards plot in KNS Premium Villa Community.",
+    "source": "Website Consultation Form",
+    "status": "Contacted",
+    "notes": [
+      {
+        "id": "n_1001_1",
+        "text": "Initial inquiry received via website.",
+        "author": "System",
+        "createdAt": "2026-10-06T10:15:00.000Z"
+      },
+      {
+        "id": "n_1001_2",
+        "text": "Called client. Verified interest in Plot #18. Scheduled site visit for coming Saturday.",
+        "author": "Kiran Gajbhare",
+        "createdAt": "2026-10-06T14:30:00.000Z"
+      }
+    ],
+    "createdAt": "2026-10-06T10:15:00.000Z",
+    "updatedAt": "2026-10-06T14:30:00.000Z"
+  },
+  {
+    "id": "KNS-L-1002",
+    "name": "[TEST DATA] Dr. S. K. Sharma",
+    "phone": "+91 99891 56789",
+    "email": "dr.sharma@example.com",
+    "service": "Turnkey Construction",
+    "projectType": "Premium Residential Turnkey",
+    "location": "Raghavendra Colony, Kondapur",
+    "plotSize": "300 Sq. Yards",
+    "constructionArea": "3,200 SFT",
+    "budget": "₹75 Lakhs – ₹1.5 Crores",
+    "message": "[TEST DATA] Planning G+2 duplex construction with premium finishes in Kondapur.",
+    "source": "Website Consultation Form",
+    "status": "New",
+    "notes": [
+      {
+        "id": "n_1002_1",
+        "text": "Inquiry received via website consultation form.",
+        "author": "System",
+        "createdAt": "2026-10-07T08:45:00.000Z"
+      }
+    ],
+    "createdAt": "2026-10-07T08:45:00.000Z",
+    "updatedAt": "2026-10-07T08:45:00.000Z"
+  },
+  {
+    "id": "KNS-L-1003",
+    "name": "[TEST DATA] Anand Rao",
+    "phone": "+91 91212 98765",
+    "email": "anand.rao@example.com",
+    "service": "Commercial Construction",
+    "projectType": "Commercial Plaza",
+    "location": "Miyapur / Kondapur Main Road",
+    "plotSize": "400 Sq. Yards",
+    "constructionArea": "4,200 SFT",
+    "budget": "Above ₹1.5 Crores",
+    "message": "[TEST DATA] Ground + 2 commercial retail floor space project inquiry.",
+    "source": "WhatsApp Direct Inquiry",
+    "status": "In Progress",
+    "notes": [
+      {
+        "id": "n_1003_1",
+        "text": "Inquiry routed from WhatsApp helpline.",
+        "author": "System",
+        "createdAt": "2026-10-05T11:20:00.000Z"
+      },
+      {
+        "id": "n_1003_2",
+        "text": "Shared indicative cost estimate based on ₹2,200–₹2,500/SFT commercial package.",
+        "author": "Kiran Gajbhare",
+        "createdAt": "2026-10-05T16:00:00.000Z"
+      }
+    ],
+    "createdAt": "2026-10-05T11:20:00.000Z",
+    "updatedAt": "2026-10-05T16:00:00.000Z"
+  },
+  {
+    "id": "KNS-L-1004",
+    "name": "[TEST DATA] Praveen Varma",
+    "phone": "+91 94401 22334",
+    "email": "praveen.varma@example.com",
+    "service": "Villa Plot Inquiry",
+    "projectType": "Villa Plot (Sangareddy)",
+    "location": "Patancheru / Sangareddy",
+    "plotSize": "250 Sq. Yards (Plot #42)",
+    "constructionArea": "N/A",
+    "budget": "₹40 Lakhs – ₹75 Lakhs",
+    "message": "[TEST DATA] East-facing corner plot inquiry in Sangareddy villa layout.",
+    "source": "Direct Office Walk-in",
+    "status": "Converted",
+    "notes": [
+      {
+        "id": "n_1004_1",
+        "text": "Met at Kondapur office. Token advance paid for Plot #42.",
+        "author": "Kiran Gajbhare",
+        "createdAt": "2026-10-03T15:30:00.000Z"
+      }
+    ],
+    "createdAt": "2026-10-03T15:30:00.000Z",
+    "updatedAt": "2026-10-04T12:00:00.000Z"
+  }
+]

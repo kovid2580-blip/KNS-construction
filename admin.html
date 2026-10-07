@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Operations & Plot Management Dashboard | KNS Construction & Real Estate</title>
-  <meta name="description" content="Internal operations portal for KNS Construction & Real Estate. Manage villa plot inventories, client consultations, and construction milestones.">
+  <title>Operations & Lead Management Portal | KNS Construction & Real Estate</title>
+  <meta name="description" content="Authorized management portal for KNS Construction & Real Estate. Manage client inquiries, villa plot inventories, and construction milestones.">
   <meta name="robots" content="noindex, nofollow">
   
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -15,6 +15,7 @@
   <style>
     body {
       background: #F1F3F5;
+      min-height: 100vh;
     }
     .admin-nav-bar {
       background: var(--navy-midnight);
@@ -51,6 +52,23 @@
       text-transform: uppercase;
       border-radius: var(--radius-sm);
     }
+    .backend-mode-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .backend-mode-pill.connected {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .backend-mode-pill.standalone {
+      background: rgba(245, 158, 11, 0.2);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
     .admin-user-pill {
       display: flex;
       align-items: center;
@@ -70,6 +88,21 @@
       font-weight: 700;
       font-size: 0.85rem;
     }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-logout:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #FFFFFF;
+    }
     .admin-container {
       max-width: 1360px;
       margin: 32px auto;
@@ -80,6 +113,8 @@
       justify-content: space-between;
       align-items: flex-end;
       margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
     }
     .admin-title {
       font-family: var(--font-serif);
@@ -95,37 +130,36 @@
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 18px;
-      margin-bottom: 32px;
+      gap: 16px;
+      margin-bottom: 28px;
     }
     .kpi-card {
       background: #FFFFFF;
       border: 1px solid var(--border-silver);
       border-radius: var(--radius-sm);
-      padding: 20px;
+      padding: 18px;
       box-shadow: var(--shadow-subtle);
       border-top: 3px solid var(--border-silver);
       transition: transform 0.2s ease;
+      cursor: pointer;
     }
     .kpi-card:hover {
       transform: translateY(-2px);
     }
-    .kpi-card.gold-accent {
-      border-top-color: var(--kns-gold);
-    }
-    .kpi-card.navy-accent {
-      border-top-color: var(--navy-midnight);
-    }
-    .kpi-card.green-accent {
-      border-top-color: #10B981;
-    }
+    .kpi-card.gold-accent { border-top-color: var(--kns-gold); }
+    .kpi-card.navy-accent { border-top-color: var(--navy-midnight); }
+    .kpi-card.blue-accent { border-top-color: #0284C7; }
+    .kpi-card.orange-accent { border-top-color: #EA580C; }
+    .kpi-card.green-accent { border-top-color: #10B981; }
+    .kpi-card.slate-accent { border-top-color: #64748B; }
+
     .kpi-label {
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--charcoal-muted);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .kpi-val {
       font-family: var(--font-serif);
@@ -179,7 +213,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
       gap: 16px;
     }
@@ -188,26 +222,25 @@
       font-size: 1.45rem;
       color: var(--charcoal-deep);
     }
-    /* Plot Filter Toolbar */
-    .plot-toolbar {
+    .admin-toolbar {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       align-items: center;
       flex-wrap: wrap;
     }
     .search-input {
-      padding: 8px 14px;
+      padding: 9px 14px;
       border: 1px solid var(--border-silver);
       border-radius: var(--radius-sm);
       font-size: 0.88rem;
       outline: none;
-      min-width: 220px;
+      min-width: 260px;
     }
     .search-input:focus {
       border-color: var(--kns-gold);
     }
     .filter-select {
-      padding: 8px 12px;
+      padding: 9px 12px;
       border: 1px solid var(--border-silver);
       border-radius: var(--radius-sm);
       font-size: 0.88rem;
@@ -235,6 +268,7 @@
       letter-spacing: 0.08em;
       color: var(--charcoal-deep);
       border-bottom: 1px solid var(--border-silver);
+      white-space: nowrap;
     }
     .admin-table td {
       padding: 14px 16px;
@@ -245,337 +279,980 @@
     .admin-table tr:hover {
       background: #FAFAFA;
     }
-    .status-badge {
-      display: inline-block;
-      padding: 4px 10px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border-radius: 4px;
+    /* Empty State */
+    .empty-state-box {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--charcoal-muted);
     }
-    .status-available {
-      background: #D1FAE5;
-      color: #065F46;
+    .empty-state-icon {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      opacity: 0.6;
     }
-    .status-reserved {
-      background: #FEF3C7;
-      color: #92400E;
-    }
-    .status-sold {
-      background: #FEE2E2;
-      color: #991B1B;
-    }
-    .btn-toggle-status {
-      padding: 5px 10px;
-      border: 1px solid var(--border-silver);
-      background: #FFFFFF;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .btn-toggle-status:hover {
-      background: var(--silver-tint);
-      border-color: var(--charcoal-deep);
-    }
-    .btn-whatsapp-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
-      background: #25D366;
-      color: #FFFFFF;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-decoration: none;
-    }
-    .btn-action-view {
-      padding: 5px 12px;
-      background: var(--navy-midnight);
-      color: #FFFFFF;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-decoration: none;
+    .empty-state-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: var(--charcoal-deep);
+      margin-bottom: 6px;
     }
     @media (max-width: 1200px) {
-      .kpi-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 768px) {
-      .kpi-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .admin-header-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-      }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .admin-header-row { flex-direction: column; align-items: flex-start; }
+      .admin-tabs { flex-wrap: wrap; }
+      .search-input { min-width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Admin Navbar -->
-  <header class="admin-nav-bar">
-    <div class="container admin-nav-container">
-      <a href="index.html" class="admin-brand">
-        <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="admin-logo">
-        <span class="admin-badge">PORTAL</span>
-      </a>
+  <!-- ========================================================================
+       1. AUTHENTICATION VIEW (SHOWN WHEN NOT LOGGED IN)
+       ======================================================================== -->
+  <div id="adminAuthView" class="admin-auth-wrapper">
+    <div class="admin-auth-card">
+      <div class="admin-auth-header">
+        <img src="assets/images/kns-logo-full.png" alt="KNS Construction & Real Estate" class="admin-auth-logo">
+        <h1 class="admin-auth-title">OPERATIONS PORTAL</h1>
+        <div class="admin-auth-subtitle">Proprietor & Staff Authentication</div>
+      </div>
 
-      <div style="display: flex; align-items: center; gap: 20px;">
-        <a href="index.html" style="color: #94A3B8; text-decoration: none; font-size: 0.85rem; font-weight: 600;">&larr; View Public Site</a>
-        <div class="admin-user-pill">
-          <div class="admin-avatar">KG</div>
+      <div id="authAlertBox" class="admin-auth-alert"></div>
+
+      <form id="adminLoginForm">
+        <div style="margin-bottom: 18px;">
+          <label for="adminUsername" class="detail-label" style="display:block; margin-bottom: 6px;">Admin Username / Email</label>
+          <input type="text" id="adminUsername" class="search-input" style="width: 100%; box-sizing: border-box;" placeholder="e.g. admin or knsconstructions@gmail.com" required autocomplete="username">
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <label for="adminPassword" class="detail-label" style="display:block; margin-bottom: 6px;">Password</label>
+          <input type="password" id="adminPassword" class="search-input" style="width: 100%; box-sizing: border-box;" placeholder="Enter authorized password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" id="btnAdminLogin" class="btn-primary-architectural" style="width: 100%; justify-content: center; padding: 14px;">
+          SIGN IN TO PORTAL &rarr;
+        </button>
+
+        <div style="margin-top: 20px; font-size: 0.78rem; color: #64748B; text-align: center; line-height: 1.5; border-top: 1px solid #E2E8F0; padding-top: 16px;">
+          <strong>Security Notice:</strong> Authorized access for KNS Construction management.
+          <br><span style="color: var(--kns-gold); font-weight: 600;">Default Test Access:</span> <code>admin</code> / <code>kns2026</code>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. DASHBOARD VIEW (AUTHENTICATED ADMINISTRATOR)
+       ======================================================================== -->
+  <div id="adminDashboardView" style="display: none;">
+
+    <!-- Top Admin Navbar -->
+    <header class="admin-nav-bar">
+      <div class="container admin-nav-container">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <a href="index.html" class="admin-brand">
+            <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="admin-logo">
+            <span class="admin-badge">PORTAL</span>
+          </a>
+          <span id="backendModeBadge" class="backend-mode-pill standalone">STANDALONE MODE</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 20px;">
+          <a href="index.html" target="_blank" rel="noopener noreferrer" style="color: #94A3B8; text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+            &larr; View Public Site
+          </a>
+          <div class="admin-user-pill">
+            <div class="admin-avatar">KG</div>
+            <div>
+              <div id="adminUserDisplayName" style="font-weight: 700; line-height: 1.2;">Kiran Gajbhare</div>
+              <div style="font-size: 0.75rem; color: #94A3B8;">Proprietor</div>
+            </div>
+          </div>
+          <button id="btnAdminLogout" class="btn-logout" title="Sign out of administrative portal">Sign Out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-container">
+
+      <!-- Header Title & Quick Actions -->
+      <div class="admin-header-row">
+        <div>
+          <h1 class="admin-title">Lead & Operations Management</h1>
+          <p class="admin-subtitle">Live consultation leads, villa plot inventory (100 units), and active construction milestones.</p>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn-primary-architectural" onclick="openNewLeadModal()" style="padding: 10px 16px; font-size: 0.82rem;">
+            + NEW INQUIRY
+          </button>
+          <button class="btn-toggle-status" onclick="exportLeadsCsv()" style="padding: 10px 16px; font-size: 0.82rem; font-weight: 700;">
+            📥 EXPORT CSV
+          </button>
+          <button class="btn-toggle-status" onclick="refreshLeadsData()" style="padding: 10px 16px; font-size: 0.82rem;">
+            🔄 REFRESH
+          </button>
+        </div>
+      </div>
+
+      <!-- 6 Lead KPI Cards Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card navy-accent" onclick="filterByStatus('all')">
+          <div class="kpi-label">Total Leads</div>
+          <div class="kpi-val" id="kpiTotalLeads">0</div>
+          <div class="kpi-subtext">All Inbound Inquiries</div>
+        </div>
+
+        <div class="kpi-card gold-accent" onclick="filterByStatus('new')">
+          <div class="kpi-label">New Leads</div>
+          <div class="kpi-val" id="kpiNewLeads">0</div>
+          <div class="kpi-subtext">Pending Initial Review</div>
+        </div>
+
+        <div class="kpi-card blue-accent" onclick="filterByStatus('contacted')">
+          <div class="kpi-label">Contacted</div>
+          <div class="kpi-val" id="kpiContactedLeads">0</div>
+          <div class="kpi-subtext">Initial Discussion Done</div>
+        </div>
+
+        <div class="kpi-card orange-accent" onclick="filterByStatus('in progress')">
+          <div class="kpi-label">In Progress</div>
+          <div class="kpi-val" id="kpiInProgressLeads">0</div>
+          <div class="kpi-subtext">Estimates & Site Visits</div>
+        </div>
+
+        <div class="kpi-card green-accent" onclick="filterByStatus('converted')">
+          <div class="kpi-label">Converted</div>
+          <div class="kpi-val" id="kpiConvertedLeads">0</div>
+          <div class="kpi-subtext">Bookings & Contracts</div>
+        </div>
+
+        <div class="kpi-card slate-accent" onclick="filterByStatus('closed')">
+          <div class="kpi-label">Closed</div>
+          <div class="kpi-val" id="kpiClosedLeads">0</div>
+          <div class="kpi-subtext">Archived / Inactive</div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-tabs">
+        <button class="tab-btn active" id="tabLeadsBtn" onclick="switchAdminTab('leads')">Client Enquiries &amp; Leads</button>
+        <button class="tab-btn" id="tabPlotsBtn" onclick="switchAdminTab('plots')">Villa Plots Management (100 Units)</button>
+        <button class="tab-btn" id="tabProjectsBtn" onclick="switchAdminTab('projects')">Ongoing Construction Sites</button>
+      </div>
+
+      <!-- ====================================================================
+           TAB 1: CLIENT ENQUIRIES & LEAD MANAGEMENT
+           ==================================================================== -->
+      <section class="admin-card" id="sectionLeads">
+        <div class="card-head-bar">
           <div>
-            <div style="font-weight: 700; line-height: 1.2;">Kiran Gajbhare</div>
-            <div style="font-size: 0.75rem; color: #94A3B8;">Proprietor</div>
+            <h2 class="card-head-title">Inbound Client Inquiries</h2>
+            <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
+              Manage prospective turnkey construction, duplex, apartment, and villa plot inquiries.
+            </p>
+          </div>
+
+          <div class="admin-toolbar">
+            <input type="text" id="leadsSearchInput" class="search-input" placeholder="Search by name, phone, email, project..." oninput="onLeadsSearchChange()">
+            <select id="leadsSortSelect" class="filter-select" onchange="onLeadsSortChange()">
+              <option value="newest">Sort: Newest First</option>
+              <option value="oldest">Sort: Oldest First</option>
+              <option value="updated">Sort: Recently Updated</option>
+            </select>
           </div>
         </div>
-      </div>
-    </div>
-  </header>
 
-  <main class="admin-container">
-    
-    <!-- Header Title -->
-    <div class="admin-header-row">
-      <div>
-        <h1 class="admin-title">Operational Overview</h1>
-        <p class="admin-subtitle">Real-time status of villa plot inventory, active Kondapur construction sites, and prospective inquiries.</p>
-      </div>
-      <div>
-        <button class="btn-primary-architectural" onclick="resetInventoryDemo()" style="padding: 10px 18px; font-size: 0.82rem;">
-          RESET INVENTORY STATE
-        </button>
-      </div>
-    </div>
+        <!-- Status Filter Pills Bar -->
+        <div class="leads-filter-bar">
+          <button class="filter-pill-btn active" data-status="all" onclick="filterByStatus('all')">
+            All Leads <span class="pill-count" id="countPillAll">0</span>
+          </button>
+          <button class="filter-pill-btn" data-status="new" onclick="filterByStatus('new')">
+            New <span class="pill-count" id="countPillNew">0</span>
+          </button>
+          <button class="filter-pill-btn" data-status="contacted" onclick="filterByStatus('contacted')">
+            Contacted <span class="pill-count" id="countPillContacted">0</span>
+          </button>
+          <button class="filter-pill-btn" data-status="in progress" onclick="filterByStatus('in progress')">
+            In Progress <span class="pill-count" id="countPillInProgress">0</span>
+          </button>
+          <button class="filter-pill-btn" data-status="converted" onclick="filterByStatus('converted')">
+            Converted <span class="pill-count" id="countPillConverted">0</span>
+          </button>
+          <button class="filter-pill-btn" data-status="closed" onclick="filterByStatus('closed')">
+            Closed <span class="pill-count" id="countPillClosed">0</span>
+          </button>
+        </div>
 
-    <!-- 6 Live KPI Metrics -->
-    <div class="kpi-grid">
-      <div class="kpi-card gold-accent">
-        <div class="kpi-label">Total Projects</div>
-        <div class="kpi-val">3</div>
-        <div class="kpi-subtext">Featured Flagships</div>
-      </div>
+        <!-- Leads Data Table -->
+        <div class="admin-table-wrapper">
+          <table class="admin-table" id="leadsTable">
+            <thead>
+              <tr>
+                <th>Lead ID &bull; Date</th>
+                <th>Client Name &amp; Contact</th>
+                <th>Requirement / Project</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Connect</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody">
+              <!-- Populated dynamically via JavaScript -->
+            </tbody>
+          </table>
+        </div>
 
-      <div class="kpi-card navy-accent">
-        <div class="kpi-label">Active Sites</div>
-        <div class="kpi-val">2</div>
-        <div class="kpi-subtext">Kondapur & Raghavendra Col.</div>
-      </div>
-
-      <div class="kpi-card green-accent">
-        <div class="kpi-label">Available Plots</div>
-        <div class="kpi-val" id="kpiAvailablePlots">68</div>
-        <div class="kpi-subtext">Sangareddy (Out of 100)</div>
-      </div>
-
-      <div class="kpi-card gold-accent">
-        <div class="kpi-label">Reserved Plots</div>
-        <div class="kpi-val" id="kpiReservedPlots">18</div>
-        <div class="kpi-subtext">Under Verification</div>
-      </div>
-
-      <div class="kpi-card navy-accent">
-        <div class="kpi-label">Sold Plots</div>
-        <div class="kpi-val" id="kpiSoldPlots">14</div>
-        <div class="kpi-subtext">Registered Deeded</div>
-      </div>
-
-      <div class="kpi-card gold-accent">
-        <div class="kpi-label">New Enquiries</div>
-        <div class="kpi-val" id="kpiEnquiriesCount">14</div>
-        <div class="kpi-subtext">Last 7 Days</div>
-      </div>
-    </div>
-
-    <!-- Navigation Tabs -->
-    <div class="admin-tabs">
-      <button class="tab-btn active" id="tabPlotsBtn" onclick="switchAdminTab('plots')">Villa Plots Management (100 Units)</button>
-      <button class="tab-btn" id="tabLeadsBtn" onclick="switchAdminTab('leads')">Client Enquiries & Site Visits</button>
-      <button class="tab-btn" id="tabProjectsBtn" onclick="switchAdminTab('projects')">Ongoing Construction Sites</button>
-    </div>
-
-    <!-- TAB 1: Villa Plots Management -->
-    <section class="admin-card" id="sectionPlots">
-      <div class="card-head-bar">
-        <div>
-          <h2 class="card-head-title">KNS Premium Villa Community Inventory</h2>
-          <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
-            Sangareddy &bull; 8.25 Acres &bull; 100 Villa Plots &bull; 250 Sq. Yards Each &bull; 40 FT Roads
+        <div id="leadsEmptyState" class="empty-state-box" style="display: none;">
+          <div class="empty-state-icon">📋</div>
+          <div class="empty-state-title">No enquiries found</div>
+          <p style="font-size: 0.88rem; max-width: 440px; margin: 0 auto 16px;">
+            No client inquiries match the current search or status filter.
           </p>
+          <button class="btn-toggle-status" onclick="filterByStatus('all')" style="padding: 8px 16px;">
+            Clear Filters &rarr;
+          </button>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 2: VILLA PLOTS MANAGEMENT (PRESERVED INTACT)
+           ==================================================================== -->
+      <section class="admin-card" id="sectionPlots" style="display: none;">
+        <div class="card-head-bar">
+          <div>
+            <h2 class="card-head-title">KNS Premium Villa Community Inventory</h2>
+            <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
+              Sangareddy &bull; 8.25 Acres &bull; 100 Villa Plots &bull; 250 Sq. Yards Each &bull; 40 FT Roads
+            </p>
+          </div>
+
+          <div class="plot-toolbar">
+            <input type="text" id="plotSearchInput" class="search-input" placeholder="Search Plot # (e.g. 24)..." oninput="filterPlotTable()">
+            <select id="plotFilterSelect" class="filter-select" onchange="filterPlotTable()">
+              <option value="all">All Plots (1-100)</option>
+              <option value="AVAILABLE">Available</option>
+              <option value="RESERVED">Reserved</option>
+              <option value="SOLD">Sold</option>
+            </select>
+            <button class="btn-primary-architectural" onclick="resetInventoryDemo()" style="padding: 9px 14px; font-size: 0.78rem;">
+              RESET PLOTS
+            </button>
+          </div>
         </div>
 
-        <div class="plot-toolbar">
-          <input type="text" id="plotSearchInput" class="search-input" placeholder="Search Plot # (e.g. 24)..." oninput="filterPlotTable()">
-          <select id="plotFilterSelect" class="filter-select" onchange="filterPlotTable()">
-            <option value="all">All Plots (1-100)</option>
-            <option value="AVAILABLE">Available</option>
-            <option value="RESERVED">Reserved</option>
-            <option value="SOLD">Sold</option>
-          </select>
+        <div class="admin-table-wrapper">
+          <table class="admin-table" id="plotsTable">
+            <thead>
+              <tr>
+                <th>Plot #</th>
+                <th>Dimensions</th>
+                <th>Facing</th>
+                <th>Road Width</th>
+                <th>Base Price</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="plotsTableBody">
+              <!-- Populated via JavaScript dynamically -->
+            </tbody>
+          </table>
         </div>
-      </div>
+      </section>
 
-      <div class="admin-table-wrapper">
-        <table class="admin-table" id="plotsTable">
-          <thead>
-            <tr>
-              <th>Plot #</th>
-              <th>Dimensions</th>
-              <th>Facing</th>
-              <th>Road Width</th>
-              <th>Base Price</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="plotsTableBody">
-            <!-- Populated via JavaScript dynamically -->
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <!-- ====================================================================
+           TAB 3: ONGOING CONSTRUCTION SITES (PRESERVED INTACT)
+           ==================================================================== -->
+      <section class="admin-card" id="sectionProjects" style="display: none;">
+        <div class="card-head-bar">
+          <div>
+            <h2 class="card-head-title">Active Construction Milestones</h2>
+            <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
+              Verified physical progress on live Kondapur project sites.
+            </p>
+          </div>
+        </div>
 
-    <!-- TAB 2: Client Enquiries & Site Visits -->
-    <section class="admin-card" id="sectionLeads" style="display: none;">
-      <div class="card-head-bar">
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Location</th>
+                <th>Scope</th>
+                <th>Current Stage</th>
+                <th>Quality Inspection</th>
+                <th>Page</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>G+1 Duplex House</strong></td>
+                <td>Raghavendra Colony, Kondapur</td>
+                <td>Approx. 2,800–3,200 SFT (Turnkey)</td>
+                <td>First Floor Slab &amp; Shuttering</td>
+                <td><span class="status-badge status-available">Concrete 28-day Cube Passed</span></td>
+                <td><a href="project-gplus1-duplex.html" class="btn-action-view" target="_blank">View Site Page</a></td>
+              </tr>
+              <tr>
+                <td><strong>Premium 3BHK Residences</strong></td>
+                <td>Raghavendra Colony, Kondapur</td>
+                <td>10 Units (1,650 SFT / Unit)</td>
+                <td>Superstructure Brickwork &amp; Concealed Conduit</td>
+                <td><span class="status-badge status-available">Plumb &amp; Line Verified</span></td>
+                <td><a href="project-premium-3bhk.html" class="btn-action-view" target="_blank">View Site Page</a></td>
+              </tr>
+              <tr>
+                <td><strong>KNS Villa Community Layout</strong></td>
+                <td>Ganapatipadu, Pocham Village, Patancheru Mandal, Sangareddy Dist.</td>
+                <td>8.25 Acres &bull; 100 Plots</td>
+                <td>40-FT Sub-grade Compaction &amp; Compound Enclosure</td>
+                <td><span class="status-badge status-available">Survey Markers Demarcated</span></td>
+                <td><a href="project-kns-villa-community.html" class="btn-action-view" target="_blank">View Site Page</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 1: DETAILED LEAD VIEW & FOLLOW-UP CONTROLLER
+       ======================================================================== -->
+  <div id="modalLeadDetail" class="admin-modal-overlay">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
         <div>
-          <h2 class="card-head-title">Inbound Inquiries & Site Bookings</h2>
-          <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
-            Direct consultation requests submitted via website and WhatsApp channel.
-          </p>
+          <span id="detailLeadIdBadge" style="font-size: 0.75rem; font-weight: 700; color: var(--kns-gold); letter-spacing: 0.08em;">LEAD #</span>
+          <h2 id="detailLeadName" class="admin-modal-title">Client Details</h2>
+        </div>
+        <button class="admin-modal-close" onclick="closeLeadDetailModal()">&times;</button>
+      </div>
+
+      <div class="admin-modal-body">
+        
+        <!-- Two-column Contact & Project Cards -->
+        <div class="detail-grid-2col">
+          
+          <!-- CONTACT INFORMATION -->
+          <div class="detail-section-card">
+            <div class="detail-section-title">👤 Contact Information</div>
+            <div class="detail-item">
+              <div class="detail-label">Full Name</div>
+              <div class="detail-val" id="detailName">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Phone Number</div>
+              <div class="detail-val" id="detailPhone">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Email Address</div>
+              <div class="detail-val" id="detailEmail">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Site / City Location</div>
+              <div class="detail-val" id="detailLocation">-</div>
+            </div>
+          </div>
+
+          <!-- PROJECT INFORMATION -->
+          <div class="detail-section-card">
+            <div class="detail-section-title">🏗️ Project Specifications</div>
+            <div class="detail-item">
+              <div class="detail-label">Service Requested</div>
+              <div class="detail-val" id="detailService">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Project Type</div>
+              <div class="detail-val" id="detailProjectType">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Plot Size &bull; Approx. Area</div>
+              <div class="detail-val" id="detailPlotArea">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Budget Range</div>
+              <div class="detail-val" id="detailBudget">-</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Client Message Block -->
+        <div class="detail-section-card" style="margin-bottom: 22px;">
+          <div class="detail-section-title">💬 Client Message / Requirements</div>
+          <div class="detail-val" id="detailMessage" style="font-size: 0.88rem; line-height: 1.5; white-space: pre-wrap;">-</div>
+        </div>
+
+        <!-- Lead Status & Metadata -->
+        <div class="detail-section-card" style="margin-bottom: 22px;">
+          <div class="detail-section-title">📊 Lead Status &amp; Channel</div>
+          <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+            <div>
+              <div class="detail-label">Current Status</div>
+              <select id="detailStatusSelect" class="filter-select" style="font-weight: 700; margin-top: 4px;">
+                <option value="New">New</option>
+                <option value="Contacted">Contacted</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Converted">Converted</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+            <div>
+              <div class="detail-label">Lead Source</div>
+              <div class="detail-val" id="detailSource" style="margin-top: 4px;">-</div>
+            </div>
+            <div>
+              <div class="detail-label">Received Date</div>
+              <div class="detail-val" id="detailCreatedAt" style="margin-top: 4px;">-</div>
+            </div>
+            <div>
+              <div class="detail-label">Last Updated</div>
+              <div class="detail-val" id="detailUpdatedAt" style="margin-top: 4px;">-</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Notes Timeline -->
+        <div class="detail-section-card">
+          <div class="detail-section-title">📝 Follow-up History &amp; Internal Notes</div>
+          
+          <div id="detailNotesThread" class="notes-thread">
+            <!-- Populated via JavaScript -->
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 12px;">
+            <input type="text" id="newNoteInput" class="search-input" style="flex: 1;" placeholder="Add a new follow-up note (e.g. Called client, shared duplex drawings)...">
+            <button class="btn-primary-architectural" onclick="submitNewNote()" style="padding: 9px 18px; font-size: 0.8rem;">
+              SAVE NOTE
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="admin-modal-footer">
+        <div style="display: flex; gap: 8px;">
+          <a id="detailBtnCall" href="#" class="btn-lead-action call" style="padding: 8px 14px;">📞 Call</a>
+          <a id="detailBtnWa" href="#" target="_blank" rel="noopener noreferrer" class="btn-lead-action wa" style="padding: 8px 14px;">💬 WhatsApp</a>
+          <a id="detailBtnMail" href="#" class="btn-lead-action email" style="padding: 8px 14px;">✉️ Email</a>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-lead-action delete" onclick="deleteActiveLead()" style="padding: 8px 14px;">🗑️ Delete Lead</button>
+          <button class="btn-toggle-status" onclick="saveLeadStatusChange()" style="padding: 8px 16px; font-weight: 700; background: var(--navy-midnight); color: #fff;">Update Status</button>
+          <button class="btn-toggle-status" onclick="closeLeadDetailModal()" style="padding: 8px 14px;">Close</button>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="admin-table-wrapper">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Client Name</th>
-              <th>Phone</th>
-              <th>Requirement</th>
-              <th>Location / Details</th>
-              <th>Status</th>
-              <th>Connect</th>
-            </tr>
-          </thead>
-          <tbody id="leadsTableBody">
-            <tr>
-              <td>Today, 11:20 AM</td>
-              <td><strong>Venkat Reddy</strong></td>
-              <td>+91 98490 12345</td>
-              <td>Villa Plot (250 Sq. Yds)</td>
-              <td>Sangareddy Plot #18 &bull; North Facing</td>
-              <td><span class="status-badge status-reserved">Visit Scheduled</span></td>
-              <td>
-                <a href="https://wa.me/919849012345?text=Hello%20Venkat%20garu,%20Kiran%20Gajbhare%20from%20KNS%20Construction." target="_blank" class="btn-whatsapp-action">WhatsApp</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Yesterday</td>
-              <td><strong>Dr. S. K. Sharma</strong></td>
-              <td>+91 99891 56789</td>
-              <td>Premium Residential Turnkey</td>
-              <td>Kondapur &bull; 300 Sq. Yds &bull; G+2 Duplex</td>
-              <td><span class="status-badge status-available">New Inquiry</span></td>
-              <td>
-                <a href="https://wa.me/919989156789?text=Hello%20Dr%20Sharma,%20Kiran%20Gajbhare%20from%20KNS%20Construction." target="_blank" class="btn-whatsapp-action">WhatsApp</a>
-              </td>
-            </tr>
-            <tr>
-              <td>05 Oct 2026</td>
-              <td><strong>Anand Rao</strong></td>
-              <td>+91 91212 98765</td>
-              <td>Commercial Plaza (Turnkey)</td>
-              <td>Miyapur &bull; 4,200 SFT Built-up</td>
-              <td><span class="status-badge status-sold">Estimate Shared</span></td>
-              <td>
-                <a href="https://wa.me/919121298765?text=Hello%20Anand%20garu,%20regarding%20commercial%20construction." target="_blank" class="btn-whatsapp-action">WhatsApp</a>
-              </td>
-            </tr>
-            <tr>
-              <td>03 Oct 2026</td>
-              <td><strong>Praveen Varma</strong></td>
-              <td>+91 94401 22334</td>
-              <td>Villa Plot (Sangareddy)</td>
-              <td>Plot #42 &bull; East Facing Corner</td>
-              <td><span class="status-badge status-reserved">Token Advance</span></td>
-              <td>
-                <a href="https://wa.me/919440122334?text=Hello%20Praveen%20garu,%20regarding%20Sangareddy%20Plot%2042." target="_blank" class="btn-whatsapp-action">WhatsApp</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <!-- ========================================================================
+       MODAL 2: MANUAL LEAD INTAKE (PHONE / WALK-IN / OFFLINE)
+       ======================================================================== -->
+  <div id="modalNewLead" class="admin-modal-overlay">
+    <div class="admin-modal-box" style="max-width: 640px;">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title">Record New Consultation Lead</h2>
+        <button class="admin-modal-close" onclick="closeNewLeadModal()">&times;</button>
       </div>
-    </section>
 
-    <!-- TAB 3: Ongoing Construction Sites -->
-    <section class="admin-card" id="sectionProjects" style="display: none;">
-      <div class="card-head-bar">
-        <div>
-          <h2 class="card-head-title">Active Construction Milestones</h2>
-          <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
-            Verified physical progress on live Kondapur project sites.
-          </p>
+      <form id="newLeadForm" onsubmit="handleManualLeadSubmit(event)">
+        <div class="admin-modal-body">
+          <div class="detail-grid-2col">
+            <div>
+              <label class="detail-label" for="manualName">Client Full Name *</label>
+              <input type="text" id="manualName" class="search-input" style="width: 100%; box-sizing: border-box; margin-top: 4px;" placeholder="e.g. Ramesh Kumar" required>
+            </div>
+            <div>
+              <label class="detail-label" for="manualPhone">Contact Number *</label>
+              <input type="tel" id="manualPhone" class="search-input" style="width: 100%; box-sizing: border-box; margin-top: 4px;" placeholder="+91 98490 XXXXX" required>
+            </div>
+          </div>
+
+          <div class="detail-grid-2col">
+            <div>
+              <label class="detail-label" for="manualEmail">Email Address</label>
+              <input type="email" id="manualEmail" class="search-input" style="width: 100%; box-sizing: border-box; margin-top: 4px;" placeholder="name@email.com">
+            </div>
+            <div>
+              <label class="detail-label" for="manualService">Service / Requirement *</label>
+              <select id="manualService" class="filter-select" style="width: 100%; margin-top: 4px;" required>
+                <option value="Turnkey Construction">Turnkey Construction</option>
+                <option value="Villa Plot Inquiry">Villa Plot (Sangareddy)</option>
+                <option value="Premium Residential">Premium Residential</option>
+                <option value="Commercial Construction">Commercial Construction</option>
+                <option value="Architectural Planning">Architectural Planning</option>
+                <option value="Real Estate Development">Real Estate Advisory</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="detail-grid-2col">
+            <div>
+              <label class="detail-label" for="manualLocation">Site Location</label>
+              <input type="text" id="manualLocation" class="search-input" style="width: 100%; box-sizing: border-box; margin-top: 4px;" placeholder="e.g. Kondapur, Patancheru">
+            </div>
+            <div>
+              <label class="detail-label" for="manualBudget">Budget Range</label>
+              <input type="text" id="manualBudget" class="search-input" style="width: 100%; box-sizing: border-box; margin-top: 4px;" placeholder="e.g. ₹ 40 - 75 Lakhs">
+            </div>
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label class="detail-label" for="manualMessage">Client Inquiries &bull; Initial Notes</label>
+            <textarea id="manualMessage" class="search-input" rows="3" style="width: 100%; box-sizing: border-box; margin-top: 4px;" placeholder="Notes from phone call or office consultation..."></textarea>
+          </div>
+
+          <div class="detail-grid-2col">
+            <div>
+              <label class="detail-label" for="manualSource">Lead Channel</label>
+              <select id="manualSource" class="filter-select" style="width: 100%; margin-top: 4px;">
+                <option value="Direct Call Inquiry">Direct Helpline Call</option>
+                <option value="WhatsApp Direct Inquiry">WhatsApp Inquiry</option>
+                <option value="Direct Office Walk-in">Office Walk-in (Kondapur)</option>
+                <option value="Site Visit Walk-in">Patancheru Site Walk-in</option>
+                <option value="Referral">Client Referral</option>
+              </select>
+            </div>
+            <div>
+              <label class="detail-label" for="manualStatus">Initial Status</label>
+              <select id="manualStatus" class="filter-select" style="width: 100%; margin-top: 4px;">
+                <option value="New">New</option>
+                <option value="Contacted" selected>Contacted</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Converted">Converted</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="admin-table-wrapper">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Project</th>
-              <th>Location</th>
-              <th>Scope</th>
-              <th>Current Stage</th>
-              <th>Quality Inspection</th>
-              <th>Page</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>G+1 Duplex House</strong></td>
-              <td>Raghavendra Colony, Kondapur</td>
-              <td>Approx. 2,800–3,200 SFT (Turnkey)</td>
-              <td>First Floor Slab & Shuttering</td>
-              <td><span class="status-badge status-available">Concrete 28-day Cube Passed</span></td>
-              <td><a href="project-gplus1-duplex.html" class="btn-action-view" target="_blank">View Site Page</a></td>
-            </tr>
-            <tr>
-              <td><strong>Premium 3BHK Residences</strong></td>
-              <td>Raghavendra Colony, Kondapur</td>
-              <td>10 Units (1,650 SFT / Unit)</td>
-              <td>Superstructure Brickwork & Concealed Conduit</td>
-              <td><span class="status-badge status-available">Plumb & Line Verified</span></td>
-              <td><a href="project-premium-3bhk.html" class="btn-action-view" target="_blank">View Site Page</a></td>
-            </tr>
-            <tr>
-              <td><strong>KNS Villa Community Layout</strong></td>
-              <td>Ganapatipadu, Pocham Village, Patancheru Mandal, Sangareddy Dist.</td>
-              <td>8.25 Acres &bull; 100 Plots</td>
-              <td>40-FT Sub-grade Compaction & Compound Enclosure</td>
-              <td><span class="status-badge status-available">Survey Markers Demarcated</span></td>
-              <td><a href="project-kns-villa-community.html" class="btn-action-view" target="_blank">View Site Page</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-toggle-status" onclick="closeNewLeadModal()">Cancel</button>
+          <button type="submit" class="btn-primary-architectural" style="padding: 10px 20px;">+ RECORD LEAD</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-  </main>
+  <!-- Unified Client API Client -->
+  <script src="js/api.js"></script>
 
+  <!-- Administrative Portal Controller -->
   <script>
-    // In-memory / LocalStorage Plot Database
+    // Global Dashboard State
+    let allLeads = [];
+    let currentFilter = 'all';
+    let searchQuery = '';
+    let currentSort = 'newest';
+    let activeLeadId = null;
+
+    // Villa Plots Demo Database (Preserved from Phase 2/3)
     const TOTAL_PLOTS = 100;
     let plotsData = [];
+
+    // ========================================================================
+    // 1. AUTHENTICATION CONTROLLER
+    // ========================================================================
+    async function checkAuthAndInit() {
+      const auth = window.knsApi.checkAuth();
+      const authView = document.getElementById('adminAuthView');
+      const dashView = document.getElementById('adminDashboardView');
+      const modeBadge = document.getElementById('backendModeBadge');
+
+      const isBackend = await window.knsApi.checkBackend();
+      if (modeBadge) {
+        if (isBackend) {
+          modeBadge.textContent = 'REST API ACTIVE';
+          modeBadge.className = 'backend-mode-pill connected';
+        } else {
+          modeBadge.textContent = 'STANDALONE PREVIEW';
+          modeBadge.className = 'backend-mode-pill standalone';
+        }
+      }
+
+      if (auth.isAuthenticated) {
+        authView.style.display = 'none';
+        dashView.style.display = 'block';
+        if (auth.user && document.getElementById('adminUserDisplayName')) {
+          document.getElementById('adminUserDisplayName').textContent = auth.user.name || 'Kiran Gajbhare';
+        }
+        await loadLeadsData();
+        initPlotsData();
+        renderPlotsTable();
+      } else {
+        authView.style.display = 'flex';
+        dashView.style.display = 'none';
+      }
+    }
+
+    // Login Form Submission
+    document.getElementById('adminLoginForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const usernameInput = document.getElementById('adminUsername');
+      const passwordInput = document.getElementById('adminPassword');
+      const alertBox = document.getElementById('authAlertBox');
+      const loginBtn = document.getElementById('btnAdminLogin');
+
+      alertBox.style.display = 'none';
+      alertBox.className = 'admin-auth-alert';
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Authenticating...';
+
+      try {
+        await window.knsApi.login(usernameInput.value.trim(), passwordInput.value.trim());
+        loginBtn.textContent = 'Success ✓';
+        setTimeout(() => {
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'SIGN IN TO PORTAL →';
+          checkAuthAndInit();
+        }, 400);
+      } catch (err) {
+        alertBox.textContent = err.message || 'Authentication failed. Please check credentials.';
+        alertBox.className = 'admin-auth-alert error';
+        alertBox.style.display = 'block';
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'SIGN IN TO PORTAL →';
+      }
+    });
+
+    // Logout
+    document.getElementById('btnAdminLogout')?.addEventListener('click', async () => {
+      if (confirm('Sign out of the KNS Administration Portal?')) {
+        await window.knsApi.logout();
+        checkAuthAndInit();
+      }
+    });
+
+    // ========================================================================
+    // 2. LEADS DATA RETRIEVAL & RENDERING
+    // ========================================================================
+    async function loadLeadsData() {
+      try {
+        const response = await window.knsApi.getLeads({
+          search: searchQuery,
+          status: currentFilter,
+          sort: currentSort
+        });
+
+        if (response && response.success) {
+          allLeads = response.leads || [];
+          updateKpis(response.stats);
+          renderLeadsTable(allLeads);
+        }
+      } catch (err) {
+        console.error('[KNS Admin] Error loading leads:', err);
+      }
+    }
+
+    function updateKpis(stats) {
+      if (!stats) return;
+      document.getElementById('kpiTotalLeads').textContent = stats.total;
+      document.getElementById('kpiNewLeads').textContent = stats.new;
+      document.getElementById('kpiContactedLeads').textContent = stats.contacted;
+      document.getElementById('kpiInProgressLeads').textContent = stats.inProgress;
+      document.getElementById('kpiConvertedLeads').textContent = stats.converted;
+      document.getElementById('kpiClosedLeads').textContent = stats.closed;
+
+      // Update Filter Pill counts
+      document.getElementById('countPillAll').textContent = stats.total;
+      document.getElementById('countPillNew').textContent = stats.new;
+      document.getElementById('countPillContacted').textContent = stats.contacted;
+      document.getElementById('countPillInProgress').textContent = stats.inProgress;
+      document.getElementById('countPillConverted').textContent = stats.converted;
+      document.getElementById('countPillClosed').textContent = stats.closed;
+    }
+
+    function renderLeadsTable(leads) {
+      const tbody = document.getElementById('leadsTableBody');
+      const emptyState = document.getElementById('leadsEmptyState');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+
+      if (!leads || leads.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+      emptyState.style.display = 'none';
+
+      leads.forEach(lead => {
+        const tr = document.createElement('tr');
+        
+        // Status pill class
+        const statusClass = (lead.status || 'new').toLowerCase().replace(/\s+/g, '');
+        const cleanPhone = (lead.phone || '').replace(/\D/g, '');
+        const waUrl = cleanPhone ? `https://wa.me/91${cleanPhone.slice(-10)}?text=${encodeURIComponent('Hello ' + (lead.name || '') + ', Kiran Gajbhare from KNS Construction & Real Estate.')}` : '#';
+        const formattedDate = lead.createdAt ? new Date(lead.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Recent';
+
+        tr.innerHTML = `
+          <td>
+            <strong>${lead.id}</strong>
+            <div style="font-size: 0.75rem; color: var(--charcoal-muted); margin-top: 2px;">${formattedDate}</div>
+          </td>
+          <td>
+            <div style="font-weight: 700;">${lead.name}</div>
+            <div style="font-size: 0.78rem; color: var(--charcoal-muted);">${lead.phone}</div>
+            ${lead.email ? `<div style="font-size: 0.75rem; color: #64748B;">${lead.email}</div>` : ''}
+          </td>
+          <td>
+            <strong>${lead.projectType || lead.service}</strong>
+            <div style="font-size: 0.78rem; color: var(--charcoal-muted);">${lead.location || 'Kondapur / Hyderabad'}</div>
+          </td>
+          <td>
+            <span style="font-size: 0.78rem; color: var(--charcoal-deep);">${lead.source || 'Website'}</span>
+          </td>
+          <td>
+            <span class="status-pill status-${statusClass}">${lead.status}</span>
+          </td>
+          <td>
+            <div style="display: flex; gap: 5px;">
+              <a href="tel:${lead.phone}" class="btn-lead-action call" title="Call Client">📞</a>
+              <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-lead-action wa" title="Open WhatsApp">💬</a>
+              ${lead.email ? `<a href="mailto:${lead.email}" class="btn-lead-action email" title="Send Email">✉️</a>` : ''}
+            </div>
+          </td>
+          <td>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn-lead-action view" onclick="openLeadDetail('${lead.id}')">View</button>
+              <button class="btn-lead-action delete" onclick="confirmDeleteLead('${lead.id}')" title="Delete Inquiry">&times;</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Filter by Status
+    function filterByStatus(status) {
+      currentFilter = status;
+      document.querySelectorAll('.filter-pill-btn').forEach(btn => {
+        if (btn.getAttribute('data-status') === status) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      loadLeadsData();
+    }
+
+    // Search Change
+    let searchDebounce = null;
+    function onLeadsSearchChange() {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(() => {
+        searchQuery = document.getElementById('leadsSearchInput').value;
+        loadLeadsData();
+      }, 250);
+    }
+
+    // Sort Change
+    function onLeadsSortChange() {
+      currentSort = document.getElementById('leadsSortSelect').value;
+      loadLeadsData();
+    }
+
+    // Refresh Data
+    function refreshLeadsData() {
+      loadLeadsData();
+    }
+
+    // Export CSV
+    function exportLeadsCsv() {
+      window.knsApi.exportLeadsCsv(allLeads);
+    }
+
+    // ========================================================================
+    // 3. DETAILED LEAD VIEW & NOTES CONTROLLER
+    // ========================================================================
+    async function openLeadDetail(id) {
+      try {
+        const lead = await window.knsApi.getLead(id);
+        if (!lead) return;
+
+        activeLeadId = lead.id;
+        document.getElementById('detailLeadIdBadge').textContent = `INQUIRY ID: ${lead.id}`;
+        document.getElementById('detailLeadName').textContent = lead.name;
+
+        document.getElementById('detailName').textContent = lead.name;
+        document.getElementById('detailPhone').textContent = lead.phone;
+        document.getElementById('detailEmail').textContent = lead.email || 'Not provided';
+        document.getElementById('detailLocation').textContent = lead.location || 'Kondapur / Hyderabad';
+
+        document.getElementById('detailService').textContent = lead.service || lead.projectType;
+        document.getElementById('detailProjectType').textContent = lead.projectType;
+        document.getElementById('detailPlotArea').textContent = `${lead.plotSize || 'N/A'} • ${lead.constructionArea || 'N/A'}`;
+        document.getElementById('detailBudget').textContent = lead.budget || 'Not specified';
+        document.getElementById('detailMessage').textContent = lead.message || 'No additional message provided.';
+
+        document.getElementById('detailStatusSelect').value = lead.status;
+        document.getElementById('detailSource').textContent = lead.source || 'Website Form';
+        document.getElementById('detailCreatedAt').textContent = new Date(lead.createdAt).toLocaleString('en-IN');
+        document.getElementById('detailUpdatedAt').textContent = lead.updatedAt ? new Date(lead.updatedAt).toLocaleString('en-IN') : 'N/A';
+
+        // Connect quick contact buttons
+        document.getElementById('detailBtnCall').href = `tel:${lead.phone}`;
+        const cleanPhone = (lead.phone || '').replace(/\D/g, '');
+        document.getElementById('detailBtnWa').href = cleanPhone ? `https://wa.me/91${cleanPhone.slice(-10)}?text=${encodeURIComponent('Hello ' + lead.name + ', Kiran Gajbhare from KNS Construction & Real Estate.')}` : '#';
+        document.getElementById('detailBtnMail').href = lead.email ? `mailto:${lead.email}?subject=${encodeURIComponent('KNS Construction - Regarding Your Consultation Inquiry')}` : '#';
+
+        renderNotesThread(lead.notes);
+
+        const modal = document.getElementById('modalLeadDetail');
+        modal.classList.add('open');
+      } catch (err) {
+        alert('Failed to load lead details: ' + err.message);
+      }
+    }
+
+    function closeLeadDetailModal() {
+      const modal = document.getElementById('modalLeadDetail');
+      modal.classList.remove('open');
+      activeLeadId = null;
+    }
+
+    function renderNotesThread(notes) {
+      const container = document.getElementById('detailNotesThread');
+      container.innerHTML = '';
+
+      if (!notes || notes.length === 0) {
+        container.innerHTML = '<div style="font-size: 0.82rem; color: #888; font-style: italic;">No notes recorded yet.</div>';
+        return;
+      }
+
+      notes.forEach(n => {
+        const item = document.createElement('div');
+        item.className = 'note-bubble';
+        const dateStr = n.createdAt ? new Date(n.createdAt).toLocaleString('en-IN') : 'Recent';
+        item.innerHTML = `
+          <div class="note-header">
+            <strong>${n.author || 'Admin'}</strong>
+            <span>${dateStr}</span>
+          </div>
+          <div class="note-text">${n.text}</div>
+        `;
+        container.appendChild(item);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function submitNewNote() {
+      const input = document.getElementById('newNoteInput');
+      const text = input.value.trim();
+      if (!text || !activeLeadId) return;
+
+      try {
+        const updatedLead = await window.knsApi.addLeadNote(activeLeadId, text);
+        input.value = '';
+        renderNotesThread(updatedLead.notes);
+        loadLeadsData();
+      } catch (err) {
+        alert('Failed to save note: ' + err.message);
+      }
+    }
+
+    async function saveLeadStatusChange() {
+      if (!activeLeadId) return;
+      const newStatus = document.getElementById('detailStatusSelect').value;
+      try {
+        const updatedLead = await window.knsApi.updateLeadStatus(activeLeadId, newStatus);
+        renderNotesThread(updatedLead.notes);
+        document.getElementById('detailUpdatedAt').textContent = new Date().toLocaleString('en-IN');
+        alert(`Status updated to "${newStatus}" ✓`);
+        loadLeadsData();
+      } catch (err) {
+        alert('Failed to update status: ' + err.message);
+      }
+    }
+
+    async function deleteActiveLead() {
+      if (!activeLeadId) return;
+      if (confirm(`Are you sure you want to delete lead ${activeLeadId}? This action cannot be undone.`)) {
+        try {
+          await window.knsApi.deleteLead(activeLeadId);
+          closeLeadDetailModal();
+          loadLeadsData();
+        } catch (err) {
+          alert('Failed to delete lead: ' + err.message);
+        }
+      }
+    }
+
+    async function confirmDeleteLead(id) {
+      if (confirm(`Delete lead ${id}?`)) {
+        try {
+          await window.knsApi.deleteLead(id);
+          loadLeadsData();
+        } catch (err) {
+          alert('Failed to delete lead: ' + err.message);
+        }
+      }
+    }
+
+    // ========================================================================
+    // 4. MANUAL LEAD INTAKE CONTROLLER
+    // ========================================================================
+    function openNewLeadModal() {
+      document.getElementById('newLeadForm').reset();
+      document.getElementById('modalNewLead').classList.add('open');
+    }
+
+    function closeNewLeadModal() {
+      document.getElementById('modalNewLead').classList.remove('open');
+    }
+
+    async function handleManualLeadSubmit(e) {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('manualName').value.trim(),
+        phone: document.getElementById('manualPhone').value.trim(),
+        email: document.getElementById('manualEmail').value.trim(),
+        service: document.getElementById('manualService').value,
+        projectType: document.getElementById('manualService').value,
+        location: document.getElementById('manualLocation').value.trim() || 'Kondapur, Hyderabad',
+        budget: document.getElementById('manualBudget').value.trim(),
+        message: document.getElementById('manualMessage').value.trim(),
+        source: document.getElementById('manualSource').value,
+        status: document.getElementById('manualStatus').value
+      };
+
+      try {
+        await window.knsApi.createLead(payload);
+        closeNewLeadModal();
+        loadLeadsData();
+        alert('Lead successfully recorded ✓');
+      } catch (err) {
+        alert('Failed to create lead: ' + err.message);
+      }
+    }
+
+    // ========================================================================
+    // 5. TABS & VILLA PLOTS INVENTORY (PRESERVED)
+    // ========================================================================
+    function switchAdminTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('sectionLeads').style.display = 'none';
+      document.getElementById('sectionPlots').style.display = 'none';
+      document.getElementById('sectionProjects').style.display = 'none';
+
+      if (tabName === 'leads') {
+        document.getElementById('tabLeadsBtn').classList.add('active');
+        document.getElementById('sectionLeads').style.display = 'block';
+      } else if (tabName === 'plots') {
+        document.getElementById('tabPlotsBtn').classList.add('active');
+        document.getElementById('sectionPlots').style.display = 'block';
+      } else if (tabName === 'projects') {
+        document.getElementById('tabProjectsBtn').classList.add('active');
+        document.getElementById('sectionProjects').style.display = 'block';
+      }
+    }
 
     function initPlotsData() {
       const saved = localStorage.getItem('kns_admin_plots');
@@ -586,7 +1263,6 @@
         } catch(e) {}
       }
 
-      // Generate initial 100 plots with realistic distribution
       plotsData = [];
       const facings = ['East', 'West', 'North', 'East Corner', 'North Corner'];
       for (let i = 1; i <= TOTAL_PLOTS; i++) {
@@ -600,10 +1276,10 @@
         const facing = facings[(i * 3) % facings.length];
         plotsData.push({
           number: i,
-          dimensions: '250 Sq. Yards (45 x 50)',
+          dimensions: '250 Sq. Yards (30 x 75)',
           facing: facing,
           roadWidth: '40 FT Wide',
-          basePrice: '₹37.5 Lakhs',
+          basePrice: 'Contact for Availability',
           status: status
         });
       }
@@ -612,7 +1288,6 @@
 
     function savePlotsData() {
       localStorage.setItem('kns_admin_plots', JSON.stringify(plotsData));
-      updateKpis();
     }
 
     function resetInventoryDemo() {
@@ -621,21 +1296,6 @@
         initPlotsData();
         renderPlotsTable();
       }
-    }
-
-    function updateKpis() {
-      let avail = 0, res = 0, sold = 0;
-      plotsData.forEach(p => {
-        if (p.status === 'AVAILABLE') avail++;
-        else if (p.status === 'RESERVED') res++;
-        else if (p.status === 'SOLD') sold++;
-      });
-      const elAvail = document.getElementById('kpiAvailablePlots');
-      const elRes = document.getElementById('kpiReservedPlots');
-      const elSold = document.getElementById('kpiSoldPlots');
-      if (elAvail) elAvail.textContent = avail;
-      if (elRes) elRes.textContent = res;
-      if (elSold) elSold.textContent = sold;
     }
 
     function cyclePlotStatus(plotNum) {
@@ -651,8 +1311,9 @@
 
     function renderPlotsTable() {
       const tbody = document.getElementById('plotsTableBody');
-      const query = (document.getElementById('plotSearchInput').value || '').trim().toLowerCase();
-      const filter = document.getElementById('plotFilterSelect').value;
+      const query = (document.getElementById('plotSearchInput')?.value || '').trim().toLowerCase();
+      const filter = document.getElementById('plotFilterSelect')?.value || 'all';
+      if (!tbody) return;
 
       tbody.innerHTML = '';
 
@@ -669,7 +1330,6 @@
 
       filtered.forEach(p => {
         const tr = document.createElement('tr');
-        
         let badgeClass = 'status-available';
         if (p.status === 'RESERVED') badgeClass = 'status-reserved';
         if (p.status === 'SOLD') badgeClass = 'status-sold';
@@ -695,60 +1355,17 @@
       renderPlotsTable();
     }
 
-    function renderDynamicLeads() {
-      const tbody = document.getElementById('leadsTableBody');
-      if (!tbody) return;
-      try {
-        const stored = JSON.parse(localStorage.getItem('kns_inquiries') || '[]');
-        if (stored.length === 0) return;
-
-        // Clear existing and prepend dynamic leads
-        const existingRows = tbody.innerHTML;
-        let dynamicHtml = '';
-        stored.forEach(lead => {
-          const cleanPhone = (lead.phone || '').replace(/\D/g, '');
-          const waUrl = cleanPhone ? `https://wa.me/91${cleanPhone.slice(-10)}?text=${encodeURIComponent('Hello ' + lead.name + ', Kiran Gajbhare from KNS Construction & Real Estate.')}` : '#';
-          dynamicHtml += `
-            <tr style="background: rgba(196, 154, 58, 0.05);">
-              <td><strong>${lead.submittedAt || 'Just now'}</strong></td>
-              <td><strong>${lead.name}</strong></td>
-              <td>${lead.phone}</td>
-              <td>${lead.projectType}</td>
-              <td>${lead.location} ${lead.budget ? '• ' + lead.budget : ''}</td>
-              <td><span class="status-badge status-available">Live Web Lead</span></td>
-              <td>
-                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-action">WhatsApp</a>
-              </td>
-            </tr>
-          `;
-        });
-        tbody.innerHTML = dynamicHtml + existingRows;
-      } catch (e) {}
-    }
-
-    function switchAdminTab(tabName) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('sectionPlots').style.display = 'none';
-      document.getElementById('sectionLeads').style.display = 'none';
-      document.getElementById('sectionProjects').style.display = 'none';
-
-      if (tabName === 'plots') {
-        document.getElementById('tabPlotsBtn').classList.add('active');
-        document.getElementById('sectionPlots').style.display = 'block';
-      } else if (tabName === 'leads') {
-        document.getElementById('tabLeadsBtn').classList.add('active');
-        document.getElementById('sectionLeads').style.display = 'block';
-      } else if (tabName === 'projects') {
-        document.getElementById('tabProjectsBtn').classList.add('active');
-        document.getElementById('sectionProjects').style.display = 'block';
+    // Modal Close on Escape Key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLeadDetailModal();
+        closeNewLeadModal();
       }
-    }
+    });
 
-    // Initialize on load
+    // Initialize on Page Load
     document.addEventListener('DOMContentLoaded', () => {
-      initPlotsData();
-      renderPlotsTable();
-      renderDynamicLeads();
+      checkAuthAndInit();
     });
   </script>
 </body>
