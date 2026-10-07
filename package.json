@@ -2,7 +2,6 @@
   "name": "kns-construction-real-estate",
   "version": "4.0.0",
   "description": "Official production website and Lead Management portal for KNS Construction & Real Estate",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
