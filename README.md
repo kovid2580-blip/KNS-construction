@@ -28,15 +28,15 @@ The supplied official logo is the definitive source of truth across all brand co
 
 ## 🌐 12-Page Complete Architecture
 
-1. **`index.html`** &mdash; Flagship homepage featuring Hero, KNS at a Glance (8.25 Acres, 100 Plots, 250 Sq. Yds, 40 FT Roads), Founder Profile (Kiran Gajbhare, Kondapur), 12 Core Services, Turnkey Construction, Pricing Packages, Interactive Cost Estimator, Featured Projects, Sangareddy Villa Master Plan, Why KNS (5 core principles), 7-Stage Process, Project Gallery, Contact Consultation Form, and Floating WhatsApp.
-2. **`about.html`** &mdash; Heritage, engineering leadership, proprietor details, Kondapur office, and full turnkey scope.
-3. **`services.html`** &mdash; In-depth breakdown of all 12 core services across Architectural Planning, Structural Design, Turnkey Execution, Material QC, and Real Estate Advisory.
+1. **`index.html`** &mdash; Flagship homepage featuring Hero, KNS at a Glance (8.25 Acres, 100 Plots, 250 Sq. Yds, 40 FT Roads), Founder Profile (Kiran Gajbhare, Kondapur), 12 Core Services, Turnkey Construction, Pricing Packages, Construction Cost Estimator, Featured Projects, Sangareddy Villa Master Plan, Why KNS (5 core principles), 7-Stage Process, Project Gallery, Contact Consultation Form, and Floating WhatsApp.
+2. **`about.html`** &mdash; Heritage, proprietor details, Kondapur office, and full turnkey scope.
+3. **`services.html`** &mdash; In-depth breakdown of all 12 core services across Architectural Planning, Structural Design, Civil Construction, Turnkey Execution, MEP, Finishes, and Real Estate.
 4. **`turnkey-construction.html`** &mdash; Dedicated deep-dive into the 7-stage turnkey journey (Consultation, Architectural Blueprint, Structural Engineering, Excavation & RCC, Masonry & MEP, Finishing, Handover).
 5. **`projects.html`** &mdash; Portfolio overview of our three featured developments with key architectural metrics and filterable categories.
-6. **`project-gplus1-duplex.html`** &mdash; Dedicated project case study: G+1 Duplex House in Raghavendra Colony, Kondapur (3,200 SFT).
-7. **`project-premium-3bhk.html`** &mdash; Dedicated project case study: Premium 3BHK Residential Units in Raghavendra Colony, Kondapur (1,850 SFT / Unit).
-8. **`project-kns-villa-community.html`** &mdash; Flagship community page: 8.25-Acre Gated Villa Community in Sangareddy with interactive zoom/pan master plan viewer and plot inspector.
-9. **`real-estate.html`** &mdash; Land advisory, plotted villa communities, corridor insights (Patancheru / Sangareddy / NH 65), and joint venture development models.
+6. **`project-gplus1-duplex.html`** &mdash; Dedicated project case study: G+1 Duplex House in Raghavendra Colony, Kondapur (Approx. 2,800–3,200 SFT on 200 Sq. Yards).
+7. **`project-premium-3bhk.html`** &mdash; Dedicated project case study: Premium 3BHK Residential Units in Raghavendra Colony, Kondapur (1,650 SFT / Unit on 600 Sq. Yards).
+8. **`project-kns-villa-community.html`** &mdash; Flagship community page: 8.25-Acre Gated Villa Community in Ganapatipadu, Pocham Village, Patancheru Mandal, Sangareddy District with interactive master plan viewer.
+9. **`real-estate.html`** &mdash; Plotted villa communities, independent houses, apartments, and commercial property developments.
 10. **`gallery.html`** &mdash; Masonry architectural showcase with category filter pills (ALL, PROJECTS, ARCHITECTURE, CONSTRUCTION, INTERIORS, EXTERIORS, VILLAS) and fullscreen lightbox viewer.
 11. **`contact.html`** &mdash; Consultation booking form, office address in Raghavendra Colony, direct phone lines, visiting hours, and FAQ accordion.
 12. **`admin.html`** &mdash; Internal operations dashboard with 6 KPI metrics, interactive 100-plot villa inventory table with status toggle and persistence, leads inquiry log, and live site milestones.
@@ -45,7 +45,7 @@ The supplied official logo is the definitive source of truth across all brand co
 
 ## 🏢 Business & Contact Details
 
-* **Proprietor & Engineering Lead:** Kiran Gajbhare
+* **Proprietor:** Kiran Gajbhare
 * **Registered Office:** Raghavendra Colony, Kondapur, Hyderabad &ndash; 500084, Telangana, India
 * **Direct Helpline / WhatsApp:** +91 91004 25645, +91 92465 63397
 * **Official Email:** knsconstructions@gmail.com
