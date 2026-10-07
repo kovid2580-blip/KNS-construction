@@ -3,313 +3,201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | KNS Construction & Real Estate - Signature Landmarks</title>
-  <meta name="description" content="Explore signature landmarks engineered by KNS Construction & Real Estate: commercial high-rises, luxury residential estates, and turnkey interiors.">
+  <title>Projects | KNS Construction & Real Estate - Hyderabad Developments</title>
+  <meta name="description" content="Explore featured residential and planned villa community developments by KNS Construction & Real Estate in Hyderabad and Sangareddy.">
   
-  <!-- Official Favicons -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="assets/images/favicon-64.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
   
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    .page-hero {
-      padding: calc(var(--nav-height) + 60px) 0 60px 0;
-      background: radial-gradient(circle at 50% 30%, #121D32 0%, #070B14 100%);
-      border-bottom: 1px solid var(--border-subtle);
+    .page-header-silver {
+      padding: 140px 0 60px 0;
+      background: var(--silver-light);
+      border-bottom: 1px solid var(--border-silver);
       text-align: center;
-    }
-    .page-hero-title {
-      font-family: var(--font-serif);
-      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
-      color: #fff;
-      margin-bottom: 14px;
-    }
-    .page-hero-subtitle {
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      max-width: 650px;
-      margin: 0 auto;
-    }
-    .projects-container {
-      padding: 80px 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header" id="siteHeader">
-    <div class="header-nav-wrap">
-      <div class="container nav-container">
-        <a href="index.html" class="brand-link" aria-label="KNS Home">
-          <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="navbar-logo" width="160" height="90">
-        </a>
-        <nav class="nav-menu">
-          <a href="index.html" class="nav-link">Home</a>
-          <a href="about.html" class="nav-link">About Brand</a>
-          <a href="services.html" class="nav-link">Our Services</a>
-          <a href="projects.html" class="nav-link active">Portfolio</a>
-          <a href="index.html#calculator" class="nav-link">Cost Estimator</a>
-          <a href="contact.html" class="nav-link">Contact</a>
-        </nav>
-        <div class="nav-actions">
-          <a href="contact.html" class="btn-nav-quote">Request Quote</a>
-          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open mobile menu">
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-          </button>
-        </div>
+  <!-- 3D Floating Navigation -->
+  <div class="nav-wrapper-outer">
+    <header class="site-navbar" id="siteNavbar">
+      <a href="index.html" class="brand-link" aria-label="KNS Home">
+        <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="navbar-logo" width="160" height="90">
+      </a>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="about.html" class="nav-link">ABOUT</a>
+        <a href="services.html" class="nav-link">SERVICES</a>
+        <a href="projects.html" class="nav-link active">PROJECTS</a>
+        <a href="real-estate.html" class="nav-link">REAL ESTATE</a>
+        <a href="gallery.html" class="nav-link">GALLERY</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <a href="contact.html" class="btn-nav-enquire">ENQUIRE NOW</a>
+        <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Open mobile menu">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
       </div>
-    </div>
-  </header>
+    </header>
+  </div>
 
   <!-- Mobile Drawer -->
-  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-  <aside class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
     <div class="mobile-drawer-header">
       <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="mobile-logo" width="130" height="73">
-      <button class="mobile-close-btn" id="mobileDrawerClose">&times;</button>
+      <button class="mobile-close-btn" id="mobileCloseBtn">&times;</button>
     </div>
     <div class="mobile-nav-links">
-      <a href="index.html" class="mobile-nav-link">Home</a>
-      <a href="about.html" class="mobile-nav-link">About Brand</a>
-      <a href="services.html" class="mobile-nav-link">Our Services</a>
-      <a href="projects.html" class="mobile-nav-link active">Portfolio</a>
-      <a href="index.html#calculator" class="mobile-nav-link">Cost Estimator</a>
-      <a href="contact.html" class="mobile-nav-link">Contact</a>
+      <a href="index.html" class="mobile-nav-link">HOME</a>
+      <a href="about.html" class="mobile-nav-link">ABOUT</a>
+      <a href="services.html" class="mobile-nav-link">SERVICES</a>
+      <a href="projects.html" class="mobile-nav-link active">PROJECTS</a>
+      <a href="real-estate.html" class="mobile-nav-link">REAL ESTATE</a>
+      <a href="gallery.html" class="mobile-nav-link">GALLERY</a>
+      <a href="contact.html" class="mobile-nav-link">CONTACT</a>
     </div>
   </aside>
 
-  <!-- Page Hero -->
-  <section class="page-hero">
+  <!-- Header -->
+  <header class="page-header-silver">
     <div class="container">
-      <span class="section-label">Completed & Ongoing</span>
-      <h1 class="page-hero-title">Our Landmark Portfolio</h1>
-      <p class="page-hero-subtitle">
-        Showcasing engineering mastery, luxury living, and commercial innovation across over 3.2 million square feet.
+      <span class="section-tag">PORTFOLIO</span>
+      <h1 class="section-heading-large">FEATURED PROJECTS</h1>
+      <p style="font-size: 1.15rem; color: #4A4D54; max-width: 680px; margin: 0 auto;">
+        Discover our turnkey residential homes, multi-family apartment complexes, and flagship villa community in Telangana.
       </p>
     </div>
-  </section>
+  </header>
 
-  <!-- Projects Gallery with Filters -->
-  <main class="projects-container">
+  <!-- Projects Grid -->
+  <main style="padding: 85px 0; background: var(--bg-primary);">
     <div class="container">
-      <div class="portfolio-nav-tabs">
-        <button class="portfolio-tab-btn active" data-filter="all">All Projects</button>
-        <button class="portfolio-tab-btn" data-filter="commercial">Commercial High-Rises</button>
-        <button class="portfolio-tab-btn" data-filter="residential">Luxury Residential</button>
-        <button class="portfolio-tab-btn" data-filter="interior">Turnkey Interiors</button>
-      </div>
-
-      <div class="portfolio-grid">
+      <div class="projects-grid-cards">
         <!-- Project 1 -->
-        <article class="project-card" data-category="commercial">
-          <div class="project-img-wrap">
-            <span class="project-tag">Commercial</span>
-            <span class="project-status-badge">Completed</span>
-            <img src="assets/images/project-commercial.jpg" alt="KNS Sovereign Corporate Tower" class="project-img">
+        <article class="project-card-item">
+          <div class="project-card-thumb">
+            <span class="project-card-badge">PROJECT 01</span>
+            <img src="assets/images/project-villa.jpg" alt="G+1 Premium Duplex House Kondapur">
           </div>
-          <div class="project-info">
-            <h3 class="project-title">KNS Sovereign Corporate Tower</h3>
-            <div class="project-location">
-              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-              Financial District &bull; 24 Floors &bull; 420,000 sq.ft
+          <div class="project-card-body">
+            <h3 class="project-item-title">G+1 PREMIUM DUPLEX HOUSE</h3>
+            <p class="project-item-loc">Kondapur, Hyderabad</p>
+            <div class="project-item-specs-list">
+              <div>&bull; <strong>Land:</strong> 200 Sq. Yards | G+1 | East Facing</div>
+              <div>&bull; <strong>Turnkey Execution:</strong> High-quality construction with branded materials</div>
+              <div>&bull; <strong>Rooms:</strong> Spacious living/dining, bedrooms with attached baths, modern kitchen</div>
+              <div>&bull; <strong>Finishes:</strong> False ceiling, elegant staircase, balcony, covered car parking</div>
             </div>
-            <div class="project-meta-row">
-              <div class="project-meta-item">
-                <span>Structure</span>
-                <strong>PT Slab + Steel Core</strong>
-              </div>
-              <div class="project-meta-item">
-                <span>Certification</span>
-                <strong>IGBC Gold Rated</strong>
-              </div>
-            </div>
+            <a href="project-gplus1-duplex.html" class="btn-primary-architectural" style="margin-top: 20px; text-align: center; justify-content: center;">View Project Details &rarr;</a>
           </div>
         </article>
 
         <!-- Project 2 -->
-        <article class="project-card" data-category="residential">
-          <div class="project-img-wrap">
-            <span class="project-tag">Luxury Villa</span>
-            <span class="project-status-badge">Completed</span>
-            <img src="assets/images/project-villa.jpg" alt="The Grand Travertine Estate" class="project-img">
+        <article class="project-card-item">
+          <div class="project-card-thumb">
+            <span class="project-card-badge">PROJECT 02</span>
+            <img src="assets/images/project-residential.jpg" alt="Premium 3BHK Apartments Raghavendra Colony Kondapur">
           </div>
-          <div class="project-info">
-            <h3 class="project-title">The Grand Travertine Estate</h3>
-            <div class="project-location">
-              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-              Hills Enclave &bull; 14,000 sq.ft
+          <div class="project-card-body">
+            <h3 class="project-item-title">PREMIUM 3BHK APARTMENTS</h3>
+            <p class="project-item-loc">Raghavendra Colony, Kondapur</p>
+            <div class="project-item-specs-list">
+              <div>&bull; <strong>Land Extent:</strong> 600 Sq. Yards</div>
+              <div>&bull; <strong>Development:</strong> 10 Premium 3BHK Units</div>
+              <div>&bull; <strong>Unit Size:</strong> 1,650 SFT Each</div>
+              <div>&bull; <strong>Orientation:</strong> East Facing</div>
             </div>
-            <div class="project-meta-row">
-              <div class="project-meta-item">
-                <span>Architectural Style</span>
-                <strong>Cantilever Modernism</strong>
-              </div>
-              <div class="project-meta-item">
-                <span>Amenities</span>
-                <strong>Infinity Heated Pool</strong>
-              </div>
-            </div>
+            <a href="project-premium-3bhk.html" class="btn-primary-architectural" style="margin-top: 20px; text-align: center; justify-content: center;">View Project Details &rarr;</a>
           </div>
         </article>
 
         <!-- Project 3 -->
-        <article class="project-card" data-category="residential">
-          <div class="project-img-wrap">
-            <span class="project-tag">Gated Community</span>
-            <span class="project-status-badge">Ongoing Bookings</span>
-            <img src="assets/images/project-residential.jpg" alt="KNS Palm Boulevard Enclave" class="project-img">
+        <article class="project-card-item">
+          <div class="project-card-thumb">
+            <span class="project-card-badge">PROJECT 03</span>
+            <img src="assets/images/kns-villa-master-plan.png" alt="KNS Premium Villa Community Master Plan">
           </div>
-          <div class="project-info">
-            <h3 class="project-title">KNS Palm Boulevard Enclave</h3>
-            <div class="project-location">
-              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-              Prime Highway Corridor &bull; 8 Acres
+          <div class="project-card-body">
+            <h3 class="project-item-title">KNS PREMIUM VILLA COMMUNITY</h3>
+            <p class="project-item-loc">Ganapatipadu, Pocham Village, Patancheru Mandal, Sangareddy Dist.</p>
+            <div class="project-item-specs-list">
+              <div>&bull; <strong>Total Land:</strong> 8.25 Acres</div>
+              <div>&bull; <strong>Villa Plots:</strong> 100 Plots (250 Sq. Yards Each)</div>
+              <div>&bull; <strong>Dimensions:</strong> 30 &times; 75 FT</div>
+              <div>&bull; <strong>Roads:</strong> 40 FT Wide Roads & Underground Infrastructure</div>
             </div>
-            <div class="project-meta-row">
-              <div class="project-meta-item">
-                <span>Units</span>
-                <strong>240 Luxury Suites</strong>
-              </div>
-              <div class="project-meta-item">
-                <span>Approvals</span>
-                <strong>100% RERA Sanctioned</strong>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 4 -->
-        <article class="project-card" data-category="interior">
-          <div class="project-img-wrap">
-            <span class="project-tag">Interior Architecture</span>
-            <span class="project-status-badge">Completed</span>
-            <img src="assets/images/service-interior.jpg" alt="Aura Double-Height Penthouse" class="project-img">
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Aura Double-Height Penthouse</h3>
-            <div class="project-location">
-              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-              Skyline Heights &bull; 8,200 sq.ft
-            </div>
-            <div class="project-meta-row">
-              <div class="project-meta-item">
-                <span>Material</span>
-                <strong>Bookmatched Calacatta</strong>
-              </div>
-              <div class="project-meta-item">
-                <span>Automation</span>
-                <strong>KNX Smart Control</strong>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 5 -->
-        <article class="project-card" data-category="commercial">
-          <div class="project-img-wrap">
-            <span class="project-tag">Engineering Infrastructure</span>
-            <span class="project-status-badge">Under Execution</span>
-            <img src="assets/images/service-engineering.jpg" alt="KNS Tech Park Phase II" class="project-img">
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">KNS Tech Park Phase II</h3>
-            <div class="project-location">
-              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-              SEZ Tech Hub &bull; 650,000 sq.ft
-            </div>
-            <div class="project-meta-row">
-              <div class="project-meta-item">
-                <span>Structural System</span>
-                <strong>Steel Composite Deck</strong>
-              </div>
-              <div class="project-meta-item">
-                <span>Delivery</span>
-                <strong>Q1 2027</strong>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 6 -->
-        <article class="project-card" data-category="commercial">
-          <div class="project-img-wrap">
-            <span class="project-tag">Waterfront Landmark</span>
-            <span class="project-status-badge">Ongoing</span>
-            <img src="assets/images/hero-skyline.jpg" alt="KNS Marina Waterfront Towers" class="project-img">
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">KNS Marina Waterfront Towers</h3>
-            <div class="project-location">
-              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-              Coastal Bay Boulevard &bull; 32 Floors
-            </div>
-            <div class="project-meta-row">
-              <div class="project-meta-item">
-                <span>Height</span>
-                <strong>115 Meters</strong>
-              </div>
-              <div class="project-meta-item">
-                <span>Foundations</span>
-                <strong>Deep Piled Raft (30m)</strong>
-              </div>
-            </div>
+            <a href="project-kns-villa-community.html" class="btn-primary-architectural" style="margin-top: 20px; text-align: center; justify-content: center;">Explore Master Plan &rarr;</a>
           </div>
         </article>
       </div>
     </div>
   </main>
 
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/919100425645?text=Hello%20KNS%20Construction%20%26%20Real%20Estate,%0AI%20am%20interested%20in%20your%20projects.%0AI%20would%20like%20to%20discuss%20my%20requirements." 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     class="floating-whatsapp-pill">
+    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+    WhatsApp KNS
+  </a>
+
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-top-grid">
-        <div class="footer-brand-column">
+      <div class="footer-columns-grid">
+        <div>
           <a href="index.html">
             <img src="assets/images/kns-logo-full.png" alt="KNS Construction & Real Estate" class="footer-logo" width="290" height="193">
           </a>
-          <p class="footer-brand-bio">
-            Certified under RERA and ISO 9001:2015. Engineering landmarks with unyielding precision.
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 14px;">
+            <strong>KNS Construction & Real Estate</strong><br>
+            Building Dreams, Brick by Brick
+          </p>
+          <p style="font-size: 0.85rem; color: #94A3B8;">
+            Proprietor: <strong>Kiran Gajbhare</strong><br>
+            Raghavendra Colony, Kondapur, Hyderabad &ndash; 500084, Telangana, India
           </p>
         </div>
-        <div>
-          <h4 class="footer-heading">Services</h4>
-          <ul class="footer-links-list">
-            <li class="footer-link-item"><a href="services.html">Commercial Towers</a></li>
-            <li class="footer-link-item"><a href="services.html">Luxury Residential</a></li>
-            <li class="footer-link-item"><a href="services.html">Real Estate Land</a></li>
-            <li class="footer-link-item"><a href="services.html">Turnkey Interiors</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Company</h4>
-          <ul class="footer-links-list">
-            <li class="footer-link-item"><a href="index.html">Home</a></li>
-            <li class="footer-link-item"><a href="about.html">About Brand</a></li>
-            <li class="footer-link-item"><a href="projects.html">Portfolio</a></li>
-            <li class="footer-link-item"><a href="contact.html">Contact Us</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Headquarters</h4>
-          <div class="footer-contact-item">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-            <span>KNS Construction Towers, Level 5, Bangalore, KA - 560001</span>
+        <div class="footer-column">
+          <h4>Navigation</h4>
+          <div class="footer-links-col">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="projects.html">Projects</a>
+            <a href="real-estate.html">Real Estate</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
           </div>
-          <div class="footer-contact-item">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"></path></svg>
-            <span>+91 98765 43210</span>
+        </div>
+        <div class="footer-column">
+          <h4>Individual Projects</h4>
+          <div class="footer-links-col">
+            <a href="project-gplus1-duplex.html">G+1 Duplex House</a>
+            <a href="project-premium-3bhk.html">Premium 3BHK Apartments</a>
+            <a href="project-kns-villa-community.html">KNS Villa Community</a>
+            <a href="admin.html">Admin Portal</a>
           </div>
+        </div>
+        <div class="footer-column">
+          <h4>Direct Connect</h4>
+          <p style="font-size: 0.88rem; color: #94A3B8;">Phone:</p>
+          <a href="tel:+919100425645" style="color: var(--gold-light); font-weight: 700; display: block; margin-bottom: 4px;">+91 91004 25645</a>
+          <a href="tel:+919246563397" style="color: var(--gold-light); font-weight: 700; display: block; margin-bottom: 12px;">+91 92465 63397</a>
+          <p style="font-size: 0.88rem; color: #94A3B8;">Email:</p>
+          <a href="mailto:knsconstructions@gmail.com" style="color: var(--white); font-weight: 600;">knsconstructions@gmail.com</a>
         </div>
       </div>
-      <div class="footer-bottom-bar">
+      <div class="footer-bottom-row">
         <div>&copy; 2026 KNS Construction & Real Estate. All Rights Reserved.</div>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">RERA Disclosures</a>
-        </div>
+        <div>Building Your Future With Precision & Quality</div>
       </div>
     </div>
   </footer>

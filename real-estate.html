@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Estate & Plotted Developments | KNS Construction & Real Estate</title>
+  <meta name="description" content="Explore premium real estate, plotted communities, and land advisory by KNS Construction & Real Estate. Featuring our flagship 8.25-Acre Villa Community in Sangareddy.">
+  
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .page-header-silver {
+      padding: 140px 0 60px 0;
+      background: var(--silver-light);
+      border-bottom: 1px solid var(--border-silver);
+      text-align: center;
+    }
+    .re-hero-card {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-medium);
+      margin-bottom: 70px;
+    }
+    .re-hero-img-wrap {
+      position: relative;
+      background: var(--charcoal-deep);
+      overflow: hidden;
+    }
+    .re-hero-img {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .re-hero-card:hover .re-hero-img {
+      transform: scale(1.03);
+    }
+    .re-badge-exclusive {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background: var(--kns-gold);
+      color: #FFFFFF;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .re-hero-body {
+      padding: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .stats-row-re {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      background: var(--silver-tint);
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin: 28px 0;
+    }
+    .stat-mini-item {
+      text-align: center;
+    }
+    .stat-mini-val {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--kns-gold);
+      line-height: 1.1;
+    }
+    .stat-mini-lbl {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--charcoal-muted);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .service-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 50px;
+    }
+    .pillar-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-sm);
+      padding: 34px 28px;
+      box-shadow: var(--shadow-subtle);
+      transition: all 0.3s ease;
+    }
+    .pillar-card:hover {
+      border-color: var(--kns-gold);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-medium);
+    }
+    .pillar-num {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--kns-gold);
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+    .pillar-title {
+      font-family: var(--font-sans);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--charcoal-deep);
+      margin-bottom: 12px;
+    }
+    .pillar-desc {
+      font-size: 0.92rem;
+      color: var(--charcoal-muted);
+      line-height: 1.6;
+    }
+    .location-advantage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 50px;
+    }
+    .location-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .location-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-sm);
+    }
+    .location-icon {
+      color: var(--kns-gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .location-text h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--charcoal-deep);
+      margin-bottom: 2px;
+    }
+    .location-text p {
+      font-size: 0.85rem;
+      color: var(--charcoal-muted);
+      margin: 0;
+    }
+    @media (max-width: 992px) {
+      .re-hero-card {
+        grid-template-columns: 1fr;
+      }
+      .service-pillars-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-row-re {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .location-advantage-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3D Floating Navigation -->
+  <div class="nav-wrapper-outer">
+    <header class="site-navbar" id="siteNavbar">
+      <a href="index.html" class="brand-link" aria-label="KNS Construction & Real Estate Home">
+        <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="navbar-logo" width="160" height="90">
+      </a>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="about.html" class="nav-link">ABOUT</a>
+        <a href="services.html" class="nav-link">SERVICES</a>
+        <a href="projects.html" class="nav-link">PROJECTS</a>
+        <a href="real-estate.html" class="nav-link active">REAL ESTATE</a>
+        <a href="gallery.html" class="nav-link">GALLERY</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <a href="contact.html" class="btn-nav-enquire">ENQUIRE NOW</a>
+        <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Open mobile menu">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </header>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+      <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="mobile-logo" width="130" height="73">
+      <button class="mobile-close-btn" id="mobileCloseBtn">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">HOME</a>
+      <a href="about.html" class="mobile-nav-link">ABOUT</a>
+      <a href="services.html" class="mobile-nav-link">SERVICES</a>
+      <a href="projects.html" class="mobile-nav-link">PROJECTS</a>
+      <a href="real-estate.html" class="mobile-nav-link active">REAL ESTATE</a>
+      <a href="gallery.html" class="mobile-nav-link">GALLERY</a>
+      <a href="contact.html" class="mobile-nav-link">CONTACT</a>
+      <a href="admin.html" class="mobile-nav-link" style="color: var(--kns-gold); font-size: 0.85rem;">ADMIN PORTAL</a>
+    </div>
+  </aside>
+
+  <!-- Page Header -->
+  <header class="page-header-silver">
+    <div class="container">
+      <span class="section-tag">STRATEGIC LAND & DEVELOPMENT</span>
+      <h1 class="section-heading-large">REAL ESTATE SOLUTIONS</h1>
+      <p style="font-size: 1.15rem; color: #4A4D54; max-width: 680px; margin: 0 auto;">
+        High-growth plotted villa communities, land advisory, and joint venture development in Hyderabad’s prime western growth corridors.
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Real Estate Content -->
+  <main style="padding: 85px 0; background: var(--bg-primary);">
+    <div class="container">
+
+      <!-- Flagship Community Spotlight -->
+      <div class="re-hero-card">
+        <div class="re-hero-img-wrap">
+          <img src="assets/images/kns-villa-master-plan.png" alt="KNS 8.25 Acre Villa Layout Concept Master Plan" class="re-hero-img">
+          <span class="re-badge-exclusive">FLAGSHIP PLOTTED COMMUNITY</span>
+        </div>
+        <div class="re-hero-body">
+          <span class="section-tag">SANGAREDDY &bull; HYDERABAD WEST</span>
+          <h2 style="font-family: var(--font-serif); font-size: 2.1rem; color: var(--charcoal-deep); margin-bottom: 12px; line-height: 1.2;">
+            KNS Premium Villa Community
+          </h2>
+          <p style="color: var(--charcoal-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 10px;">
+            A master-planned gated enclave conceptualized across 8.25 contiguous acres in Sangareddy. Designed for luxury villa living with wide 40-foot internal arterial roads, dedicated park greens, and modern infrastructure.
+          </p>
+
+          <div class="stats-row-re">
+            <div class="stat-mini-item">
+              <div class="stat-mini-val">8.25</div>
+              <div class="stat-mini-lbl">Acres Land</div>
+            </div>
+            <div class="stat-mini-item">
+              <div class="stat-mini-val">100</div>
+              <div class="stat-mini-lbl">Villa Plots</div>
+            </div>
+            <div class="stat-mini-item">
+              <div class="stat-mini-val">250</div>
+              <div class="stat-mini-lbl">Sq. Yds Each</div>
+            </div>
+            <div class="stat-mini-item">
+              <div class="stat-mini-val">40 FT</div>
+              <div class="stat-mini-lbl">Sector Roads</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <a href="project-kns-villa-community.html" class="btn-primary-architectural">
+              VIEW INTERACTIVE MASTER PLAN
+            </a>
+            <a href="contact.html?type=villa-plot" class="btn-secondary-architectural">
+              ENQUIRE ABOUT PLOTS
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Estate Service Pillars -->
+      <div style="text-align: center; max-width: 650px; margin: 40px auto 0 auto;">
+        <span class="section-tag">COMPREHENSIVE ADVISORY</span>
+        <h2 class="section-heading-large" style="font-size: 2.2rem;">LAND & INVESTMENT SCOPE</h2>
+        <p style="color: var(--charcoal-muted); font-size: 1rem;">
+          How KNS Construction & Real Estate unlocks value for individual plot buyers and land owners alike.
+        </p>
+      </div>
+
+      <div class="service-pillars-grid">
+        <div class="pillar-card">
+          <span class="pillar-num">01</span>
+          <h3 class="pillar-title">Gated Plotted Communities</h3>
+          <p class="pillar-desc">
+            We identify prime parcels in developing hubs, complete meticulous civil layout engineering, lay comprehensive underground services, and deliver legally unencumbered villa plots with high appreciation potential.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-num">02</span>
+          <h3 class="pillar-title">Land Acquisition & Due Diligence</h3>
+          <p class="pillar-desc">
+            Comprehensive legal scrutiny, 30-year link document verification, encumbrance certificate (EC) vetting, revenue record validation (Pahani / Dharani), and precise digital boundary surveys for zero risk.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-num">03</span>
+          <h3 class="pillar-title">Joint Development Partnerships</h3>
+          <p class="pillar-desc">
+            We partner with land owners across Hyderabad, Sangareddy, and Patancheru on transparent revenue-share or built-area sharing models, handling complete architectural, civil, and regulatory execution.
+          </p>
+        </div>
+      </div>
+
+      <!-- Infrastructure Standards & Location Advantages -->
+      <div class="location-advantage-grid">
+        <div>
+          <span class="section-tag">COMMUNITY SPECIFICATIONS</span>
+          <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--charcoal-deep); margin-bottom: 16px;">
+            Engineered Community Infrastructure
+          </h2>
+          <p style="color: var(--charcoal-muted); font-size: 0.96rem; line-height: 1.65; margin-bottom: 24px;">
+            Unlike standard unorganized layouts, every KNS plotted project adheres to strict civil engineering standards for longevity, drainage efficiency, and aesthetic elegance.
+          </p>
+
+          <div class="location-list">
+            <div class="location-item">
+              <svg class="location-icon" width="22" height="22" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              <div class="location-text">
+                <h4>40-Foot Bituminous & Paver Road Networks</h4>
+                <p>Wide central avenues with designated pedestrian margins and curb channels.</p>
+              </div>
+            </div>
+
+            <div class="location-item">
+              <svg class="location-icon" width="22" height="22" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              <div class="location-text">
+                <h4>Concealed Underground Drainage & Rainwater Harvesting</h4>
+                <p>Engineered storm water drains preventing waterlogging and recharging water tables.</p>
+              </div>
+            </div>
+
+            <div class="location-item">
+              <svg class="location-icon" width="22" height="22" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              <div class="location-text">
+                <h4>Overhead Water Supply & Dedicated Sump Network</h4>
+                <p>Reliable water distribution lines routed directly to individual plot boundaries.</p>
+              </div>
+            </div>
+
+            <div class="location-item">
+              <svg class="location-icon" width="22" height="22" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              <div class="location-text">
+                <h4>Architectural Entrance Gateway & 24/7 Security Cabin</h4>
+                <p>Grand perimeter walling, boom barrier security provision, and LED street illumination.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="background: var(--navy-midnight); border-radius: var(--radius-md); padding: 40px; color: #FFFFFF;">
+            <span class="section-tag" style="color: var(--kns-gold);">CORRIDOR INSIGHTS</span>
+            <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 16px; color: #FFFFFF;">
+              Why Invest in Sangareddy & Patancheru?
+            </h3>
+            <p style="color: #94A3B8; font-size: 0.94rem; line-height: 1.65; margin-bottom: 24px;">
+              The Hyderabad West corridor continues to lead the city in capital appreciation and infrastructure expansion:
+            </p>
+
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; font-size: 0.92rem; color: #CBD5E1;">
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: var(--kns-gold); font-weight: 700;">&bull;</span>
+                <span>Direct connectivity via Mumbai Highway (NH 65) and Outer Ring Road (ORR Junction).</span>
+              </li>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: var(--kns-gold); font-weight: 700;">&bull;</span>
+                <span>Proximity to major industrial, medical, and educational hubs of IIT Hyderabad, Kandi, and Patancheru.</span>
+              </li>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: var(--kns-gold); font-weight: 700;">&bull;</span>
+                <span>High demand for independent luxury villas among tech leaders working in Gachibowli and Financial District.</span>
+              </li>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: var(--kns-gold); font-weight: 700;">&bull;</span>
+                <span>Clear titles with systematic planning ensure seamless bank loan sanctioning and asset appreciation.</span>
+              </li>
+            </ul>
+
+            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12);">
+              <a href="contact.html" class="btn-primary-architectural" style="width: 100%; justify-content: center;">
+                SCHEDULE A SANGAREDDY SITE VISIT
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Floating WhatsApp Action -->
+  <a href="https://wa.me/919100425645?text=Hello%20KNS%20Construction%20%26%20Real%20Estate,%20I%20am%20interested%20in%20your%20real%20estate%20and%20villa%20plots." 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     class="floating-whatsapp-pill" 
+     aria-label="Chat on WhatsApp">
+    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+    WhatsApp KNS
+  </a>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-columns-grid">
+        <div>
+          <a href="index.html" aria-label="KNS Home">
+            <img src="assets/images/kns-logo-full.png" alt="KNS Construction & Real Estate" class="footer-logo" width="290" height="193">
+          </a>
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+            <strong>KNS Construction & Real Estate</strong><br>
+            Building Dreams, Brick by Brick
+          </p>
+          <p style="font-size: 0.85rem; color: #94A3B8; line-height: 1.5;">
+            Proprietor: <strong>Kiran Gajbhare</strong><br>
+            Raghavendra Colony, Kondapur,<br>
+            Hyderabad &ndash; 500084, Telangana, India
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Navigation</h4>
+          <div class="footer-links-col">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="projects.html">Projects</a>
+            <a href="real-estate.html">Real Estate</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Key Offerings</h4>
+          <div class="footer-links-col">
+            <a href="turnkey-construction.html">Turnkey Construction</a>
+            <a href="project-gplus1-duplex.html">G+1 Duplex House</a>
+            <a href="project-premium-3bhk.html">Premium 3BHK Units</a>
+            <a href="project-kns-villa-community.html">KNS Villa Community</a>
+            <a href="index.html#estimator">Cost Estimator</a>
+            <a href="admin.html">Admin Portal</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Direct Connect</h4>
+          <p style="font-size: 0.88rem; color: #94A3B8; margin-bottom: 8px;">Direct Calls & WhatsApp:</p>
+          <a href="tel:+919100425645" style="display: block; color: var(--gold-light); font-weight: 700; font-size: 1.05rem; margin-bottom: 4px;">+91 91004 25645</a>
+          <a href="tel:+919246563397" style="display: block; color: var(--gold-light); font-weight: 700; font-size: 1.05rem; margin-bottom: 12px;">+91 92465 63397</a>
+          <p style="font-size: 0.88rem; color: #94A3B8; margin-bottom: 4px;">Inquiry Email:</p>
+          <a href="mailto:knsconstructions@gmail.com" style="color: var(--white); font-weight: 600;">knsconstructions@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <div>
+          &copy; 2026 KNS Construction & Real Estate. All Rights Reserved.
+        </div>
+        <div>
+          Building Your Future With Precision & Quality
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

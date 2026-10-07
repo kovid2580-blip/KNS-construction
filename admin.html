@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operations & Plot Management Dashboard | KNS Construction & Real Estate</title>
+  <meta name="description" content="Internal operations portal for KNS Construction & Real Estate. Manage villa plot inventories, client consultations, and construction milestones.">
+  
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      background: #F1F3F5;
+    }
+    .admin-nav-bar {
+      background: var(--navy-midnight);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .admin-nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+    }
+    .admin-logo {
+      height: 44px;
+      width: auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+    }
+    .admin-badge {
+      background: rgba(196, 154, 58, 0.2);
+      color: var(--kns-gold);
+      border: 1px solid rgba(196, 154, 58, 0.4);
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+    }
+    .admin-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #FFFFFF;
+      font-size: 0.88rem;
+    }
+    .admin-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--kns-gold);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .admin-container {
+      max-width: 1360px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+    .admin-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 28px;
+    }
+    .admin-title {
+      font-family: var(--font-serif);
+      font-size: 1.95rem;
+      color: var(--charcoal-deep);
+      margin-bottom: 4px;
+    }
+    .admin-subtitle {
+      font-size: 0.92rem;
+      color: var(--charcoal-muted);
+    }
+    /* KPI Cards Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+    .kpi-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      box-shadow: var(--shadow-subtle);
+      border-top: 3px solid var(--border-silver);
+      transition: transform 0.2s ease;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+    }
+    .kpi-card.gold-accent {
+      border-top-color: var(--kns-gold);
+    }
+    .kpi-card.navy-accent {
+      border-top-color: var(--navy-midnight);
+    }
+    .kpi-card.green-accent {
+      border-top-color: #10B981;
+    }
+    .kpi-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--charcoal-muted);
+      margin-bottom: 8px;
+    }
+    .kpi-val {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--charcoal-deep);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .kpi-subtext {
+      font-size: 0.75rem;
+      color: var(--charcoal-muted);
+    }
+    /* Tab Controls */
+    .admin-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-silver);
+      padding-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 10px 22px;
+      background: transparent;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--charcoal-muted);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      color: var(--charcoal-deep);
+      background: rgba(0,0,0,0.04);
+    }
+    .tab-btn.active {
+      color: #FFFFFF;
+      background: var(--navy-midnight);
+    }
+    /* Section Panels */
+    .admin-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-sm);
+      padding: 28px;
+      box-shadow: var(--shadow-subtle);
+      margin-bottom: 30px;
+    }
+    .card-head-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .card-head-title {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      color: var(--charcoal-deep);
+    }
+    /* Plot Filter Toolbar */
+    .plot-toolbar {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      padding: 8px 14px;
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      outline: none;
+      min-width: 220px;
+    }
+    .search-input:focus {
+      border-color: var(--kns-gold);
+    }
+    .filter-select {
+      padding: 8px 12px;
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      background: #FFFFFF;
+      outline: none;
+    }
+    /* Interactive Data Table */
+    .admin-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border-silver);
+      border-radius: var(--radius-sm);
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    .admin-table th {
+      background: var(--silver-tint);
+      padding: 12px 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      color: var(--charcoal-deep);
+      border-bottom: 1px solid var(--border-silver);
+    }
+    .admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-silver);
+      color: var(--charcoal-deep);
+      vertical-align: middle;
+    }
+    .admin-table tr:hover {
+      background: #FAFAFA;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 4px;
+    }
+    .status-available {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+    .status-reserved {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+    .status-sold {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+    .btn-toggle-status {
+      padding: 5px 10px;
+      border: 1px solid var(--border-silver);
+      background: #FFFFFF;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-toggle-status:hover {
+      background: var(--silver-tint);
+      border-color: var(--charcoal-deep);
+    }
+    .btn-whatsapp-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: #25D366;
+      color: #FFFFFF;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .btn-action-view {
+      padding: 5px 12px;
+      background: var(--navy-midnight);
+      color: #FFFFFF;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    @media (max-width: 1200px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .admin-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Admin Navbar -->
+  <header class="admin-nav-bar">
+    <div class="container admin-nav-container">
+      <a href="index.html" class="admin-brand">
+        <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="admin-logo">
+        <span class="admin-badge">PORTAL</span>
+      </a>
+
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <a href="index.html" style="color: #94A3B8; text-decoration: none; font-size: 0.85rem; font-weight: 600;">&larr; View Public Site</a>
+        <div class="admin-user-pill">
+          <div class="admin-avatar">KG</div>
+          <div>
+            <div style="font-weight: 700; line-height: 1.2;">Kiran Gajbhare</div>
+            <div style="font-size: 0.75rem; color: #94A3B8;">Proprietor & Engineering Lead</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-container">
+    
+    <!-- Header Title -->
+    <div class="admin-header-row">
+      <div>
+        <h1 class="admin-title">Operational Overview</h1>
+        <p class="admin-subtitle">Real-time status of villa plot inventory, active Kondapur construction sites, and prospective inquiries.</p>
+      </div>
+      <div>
+        <button class="btn-primary-architectural" onclick="resetInventoryDemo()" style="padding: 10px 18px; font-size: 0.82rem;">
+          RESET INVENTORY STATE
+        </button>
+      </div>
+    </div>
+
+    <!-- 6 Live KPI Metrics -->
+    <div class="kpi-grid">
+      <div class="kpi-card gold-accent">
+        <div class="kpi-label">Total Projects</div>
+        <div class="kpi-val">3</div>
+        <div class="kpi-subtext">Featured Flagships</div>
+      </div>
+
+      <div class="kpi-card navy-accent">
+        <div class="kpi-label">Active Sites</div>
+        <div class="kpi-val">2</div>
+        <div class="kpi-subtext">Kondapur & Raghavendra Col.</div>
+      </div>
+
+      <div class="kpi-card green-accent">
+        <div class="kpi-label">Available Plots</div>
+        <div class="kpi-val" id="kpiAvailablePlots">68</div>
+        <div class="kpi-subtext">Sangareddy (Out of 100)</div>
+      </div>
+
+      <div class="kpi-card gold-accent">
+        <div class="kpi-label">Reserved Plots</div>
+        <div class="kpi-val" id="kpiReservedPlots">18</div>
+        <div class="kpi-subtext">Under Verification</div>
+      </div>
+
+      <div class="kpi-card navy-accent">
+        <div class="kpi-label">Sold Plots</div>
+        <div class="kpi-val" id="kpiSoldPlots">14</div>
+        <div class="kpi-subtext">Registered Deeded</div>
+      </div>
+
+      <div class="kpi-card gold-accent">
+        <div class="kpi-label">New Enquiries</div>
+        <div class="kpi-val" id="kpiEnquiriesCount">14</div>
+        <div class="kpi-subtext">Last 7 Days</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="admin-tabs">
+      <button class="tab-btn active" id="tabPlotsBtn" onclick="switchAdminTab('plots')">Villa Plots Management (100 Units)</button>
+      <button class="tab-btn" id="tabLeadsBtn" onclick="switchAdminTab('leads')">Client Enquiries & Site Visits</button>
+      <button class="tab-btn" id="tabProjectsBtn" onclick="switchAdminTab('projects')">Ongoing Construction Sites</button>
+    </div>
+
+    <!-- TAB 1: Villa Plots Management -->
+    <section class="admin-card" id="sectionPlots">
+      <div class="card-head-bar">
+        <div>
+          <h2 class="card-head-title">KNS Premium Villa Community Inventory</h2>
+          <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
+            Sangareddy &bull; 8.25 Acres &bull; 100 Villa Plots &bull; 250 Sq. Yards Each &bull; 40 FT Roads
+          </p>
+        </div>
+
+        <div class="plot-toolbar">
+          <input type="text" id="plotSearchInput" class="search-input" placeholder="Search Plot # (e.g. 24)..." oninput="filterPlotTable()">
+          <select id="plotFilterSelect" class="filter-select" onchange="filterPlotTable()">
+            <option value="all">All Plots (1-100)</option>
+            <option value="AVAILABLE">Available</option>
+            <option value="RESERVED">Reserved</option>
+            <option value="SOLD">Sold</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="admin-table-wrapper">
+        <table class="admin-table" id="plotsTable">
+          <thead>
+            <tr>
+              <th>Plot #</th>
+              <th>Dimensions</th>
+              <th>Facing</th>
+              <th>Road Width</th>
+              <th>Base Price</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="plotsTableBody">
+            <!-- Populated via JavaScript dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 2: Client Enquiries & Site Visits -->
+    <section class="admin-card" id="sectionLeads" style="display: none;">
+      <div class="card-head-bar">
+        <div>
+          <h2 class="card-head-title">Inbound Inquiries & Site Bookings</h2>
+          <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
+            Direct consultation requests submitted via website and WhatsApp channel.
+          </p>
+        </div>
+      </div>
+
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Client Name</th>
+              <th>Phone</th>
+              <th>Requirement</th>
+              <th>Location / Details</th>
+              <th>Status</th>
+              <th>Connect</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTableBody">
+            <tr>
+              <td>Today, 11:20 AM</td>
+              <td><strong>Venkat Reddy</strong></td>
+              <td>+91 98490 12345</td>
+              <td>Villa Plot (250 Sq. Yds)</td>
+              <td>Sangareddy Plot #18 &bull; North Facing</td>
+              <td><span class="status-badge status-reserved">Visit Scheduled</span></td>
+              <td>
+                <a href="https://wa.me/919849012345?text=Hello%20Venkat%20garu,%20Kiran%20Gajbhare%20from%20KNS%20Construction." target="_blank" class="btn-whatsapp-action">WhatsApp</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Yesterday</td>
+              <td><strong>Dr. S. K. Sharma</strong></td>
+              <td>+91 99891 56789</td>
+              <td>Premium Residential Turnkey</td>
+              <td>Kondapur &bull; 300 Sq. Yds &bull; G+2 Duplex</td>
+              <td><span class="status-badge status-available">New Inquiry</span></td>
+              <td>
+                <a href="https://wa.me/919989156789?text=Hello%20Dr%20Sharma,%20Kiran%20Gajbhare%20from%20KNS%20Construction." target="_blank" class="btn-whatsapp-action">WhatsApp</a>
+              </td>
+            </tr>
+            <tr>
+              <td>05 Oct 2026</td>
+              <td><strong>Anand Rao</strong></td>
+              <td>+91 91212 98765</td>
+              <td>Commercial Plaza (Turnkey)</td>
+              <td>Miyapur &bull; 4,200 SFT Built-up</td>
+              <td><span class="status-badge status-sold">Estimate Shared</span></td>
+              <td>
+                <a href="https://wa.me/919121298765?text=Hello%20Anand%20garu,%20regarding%20commercial%20construction." target="_blank" class="btn-whatsapp-action">WhatsApp</a>
+              </td>
+            </tr>
+            <tr>
+              <td>03 Oct 2026</td>
+              <td><strong>Praveen Varma</strong></td>
+              <td>+91 94401 22334</td>
+              <td>Villa Plot (Sangareddy)</td>
+              <td>Plot #42 &bull; East Facing Corner</td>
+              <td><span class="status-badge status-reserved">Token Advance</span></td>
+              <td>
+                <a href="https://wa.me/919440122334?text=Hello%20Praveen%20garu,%20regarding%20Sangareddy%20Plot%2042." target="_blank" class="btn-whatsapp-action">WhatsApp</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 3: Ongoing Construction Sites -->
+    <section class="admin-card" id="sectionProjects" style="display: none;">
+      <div class="card-head-bar">
+        <div>
+          <h2 class="card-head-title">Active Construction Milestones</h2>
+          <p style="font-size: 0.86rem; color: var(--charcoal-muted); margin-top: 4px;">
+            Verified physical progress on live Kondapur project sites.
+          </p>
+        </div>
+      </div>
+
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Location</th>
+              <th>Scope</th>
+              <th>Current Stage</th>
+              <th>Quality Audit</th>
+              <th>Page</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>G+1 Duplex House</strong></td>
+              <td>Raghavendra Colony, Kondapur</td>
+              <td>3,200 SFT Residential</td>
+              <td>First Floor Slab & Shuttering</td>
+              <td><span class="status-badge status-available">Concrete 28-day Cube Passed</span></td>
+              <td><a href="project-gplus1-duplex.html" class="btn-action-view" target="_blank">View Site Page</a></td>
+            </tr>
+            <tr>
+              <td><strong>Premium 3BHK Residences</strong></td>
+              <td>Raghavendra Colony, Kondapur</td>
+              <td>G+5 Floors (1,850 SFT / Unit)</td>
+              <td>Superstructure Brickwork & Concealed Conduit</td>
+              <td><span class="status-badge status-available">Plumb & Line Verified</span></td>
+              <td><a href="project-premium-3bhk.html" class="btn-action-view" target="_blank">View Site Page</a></td>
+            </tr>
+            <tr>
+              <td><strong>KNS Villa Community Layout</strong></td>
+              <td>Sangareddy, Hyderabad West</td>
+              <td>8.25 Acres &bull; 100 Plots</td>
+              <td>40-FT Sub-grade Compaction & Compound Enclosure</td>
+              <td><span class="status-badge status-available">Survey Markers Demarcated</span></td>
+              <td><a href="project-kns-villa-community.html" class="btn-action-view" target="_blank">View Site Page</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // In-memory / LocalStorage Plot Database
+    const TOTAL_PLOTS = 100;
+    let plotsData = [];
+
+    function initPlotsData() {
+      const saved = localStorage.getItem('kns_admin_plots');
+      if (saved) {
+        try {
+          plotsData = JSON.parse(saved);
+          return;
+        } catch(e) {}
+      }
+
+      // Generate initial 100 plots with realistic distribution
+      plotsData = [];
+      const facings = ['East', 'West', 'North', 'East Corner', 'North Corner'];
+      for (let i = 1; i <= TOTAL_PLOTS; i++) {
+        let status = 'AVAILABLE';
+        if (i === 1 || i === 5 || i === 12 || i === 24 || i === 42 || i === 88) {
+          status = 'RESERVED';
+        } else if (i === 2 || i === 3 || i === 10 || i === 15 || i === 33 || i === 50 || i === 75) {
+          status = 'SOLD';
+        }
+
+        const facing = facings[(i * 3) % facings.length];
+        plotsData.push({
+          number: i,
+          dimensions: '250 Sq. Yards (45 x 50)',
+          facing: facing,
+          roadWidth: '40 FT Wide',
+          basePrice: '₹37.5 Lakhs',
+          status: status
+        });
+      }
+      savePlotsData();
+    }
+
+    function savePlotsData() {
+      localStorage.setItem('kns_admin_plots', JSON.stringify(plotsData));
+      updateKpis();
+    }
+
+    function resetInventoryDemo() {
+      if (confirm('Reset plots inventory back to default demonstration state?')) {
+        localStorage.removeItem('kns_admin_plots');
+        initPlotsData();
+        renderPlotsTable();
+      }
+    }
+
+    function updateKpis() {
+      let avail = 0, res = 0, sold = 0;
+      plotsData.forEach(p => {
+        if (p.status === 'AVAILABLE') avail++;
+        else if (p.status === 'RESERVED') res++;
+        else if (p.status === 'SOLD') sold++;
+      });
+      const elAvail = document.getElementById('kpiAvailablePlots');
+      const elRes = document.getElementById('kpiReservedPlots');
+      const elSold = document.getElementById('kpiSoldPlots');
+      if (elAvail) elAvail.textContent = avail;
+      if (elRes) elRes.textContent = res;
+      if (elSold) elSold.textContent = sold;
+    }
+
+    function cyclePlotStatus(plotNum) {
+      const plot = plotsData.find(p => p.number === plotNum);
+      if (!plot) return;
+      if (plot.status === 'AVAILABLE') plot.status = 'RESERVED';
+      else if (plot.status === 'RESERVED') plot.status = 'SOLD';
+      else plot.status = 'AVAILABLE';
+
+      savePlotsData();
+      renderPlotsTable();
+    }
+
+    function renderPlotsTable() {
+      const tbody = document.getElementById('plotsTableBody');
+      const query = (document.getElementById('plotSearchInput').value || '').trim().toLowerCase();
+      const filter = document.getElementById('plotFilterSelect').value;
+
+      tbody.innerHTML = '';
+
+      const filtered = plotsData.filter(p => {
+        const matchesQuery = query === '' || p.number.toString().includes(query) || p.facing.toLowerCase().includes(query);
+        const matchesFilter = filter === 'all' || p.status === filter;
+        return matchesQuery && matchesFilter;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 30px; color: #888;">No plots found matching current criteria.</td></tr>';
+        return;
+      }
+
+      filtered.forEach(p => {
+        const tr = document.createElement('tr');
+        
+        let badgeClass = 'status-available';
+        if (p.status === 'RESERVED') badgeClass = 'status-reserved';
+        if (p.status === 'SOLD') badgeClass = 'status-sold';
+
+        tr.innerHTML = `
+          <td><strong>Plot #${p.number}</strong></td>
+          <td>${p.dimensions}</td>
+          <td>${p.facing}</td>
+          <td>${p.roadWidth}</td>
+          <td>${p.basePrice}</td>
+          <td><span class="status-badge ${badgeClass}">${p.status}</span></td>
+          <td>
+            <button class="btn-toggle-status" onclick="cyclePlotStatus(${p.number})" title="Cycle status: Available -> Reserved -> Sold">
+              Toggle Status &rarr;
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterPlotTable() {
+      renderPlotsTable();
+    }
+
+    function switchAdminTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('sectionPlots').style.display = 'none';
+      document.getElementById('sectionLeads').style.display = 'none';
+      document.getElementById('sectionProjects').style.display = 'none';
+
+      if (tabName === 'plots') {
+        document.getElementById('tabPlotsBtn').classList.add('active');
+        document.getElementById('sectionPlots').style.display = 'block';
+      } else if (tabName === 'leads') {
+        document.getElementById('tabLeadsBtn').classList.add('active');
+        document.getElementById('sectionLeads').style.display = 'block';
+      } else if (tabName === 'projects') {
+        document.getElementById('tabProjectsBtn').classList.add('active');
+        document.getElementById('sectionProjects').style.display = 'block';
+      }
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      initPlotsData();
+      renderPlotsTable();
+    });
+  </script>
+</body>
+</html>
