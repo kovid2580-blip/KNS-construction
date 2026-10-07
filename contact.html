@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | KNS Construction & Real Estate - Building Dreams, Brick By Brick</title>
+  <meta name="description" content="Get in touch with KNS Construction & Real Estate. Book a site consultation with our principal civil engineers and architects.">
+  
+  <!-- Official Favicons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/images/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .page-hero {
+      padding: calc(var(--nav-height) + 60px) 0 60px 0;
+      background: radial-gradient(circle at 50% 30%, #121D32 0%, #070B14 100%);
+      border-bottom: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+    .page-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .page-hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .faq-section {
+      padding: 90px 0;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-dark);
+    }
+    .faq-grid {
+      max-width: 800px;
+      margin: 40px auto 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 22px 26px;
+    }
+    .faq-question {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+    .faq-answer {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-nav-wrap">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-link" aria-label="KNS Home">
+          <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="navbar-logo" width="160" height="90">
+        </a>
+        <nav class="nav-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="about.html" class="nav-link">About Brand</a>
+          <a href="services.html" class="nav-link">Our Services</a>
+          <a href="projects.html" class="nav-link">Portfolio</a>
+          <a href="index.html#calculator" class="nav-link">Cost Estimator</a>
+          <a href="contact.html" class="nav-link active">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="contact.html" class="btn-nav-quote">Request Quote</a>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open mobile menu">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <aside class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-drawer-header">
+      <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="mobile-logo" width="130" height="73">
+      <button class="mobile-close-btn" id="mobileDrawerClose">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="about.html" class="mobile-nav-link">About Brand</a>
+      <a href="services.html" class="mobile-nav-link">Our Services</a>
+      <a href="projects.html" class="mobile-nav-link">Portfolio</a>
+      <a href="index.html#calculator" class="mobile-nav-link">Cost Estimator</a>
+      <a href="contact.html" class="mobile-nav-link active">Contact</a>
+    </div>
+  </aside>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Connect With Us</span>
+      <h1 class="page-hero-title">Start Your Construction Journey</h1>
+      <p class="page-hero-subtitle">
+        Schedule a face-to-face architectural consultation or site visit with our senior engineering team.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Contact Section -->
+  <section style="padding: 90px 0; background: var(--bg-secondary);">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info-card">
+          <span class="section-label">Head Office & Labs</span>
+          <h2 class="contact-info-title">KNS Construction Towers</h2>
+          <p class="contact-info-text">
+            Our central office houses our architectural design studios, material quality-control laboratories, and real estate advisory wing.
+          </p>
+
+          <div class="contact-details-list">
+            <div class="contact-detail-row">
+              <div class="contact-icon-pill">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Registered Address</h4>
+                <p>KNS Construction Towers, Level 5, Prime Business Park, MG Road Corridor, Bangalore, Karnataka - 560001</p>
+              </div>
+            </div>
+
+            <div class="contact-detail-row">
+              <div class="contact-icon-pill">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"></path></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Helpline & Direct Line</h4>
+                <a href="tel:+919876543210">+91 98765 43210 (Toll-Free & WhatsApp)</a>
+              </div>
+            </div>
+
+            <div class="contact-detail-row">
+              <div class="contact-icon-pill">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Official Email</h4>
+                <a href="mailto:contact@knsconstruction.com">contact@knsconstruction.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-card">
+          <h3 class="form-title">Send a Direct Message</h3>
+          <p class="form-subtitle">Fill in your requirements and our project coordinator will contact you promptly.</p>
+
+          <form id="consultationForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="clientName" class="form-label">Full Name *</label>
+                <input type="text" id="clientName" class="form-input" placeholder="Your Name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="clientPhone" class="form-label">Phone Number *</label>
+                <input type="tel" id="clientPhone" class="form-input" placeholder="+91 98765 00000" required>
+              </div>
+
+              <div class="form-group">
+                <label for="clientEmail" class="form-label">Email Address *</label>
+                <input type="email" id="clientEmail" class="form-input" placeholder="your@email.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="projectType" class="form-label">Nature of Inquiry *</label>
+                <select id="projectType" class="form-select" required>
+                  <option value="" disabled selected>Select Inquiry Type</option>
+                  <option value="commercial">Commercial Building Construction</option>
+                  <option value="villa">Luxury Residence / Villa</option>
+                  <option value="realestate">Land Investment / Plots</option>
+                  <option value="interior">Interior Fit-out</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="projectMessage" class="form-label">Message & Site Location</label>
+                <textarea id="projectMessage" class="form-textarea" placeholder="Tell us about your plot location, dimensions, timeline, and architectural expectations..."></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="form-submit-btn">Submit Inquiry</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="section-label">Help & Clarity</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-description">
+          Clear answers regarding timelines, contracts, billing structures, and RERA certifications.
+        </p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3 class="faq-question">How are project payment milestones structured?</h3>
+          <p class="faq-answer">Payments are tied strictly to physical on-site completion milestones (e.g., Plinth completion, 1st slab casting, brickwork, plastering, and finishes). You only pay after our quality audit team certifies each phase.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question">Are all KNS real estate developments RERA certified?</h3>
+          <p class="faq-answer">Yes, 100% of our residential communities and commercial projects hold verified RERA registration numbers, DTCP/BDA sanctions, and clear freehold legal titles vetted by top legal counsels.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question">What structural warranty does KNS provide?</h3>
+          <p class="faq-answer">We back every civil structure we construct with an ironclad 10-year structural warranty covering RCC frames, foundations, and load-bearing elements, backed by certified material test certificates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-column">
+          <a href="index.html">
+            <img src="assets/images/kns-logo-full.png" alt="KNS Construction & Real Estate" class="footer-logo" width="290" height="193">
+          </a>
+          <p class="footer-brand-bio">
+            Certified under RERA and ISO 9001:2015. Engineering landmarks with unyielding precision.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Services</h4>
+          <ul class="footer-links-list">
+            <li class="footer-link-item"><a href="services.html">Commercial Towers</a></li>
+            <li class="footer-link-item"><a href="services.html">Luxury Residential</a></li>
+            <li class="footer-link-item"><a href="services.html">Real Estate Land</a></li>
+            <li class="footer-link-item"><a href="services.html">Turnkey Interiors</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links-list">
+            <li class="footer-link-item"><a href="index.html">Home</a></li>
+            <li class="footer-link-item"><a href="about.html">About Brand</a></li>
+            <li class="footer-link-item"><a href="projects.html">Portfolio</a></li>
+            <li class="footer-link-item"><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Headquarters</h4>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+            <span>KNS Construction Towers, Level 5, Bangalore, KA - 560001</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"></path></svg>
+            <span>+91 98765 43210</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div>&copy; 2026 KNS Construction & Real Estate. All Rights Reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">RERA Disclosures</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Submission Modal -->
+  <div class="modal-overlay" id="confirmationModal">
+    <div class="modal-card">
+      <div class="modal-icon">
+        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+      </div>
+      <h3 class="modal-title">Consultation Requested</h3>
+      <p class="modal-text">Thank you for connecting with KNS. An engineering manager will call you within 2 business hours.</p>
+      <button class="btn-primary" id="closeModalBtn" style="padding: 10px 24px;">Close</button>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

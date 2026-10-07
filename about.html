@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | KNS Construction & Real Estate - Building Dreams, Brick By Brick</title>
+  <meta name="description" content="Learn about KNS Construction & Real Estate: our architectural heritage, engineering standards, structural safety, and leadership team.">
+  
+  <!-- Official Favicons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/images/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .page-hero {
+      padding: calc(var(--nav-height) + 60px) 0 60px 0;
+      background: radial-gradient(circle at 50% 30%, #121D32 0%, #070B14 100%);
+      border-bottom: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+    .page-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .page-hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .content-section {
+      padding: 90px 0;
+    }
+    .about-story-row {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+    .about-img-box {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-medium);
+      box-shadow: var(--shadow-lg);
+    }
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .fleet-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .fleet-card h3 {
+      font-family: var(--font-heading);
+      color: var(--gold-light);
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+    .fleet-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+    @media (max-width: 768px) {
+      .about-story-row { grid-template-columns: 1fr; }
+      .fleet-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-nav-wrap">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-link" aria-label="KNS Home">
+          <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="navbar-logo" width="160" height="90">
+        </a>
+        <nav class="nav-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="about.html" class="nav-link active">About Brand</a>
+          <a href="services.html" class="nav-link">Our Services</a>
+          <a href="projects.html" class="nav-link">Portfolio</a>
+          <a href="index.html#calculator" class="nav-link">Cost Estimator</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="contact.html" class="btn-nav-quote">Request Quote</a>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open mobile menu">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <aside class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-drawer-header">
+      <img src="assets/images/kns-logo-compact.png" alt="KNS Construction & Real Estate" class="mobile-logo" width="130" height="73">
+      <button class="mobile-close-btn" id="mobileDrawerClose">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="about.html" class="mobile-nav-link active">About Brand</a>
+      <a href="services.html" class="mobile-nav-link">Our Services</a>
+      <a href="projects.html" class="mobile-nav-link">Portfolio</a>
+      <a href="index.html#calculator" class="mobile-nav-link">Cost Estimator</a>
+      <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </div>
+  </aside>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Heritage & Vision</span>
+      <h1 class="page-hero-title">About KNS Construction & Real Estate</h1>
+      <p class="page-hero-subtitle">
+        Pioneering architectural landmarks with structural integrity, ethical business practices, and unmatched craftsmanship since 1999.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="content-section">
+    <div class="container">
+      <div class="about-story-row">
+        <div>
+          <span class="section-label">Foundational Pillars</span>
+          <h2 class="section-title">A Quarter-Century of Engineering Excellence</h2>
+          <p class="section-description">
+            KNS Construction & Real Estate was founded with a singular conviction: to construct buildings that stand the test of centuries while elevating the lives of the communities they serve.
+          </p>
+          <p class="section-description">
+            From our early days undertaking specialized RCC civil structures to delivering sprawling multi-acre commercial IT parks and bespoke luxury estates, our ethos has remained steadfast: <strong>Building Dreams, Brick By Brick</strong>.
+          </p>
+          <p class="section-description">
+            We integrate modern geotechnical engineering, robotic site measurement, high-strength micro-silica concrete mixes, and sustainable LEED-certified construction protocols into every square foot we execute.
+          </p>
+        </div>
+        <div class="about-img-box">
+          <img src="assets/images/service-engineering.jpg" alt="KNS Civil Engineers On Site" style="width: 100%; height: auto;">
+        </div>
+      </div>
+
+      <!-- Official Brand Identity Standards Card -->
+      <div class="brand-logo-frame" style="margin-bottom: 70px;">
+        <img src="assets/images/kns-logo-full.png" alt="Official KNS Brand Identity" class="brand-showcase-logo" width="380" height="253">
+        <h3 style="font-family: var(--font-serif); color: var(--gold-light); font-size: 1.4rem; margin-bottom: 10px;">The Official KNS Brand Identity</h3>
+        <p style="color: var(--text-secondary); max-width: 680px; margin: 0 auto 16px auto; font-size: 0.95rem;">
+          Our trademark emblem features the iconic gold crane mast, structural brick masonry, beveled golden typography, and the foundational motto "Building Dreams, Brick By Brick."
+        </p>
+        <span class="brand-seal-badge">Registered Trademark &bull; Source of Truth Identity</span>
+      </div>
+
+      <!-- Infrastructure Fleet -->
+      <div class="section-header-center">
+        <span class="section-label">In-House Capabilities</span>
+        <h2 class="section-title">Heavy Equipment & Machinery Fleet</h2>
+        <p class="section-description">
+          We maintain our own fleet of heavy construction machinery to guarantee zero subcontractor delays and full control over site execution quality.
+        </p>
+      </div>
+
+      <div class="fleet-grid">
+        <div class="fleet-card">
+          <h3>Tower Cranes & Hoists</h3>
+          <p>Potain high-capacity tower cranes with 60-meter working radii for seamless vertical material logistics on high-rise structures.</p>
+        </div>
+        <div class="fleet-card">
+          <h3>Automated Concrete Batching</h3>
+          <p>Computerized Schwing Stetter RMC batching plants ensuring precise water-cement ratio and guaranteed compressive strength.</p>
+        </div>
+        <div class="fleet-card">
+          <h3>Formwork Systems</h3>
+          <p>Aluminum formwork (Mivan technology) providing monolithic crack-free finishes, high seismic resistance, and rapid floor cycles.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-column">
+          <a href="index.html">
+            <img src="assets/images/kns-logo-full.png" alt="KNS Construction & Real Estate" class="footer-logo" width="290" height="193">
+          </a>
+          <p class="footer-brand-bio">
+            Certified under RERA and ISO 9001:2015. Delivering luxury homes and commercial towers with structural integrity.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Services</h4>
+          <ul class="footer-links-list">
+            <li class="footer-link-item"><a href="services.html">Commercial Towers</a></li>
+            <li class="footer-link-item"><a href="services.html">Luxury Residential</a></li>
+            <li class="footer-link-item"><a href="services.html">Real Estate Land</a></li>
+            <li class="footer-link-item"><a href="services.html">Turnkey Interiors</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links-list">
+            <li class="footer-link-item"><a href="index.html">Home</a></li>
+            <li class="footer-link-item"><a href="about.html">About Brand</a></li>
+            <li class="footer-link-item"><a href="projects.html">Portfolio</a></li>
+            <li class="footer-link-item"><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Headquarters</h4>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+            <span>KNS Construction Towers, Level 5, Bangalore, KA - 560001</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"></path></svg>
+            <span>+91 98765 43210</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div>&copy; 2026 KNS Construction & Real Estate. All Rights Reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">RERA Disclosures</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
