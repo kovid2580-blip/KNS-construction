@@ -249,7 +249,7 @@ A privacy-conscious, production-grade tracking and attribution foundation is imp
 ### Option 1: Running with Full REST API Server (Recommended)
 ```bash
 # Starts Node.js REST server on port 8080 (serves static assets + /api/leads)
-node server.js
+node server/server.js
 
 # Or using npm
 npm start

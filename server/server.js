@@ -25,7 +25,7 @@ const url = require('url');
 const crypto = require('crypto');
 
 const PORT = process.env.PORT || 8080;
-const ROOT_DIR = __dirname;
+const ROOT_DIR = path.join(__dirname, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 

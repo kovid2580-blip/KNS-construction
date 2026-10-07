@@ -3,9 +3,9 @@
   "version": "4.0.0",
   "description": "Official production website and Lead Management portal for KNS Construction & Real Estate",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "test": "node --check server.js && node --check js/api.js && node --check js/main.js && node --check js/analytics.js"
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "test": "node --check server/server.js && node --check js/api.js && node --check js/main.js && node --check js/analytics.js"
   },
   "keywords": [
     "construction",
